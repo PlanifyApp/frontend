@@ -5,11 +5,22 @@ import {
     Container,
     CssBaseline,
     Grid,
+    Input,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
     ThemeProvider,
     Typography,
     createTheme
 } from '@mui/material';
-import logo from './assets/logo.png';
+import logo from './assets/imgs/logo.png';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { CheckBox } from '@mui/icons-material';
+
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
         xs: false; // removes the `xs` breakpoint
@@ -37,12 +48,30 @@ const theme = createTheme({
         fontFamily: 'Noto Sans, sans-serif',
         fontSize: 16,
         h3: {
+            fontSize: '1.3rem',
+            '@media (min-width: 1024px)': {
+                fontSize: '1.65rem'
+            },
+            '@media (max-width: 1023px)': {
+                fontSize: '2.55rem'
+            }
+        },
+        h4: {
             fontSize: '1.2rem',
             '@media (min-width: 1024px)': {
-                fontSize: '1.5rem'
+                fontSize: '1.55rem'
             },
             '@media (max-width: 1023px)': {
                 fontSize: '2.4rem'
+            }
+        },
+        h5: {
+            fontSize: '1.1rem',
+            '@media (min-width: 1024px)': {
+                fontSize: '1.3rem'
+            },
+            '@media (max-width: 1023px)': {
+                fontSize: '2.2rem'
             }
         },
         body1: {
@@ -70,17 +99,35 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container maxWidth="desktop">
-                <Grid container width="100%">
-                    <Grid item desktop={3}>
-                        <Typography variant="h1">
-                            <img src={logo} alt="logo" />
-                        </Typography>
-                        <Typography variant="body1">
-                            로그인 / 회원가입
-                        </Typography>
-                    </Grid>
-                    <Grid item desktop={9}></Grid>
-                </Grid>
+                <Box display="flex">
+                    <Box width="30%">
+                        <Box display="flex">
+                            <Typography variant="h1">
+                                <img src={logo} alt="logo" width="100%" />
+                            </Typography>
+                            <Typography variant="body1">
+                                로그인 / 회원가입
+                            </Typography>
+                        </Box>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateCalendar />
+                        </LocalizationProvider>
+                        <Box>
+                            <Typography variant="h5">todo List</Typography>
+                            <List>
+                                <ListItem>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            <CheckBox />
+                                        </ListItemIcon>
+                                        <ListItemText primary="test" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </List>
+                        </Box>
+                    </Box>
+                    <Box width="70%"></Box>
+                </Box>
             </Container>
         </ThemeProvider>
     );
