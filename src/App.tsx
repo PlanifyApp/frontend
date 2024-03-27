@@ -4,8 +4,6 @@ import {
     Box,
     Container,
     CssBaseline,
-    Grid,
-    Input,
     List,
     ListItem,
     ListItemButton,
@@ -20,6 +18,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { CheckBox } from '@mui/icons-material';
+import Grid from '@mui/material/Unstable_Grid2';
+import { CustomDatePicker } from './aside.styles';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -99,18 +99,25 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container maxWidth="desktop">
-                <Box display="flex">
-                    <Box width="30%">
-                        <Box display="flex">
-                            <Typography variant="h1">
+                <Grid container>
+                    <Grid laptop={3} py={2}>
+                        <Grid
+                            container
+                            columns={16}
+                            spacing={1}
+                            alignItems="center"
+                        >
+                            <Grid laptop={2}>
                                 <img src={logo} alt="logo" width="100%" />
-                            </Typography>
-                            <Typography variant="body1">
-                                로그인 / 회원가입
-                            </Typography>
-                        </Box>
+                            </Grid>
+                            <Grid laptop="auto">
+                                <Typography variant="body1">
+                                    로그인 / 회원가입
+                                </Typography>
+                            </Grid>
+                        </Grid>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateCalendar />
+                            <CustomDatePicker views={['month', 'day']} />
                         </LocalizationProvider>
                         <Box>
                             <Typography variant="h5">todo List</Typography>
@@ -125,9 +132,9 @@ function App() {
                                 </ListItem>
                             </List>
                         </Box>
-                    </Box>
-                    <Box width="70%"></Box>
-                </Box>
+                    </Grid>
+                    <Grid laptop="auto">111111111111</Grid>
+                </Grid>
             </Container>
         </ThemeProvider>
     );
