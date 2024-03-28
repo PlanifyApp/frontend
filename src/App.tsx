@@ -4,8 +4,6 @@ import {
     Box,
     Container,
     CssBaseline,
-    List,
-    ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
@@ -16,10 +14,9 @@ import {
 import logo from './assets/imgs/logo.png';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { CheckBox } from '@mui/icons-material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { CustomDatePicker } from './aside.styles';
+import { CustomDatePicker, CustomList, CustomListItem } from './aside.styles';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -42,6 +39,9 @@ const theme = createTheme({
         },
         primary: {
             main: '#457D58'
+        },
+        secondary: {
+            main: '#E1E1C3'
         }
     },
     typography: {
@@ -100,7 +100,7 @@ function App() {
             <CssBaseline />
             <Container maxWidth="desktop">
                 <Grid container>
-                    <Grid laptop={3} py={2}>
+                    <Grid laptop={3} p="20px">
                         <Grid
                             container
                             columns={16}
@@ -116,24 +116,47 @@ function App() {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <CustomDatePicker views={['month', 'day']} />
-                        </LocalizationProvider>
-                        <Box>
+                        <Box py="20px">
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <CustomDatePicker views={['month', 'day']} />
+                            </LocalizationProvider>
+                        </Box>
+                        <Box
+                            py="20px"
+                            borderTop={1}
+                            borderColor="secondary.main"
+                        >
                             <Typography variant="h5">todo List</Typography>
-                            <List>
-                                <ListItem>
+                            <CustomList>
+                                <CustomListItem>
                                     <ListItemButton>
                                         <ListItemIcon>
                                             <CheckBox />
                                         </ListItemIcon>
                                         <ListItemText primary="test" />
                                     </ListItemButton>
-                                </ListItem>
-                            </List>
+                                </CustomListItem>
+                                <CustomListItem>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            <CheckBox />
+                                        </ListItemIcon>
+                                        <ListItemText primary="test" />
+                                    </ListItemButton>
+                                </CustomListItem>
+                            </CustomList>
                         </Box>
                     </Grid>
-                    <Grid laptop="auto">111111111111</Grid>
+                    <Grid laptop="auto" p="20px" minHeight="100vh">
+                        <Box
+                            borderLeft={1}
+                            borderColor="secondary.main"
+                            minHeight="100%"
+                            p="20px"
+                        >
+                            111111111111
+                        </Box>
+                    </Grid>
                 </Grid>
             </Container>
         </ThemeProvider>
