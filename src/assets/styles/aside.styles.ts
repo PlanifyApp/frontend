@@ -1,5 +1,12 @@
-import { List, ListItem, styled } from '@mui/material';
+import {
+    ButtonBase,
+    List,
+    ListItem,
+    ListItemText,
+    styled
+} from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
+import { theme } from './common.styles';
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -35,3 +42,22 @@ export const CustomListItem = styled(ListItem)`
         }
     }
 `;
+
+export const CustomListItemText = styled(ListItemText)`
+    & .MuiTypography-root {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+`;
+
+export const CustomButton = styled(ButtonBase)(({ theme }) => ({
+    width: '100%',
+    padding: '15px 0',
+    borderRadius: '15px',
+    backgroundColor: theme.palette.primary.main,
+
+    '& .MuiTypography-root': {
+        color: '#fff'
+    }
+}));
