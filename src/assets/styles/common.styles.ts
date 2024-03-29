@@ -71,7 +71,7 @@ export const theme = createTheme({
             mobile: 0,
             tablet: 640,
             laptop: 1024,
-            desktop: 1900
+            desktop: 1600
         }
     }
 });

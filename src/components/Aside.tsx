@@ -20,24 +20,24 @@ export const Aside = () => {
         <>
             <Box height="95%">
                 <Grid container columns={16} spacing={1}>
-                    <Grid laptop={2}>
+                    <Grid desktop={2}>
                         <img src={logo} alt="logo" width="100%" />
                     </Grid>
-                    <Grid laptop="auto">
+                    <Grid desktop="auto">
                         <Typography variant="body1" fontWeight="bold">
                             로그인 / 회원가입
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
-                    <Grid laptop={8}>
+                    <Grid desktop={8}>
                         <CustomButton>
                             <Typography variant="body1" fontWeight="bold">
                                 회원가입
                             </Typography>
                         </CustomButton>
                     </Grid>
-                    <Grid laptop={8}>
+                    <Grid desktop={8}>
                         <CustomButton>
                             <Typography variant="body1" fontWeight="bold">
                                 로그인
