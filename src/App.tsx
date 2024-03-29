@@ -11,10 +11,10 @@ function App() {
             <CssBaseline />
             <Container maxWidth="desktop">
                 <Grid container>
-                    <Grid laptop={3} p="20px">
+                    <Grid laptop={3} p="20px" height="100vh">
                         <Aside />
                     </Grid>
-                    <Grid laptop="auto" p="20px" minHeight="100vh">
+                    <Grid laptop="auto" p="20px" maxHeight="100vh">
                         <Box
                             borderLeft={1}
                             borderColor="secondary.main"
