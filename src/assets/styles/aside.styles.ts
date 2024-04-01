@@ -1,12 +1,16 @@
 import {
+    Box,
     ButtonBase,
     List,
     ListItem,
     ListItemText,
+    Paper,
+    Popover,
+    makeStyles,
     styled
 } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
-import { theme } from './common.styles';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -61,3 +65,41 @@ export const CustomButton = styled(ButtonBase)(({ theme }) => ({
         color: '#fff'
     }
 }));
+
+export const useIconStyle = {
+    sx: {
+        color: 'rgba(0, 0, 0, 0.54)',
+        width: '35px',
+        height: 'auto',
+        marginRight: '10px',
+        cursor: 'pointer',
+        transition: 'color .3s',
+        '&:hover': {
+            color: 'rgba(0, 0, 0, 0.8)' // 원하는 hover 스타일을 추가합니다.
+        }
+    }
+};
+
+export const CustomGroupBox = styled(Box)`
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    max-height: 30vh;
+    padding-right: 40px;
+`;
+
+export const CustomGroupPaper = styled(Paper)`
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+`;
+
+export const CustomColorButton = styled(ButtonBase)``;
+
+export const CustomColorPaletteBox = styled(Box)`
+    position: absolute;
+    width: 100%;
+    top: 20px;
+`;

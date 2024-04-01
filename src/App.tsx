@@ -11,7 +11,12 @@ function App() {
             <CssBaseline />
             <Container maxWidth="desktop">
                 <Grid container>
-                    <Grid laptop={3} p="20px" height="100vh">
+                    <Grid
+                        laptop={3}
+                        p="20px"
+                        height="100vh"
+                        position="relative"
+                    >
                         <Aside />
                     </Grid>
                     <Grid laptop="auto" p="20px" maxHeight="100vh">
