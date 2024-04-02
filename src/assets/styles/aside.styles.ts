@@ -5,12 +5,10 @@ import {
     ListItem,
     ListItemText,
     Paper,
-    Popover,
-    makeStyles,
+    TextField,
     styled
 } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -86,6 +84,7 @@ export const CustomGroupBox = styled(Box)`
     width: 100%;
     max-height: 30vh;
     padding-right: 40px;
+    z-index: 999;
 `;
 
 export const CustomGroupPaper = styled(Paper)`
@@ -96,10 +95,35 @@ export const CustomGroupPaper = styled(Paper)`
     padding: 20px;
 `;
 
-export const CustomColorButton = styled(ButtonBase)``;
+export const CustomTextField = styled(TextField)`
+    & .MuiInputBase-root {
+        border-radius: 15px;
+    }
+`;
 
-export const CustomColorPaletteBox = styled(Box)`
-    position: absolute;
+export const CustomColorTestField = styled(CustomTextField)`
+    & .MuiInputBase-input::after {
+        display: inline-block;
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: #ccc;
+    }
+`;
+
+export const CustomColorBox = styled(Box)`
     width: 100%;
-    top: 20px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 15px;
+
+    .circle-picker {
+        justify-content: center;
+        margin: 0 !important;
+
+        > span > div {
+            margin: 0 !important;
+            padding: 5px;
+        }
+    }
 `;
