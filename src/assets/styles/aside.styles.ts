@@ -1,16 +1,5 @@
-import {
-    Box,
-    ButtonBase,
-    List,
-    ListItem,
-    ListItemText,
-    Paper,
-    Popover,
-    makeStyles,
-    styled
-} from '@mui/material';
+import { Box, ButtonBase, List, ListItem, ListItemText, Paper, styled } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -86,6 +75,7 @@ export const CustomGroupBox = styled(Box)`
     width: 100%;
     max-height: 30vh;
     padding-right: 40px;
+    z-index: 999;
 `;
 
 export const CustomGroupPaper = styled(Paper)`
@@ -94,12 +84,4 @@ export const CustomGroupPaper = styled(Paper)`
     background-color: #fff;
     border-radius: 15px;
     padding: 20px;
-`;
-
-export const CustomColorButton = styled(ButtonBase)``;
-
-export const CustomColorPaletteBox = styled(Box)`
-    position: absolute;
-    width: 100%;
-    top: 20px;
 `;
