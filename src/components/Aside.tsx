@@ -3,7 +3,13 @@ import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
 import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { CustomDatePicker, useIconStyle } from '../assets/styles/aside.styles';
+import {
+    CustomColorBox,
+    CustomColorTestField,
+    CustomDatePicker,
+    CustomTextField,
+    useIconStyle
+} from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
@@ -73,18 +79,19 @@ export const Aside = () => {
                         <form>
                             <Typography variant="h5">Add Group</Typography>
                             <FormControl style={{ margin: '10px 0' }}>
-                                <TextField fullWidth placeholder="그룹명을 입력해주세요." />
+                                <CustomTextField fullWidth placeholder="그룹명을 입력해주세요." />
                             </FormControl>
                             <FormControl>
-                                <TextField fullWidth value={color} />
+                                <CustomColorTestField fullWidth value={color} />
                             </FormControl>
-                            <FormControl style={{ margin: '10px 0' }}>
-                                <CirclePicker
-                                    width="100%"
-                                    onChange={(data) => handleColor(data.hex)}
-                                    circleSize={30}
-                                    circleSpacing={16}
-                                />
+                            <FormControl style={{ margin: '3px 0 10px 0' }}>
+                                <CustomColorBox>
+                                    <CirclePicker
+                                        width="100%"
+                                        onChange={(data) => handleColor(data.hex)}
+                                        circleSize={40}
+                                    />
+                                </CustomColorBox>
                             </FormControl>
                             <FormControl>
                                 <ButtonComponent str="추가" />
