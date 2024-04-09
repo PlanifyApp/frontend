@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { TextField, createTheme, styled } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -75,3 +75,10 @@ export const theme = createTheme({
         }
     }
 });
+
+export const CommonTextField = styled(TextField)`
+    & .MuiInputBase-root {
+        border-radius: 15px;
+        background: #fff;
+    }
+`;

@@ -1,14 +1,6 @@
-import {
-    Box,
-    ButtonBase,
-    List,
-    ListItem,
-    ListItemText,
-    Paper,
-    TextField,
-    styled
-} from '@mui/material';
+import { Box, ButtonBase, List, ListItem, ListItemText, Paper, styled } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers';
+import { CommonTextField } from './common.styles';
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -95,13 +87,7 @@ export const CustomGroupPaper = styled(Paper)`
     padding: 20px;
 `;
 
-export const CustomTextField = styled(TextField)`
-    & .MuiInputBase-root {
-        border-radius: 15px;
-    }
-`;
-
-export const CustomColorTestField = styled(CustomTextField)`
+export const CustomColorTestField = styled(CommonTextField)`
     & .MuiInputBase-input::after {
         display: inline-block;
         content: '';

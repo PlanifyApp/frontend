@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
-import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import {
     CustomColorBox,
     CustomColorTestField,
     CustomDatePicker,
-    CustomTextField,
     useIconStyle
 } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -19,6 +18,7 @@ import { ModalComponent } from './aside/ModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
 import 'react-color-palette/css';
 import { CirclePicker } from 'react-color';
+import { CommonTextField } from '../assets/styles/common.styles';
 
 export const Aside = () => {
     const [color, setColor] = useState('#fff');
@@ -79,7 +79,7 @@ export const Aside = () => {
                         <form>
                             <Typography variant="h5">Add Group</Typography>
                             <FormControl style={{ margin: '10px 0' }}>
-                                <CustomTextField fullWidth placeholder="그룹명을 입력해주세요." />
+                                <CommonTextField fullWidth placeholder="그룹명을 입력해주세요." />
                             </FormControl>
                             <FormControl>
                                 <CustomColorTestField fullWidth value={color} />
