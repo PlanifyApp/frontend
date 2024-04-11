@@ -1,4 +1,4 @@
-import { Container, Grid, TextField, createTheme, styled } from '@mui/material';
+import { Box, Container, Grid, TextField, createTheme, styled } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -76,12 +76,17 @@ export const theme = createTheme({
     }
 });
 
-export const CommonBox = styled(Grid)`
+export const CommonBox = styled(Box)`
     width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+`;
+
+export const CommonInnerBox = styled(Box)`
+    width: 100%;
     border-radius: 15px;
 `;
 

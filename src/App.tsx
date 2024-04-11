@@ -3,7 +3,7 @@ import './App.css';
 import { Box, Container, CssBaseline, ThemeProvider } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Aside } from './components/Aside';
-import { CommonBox, theme } from './assets/styles/common.styles';
+import { CommonBox, CommonInnerBox, theme } from './assets/styles/common.styles';
 import { Body } from './components/Body';
 
 function App() {
@@ -33,8 +33,8 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container maxWidth="desktop" disableGutters>
-                <Box height="100vh" width="100%" position="relative">
-                    <CommonBox height={height} boxShadow={2}>
+                <CommonBox>
+                    <CommonInnerBox height={height} boxShadow={2}>
                         <Grid container height="100%">
                             <Grid
                                 desktop={3}
@@ -55,8 +55,8 @@ function App() {
                                 </Box>
                             </Grid>
                         </Grid>
-                    </CommonBox>
-                </Box>
+                    </CommonInnerBox>
+                </CommonBox>
             </Container>
         </ThemeProvider>
     );

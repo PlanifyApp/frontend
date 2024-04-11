@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/system';
 import { Grid, Typography } from '@mui/material';
-import { CustomBox, CustomGridCont, CustomGridTit } from '../../assets/styles/body.styles';
+import {
+    CustomCalendarContBox,
+    CustomGridCont,
+    CustomGridTit
+} from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
@@ -23,8 +27,14 @@ export const CalendarComponent = () => {
     const gridRef = useRef<HTMLDivElement | null>(null);
 
     const getHeight = () => {
-        const width = gridRef.current?.clientWidth;
-        setHeight(width ? Math.floor(width / 7) + 20 : 0);
+        const el = gridRef.current;
+        const clientHeight = el ? el.clientHeight : 0;
+        const paddingHeight = el ? parseInt(window.getComputedStyle(el).paddingTop) : 0;
+        const resHeight = clientHeight - paddingHeight;
+
+        console.log('pt', paddingHeight);
+        console.log('height', resHeight);
+        setHeight(resHeight ? Math.floor(resHeight / 5) : 0);
     };
 
     useEffect(() => {
@@ -44,23 +54,19 @@ export const CalendarComponent = () => {
     const calendarGrid = () => {
         const week = [];
 
-        for (let i = 0; i < weeksLen; i++) {
+        for (let i = 0; i < 5; i++) {
             const row = [];
 
             for (let j = 0; j < 7; j++) {
                 const date = i * 7 + j + 1 - monthFirstDate.getDay();
 
                 if (i === 0 && j < monthFirstDate.getDay()) {
-                    row.push(
-                        <Grid item mobile={1} key={date} className="col" height={height}></Grid>
-                    );
-                } else if (i === weeksLen - 1 && j > monthFirstDate.getDay()) {
-                    row.push(
-                        <Grid item mobile={1} key={date} className="col" height={height}></Grid>
-                    );
+                    row.push(<Grid item mobile={1} key={date}></Grid>);
+                } else if (i === 4 && j > monthFirstDate.getDay()) {
+                    row.push(<Grid item mobile={1} key={date}></Grid>);
                 } else {
                     row.push(
-                        <Grid item mobile={1} key={date} className="col" height={height}>
+                        <Grid item mobile={1} key={date}>
                             <Typography variant="body2">{date}</Typography>
                         </Grid>
                     );
@@ -78,7 +84,7 @@ export const CalendarComponent = () => {
     };
 
     return (
-        <Box>
+        <Box height="100%" position="relative" ref={gridRef}>
             <CustomGridTit container columns={7}>
                 <Grid item mobile={3} textAlign="right">
                     <NavigateBeforeIcon />
@@ -90,9 +96,7 @@ export const CalendarComponent = () => {
                     <NavigateNextIcon />
                 </Grid>
             </CustomGridTit>
-            <CustomBox ref={gridRef} sx={{ boxShadow: 1 }}>
-                {calendar}
-            </CustomBox>
+            <CustomCalendarContBox sx={{ boxShadow: 1 }}>{calendar}</CustomCalendarContBox>
         </Box>
     );
 };
