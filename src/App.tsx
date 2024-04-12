@@ -28,13 +28,15 @@ function App() {
         };
     }, []);
 
-    console.log(height);
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container maxWidth="desktop" disableGutters>
                 <CommonBox>
-                    <CommonInnerBox height={height} boxShadow={2}>
+                    <CommonInnerBox
+                        height={{ laptop: height, mobile: '100%' }}
+                        boxShadow={{ laptop: 2, mobile: 0 }}
+                    >
                         <Grid container height="100%">
                             <Grid
                                 desktop={3}
@@ -44,10 +46,12 @@ function App() {
                             >
                                 <Aside />
                             </Grid>
-                            <Grid mobile={12} desktop={9} p="20px">
+                            <Grid mobile={12} desktop={9}>
                                 <Box
-                                    borderLeft={{ desktop: '1' }}
-                                    borderColor="secondary.main"
+                                    borderLeft={{
+                                        desktop: `1px solid ${theme.palette.secondary.main}`,
+                                        mobile: 'none'
+                                    }}
                                     p="20px"
                                     height="100%"
                                 >

@@ -30,40 +30,19 @@ export const theme = createTheme({
         fontFamily: 'Noto Sans, sans-serif',
         fontSize: 16,
         h3: {
-            fontSize: '1.3rem',
-            '@media (min-width: 1024px)': {
-                fontSize: '1.65rem'
-            },
-            '@media (max-width: 1023px)': {
-                fontSize: '2.55rem'
-            }
+            fontSize: '1.3rem'
         },
         h4: {
-            fontSize: '1.2rem',
-            '@media (min-width: 1024px)': {
-                fontSize: '1.55rem'
-            },
-            '@media (max-width: 1023px)': {
-                fontSize: '2.4rem'
-            }
+            fontSize: '1.2rem'
         },
         h5: {
-            fontSize: '1.1rem',
-            '@media (min-width: 1024px)': {
-                fontSize: '1.3rem'
-            },
-            '@media (max-width: 1023px)': {
-                fontSize: '2.2rem'
-            }
+            fontSize: '1.1rem'
         },
         body1: {
-            fontSize: '1rem',
-            '@media (min-width: 1024px)': {
-                fontSize: '1rem'
-            },
-            '@media (max-width: 1023px)': {
-                fontSize: '2rem'
-            }
+            fontSize: '1rem'
+        },
+        body2: {
+            fontSize: '.8rem'
         }
     },
     breakpoints: {

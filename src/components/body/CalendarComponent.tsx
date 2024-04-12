@@ -1,102 +1,130 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/system';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Tab, Tabs, Typography } from '@mui/material';
 import {
-    CustomCalendarContBox,
     CustomGridCont,
-    CustomGridTit
+    CustomGridTit,
+    CustomTab,
+    CustomTabBox,
+    CustomThisMonthTypo
 } from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-const dowKo = ['일', '월', '화', '수', '목', '금', '토', '일'];
-const milliseconds = 24 * 60 * 60 * 1000;
+export const dowKo = ['일', '월', '화', '수', '목', '금', '토', '일'];
+// const milliseconds = 24 * 60 * 60 * 1000;
 
-const date = new Date();
-const year = date.getFullYear();
-const month = date.getMonth() + 1;
-const day = date.getDate();
-const dow = dowKo[date.getDay()];
-const monthFirstDate = new Date(year, month - 1, 1);
-const monthLastDate = new Date(year, month, 0);
-const weeksLen = Math.ceil((monthFirstDate.getDay() + monthLastDate.getDate()) / 7);
+export const date = new Date();
+export const thisYear = date.getFullYear();
+export const thisMonth = date.getMonth() + 1;
+// const day = date.getDate();
+// const dow = dowKo[date.getDay()];
+export const thisMonthFirstDate = new Date(thisYear, thisMonth - 1, 1);
+export const thisMonthLastDate = new Date(thisYear, thisMonth, 0);
 
 export const CalendarComponent = () => {
+    const [year, setYear] = useState<number>(thisYear);
+    const [month, setMonth] = useState<number>(thisMonth);
+    const [firstDate, setFirstDate] = useState<Date>(thisMonthFirstDate);
+    const [lastDate, setLastDate] = useState<Date>(thisMonthLastDate);
     const [calendar, setCalendar] = useState<JSX.Element[]>();
-    const [height, setHeight] = useState<number>(0);
-    const gridRef = useRef<HTMLDivElement | null>(null);
+    const [tabVal, setTabVal] = useState<number>(2);
 
-    const getHeight = () => {
-        const el = gridRef.current;
-        const clientHeight = el ? el.clientHeight : 0;
-        const paddingHeight = el ? parseInt(window.getComputedStyle(el).paddingTop) : 0;
-        const resHeight = clientHeight - paddingHeight;
+    const handleLastMonth = () => {
+        if (month === 1) {
+            setMonth(12);
+            setYear((prev) => prev - 1);
+        } else {
+            setMonth((prev) => prev - 1);
+        }
+    };
 
-        console.log('pt', paddingHeight);
-        console.log('height', resHeight);
-        setHeight(resHeight ? Math.floor(resHeight / 5) : 0);
+    const handleNextMonth = () => {
+        if (month === 12) {
+            setMonth(1);
+            setYear((prev) => prev + 1);
+        } else {
+            setMonth((prev) => prev + 1);
+        }
     };
 
     useEffect(() => {
-        getHeight();
+        const newFirstDate = new Date(year, month - 1, 1);
+        setFirstDate(newFirstDate);
 
-        window.addEventListener('resize', getHeight);
-
-        return () => {
-            window.removeEventListener('resize', getHeight);
-        };
-    }, []);
+        const newLastDate = new Date(year, month, 0);
+        setLastDate(newLastDate);
+    }, [year, month]);
 
     useEffect(() => {
         calendarGrid();
-    }, [height]);
+    }, [firstDate, lastDate]);
 
     const calendarGrid = () => {
         const week = [];
+        const weeksLen = Math.ceil((firstDate.getDay() + lastDate.getDate()) / 7);
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < weeksLen; i++) {
             const row = [];
 
             for (let j = 0; j < 7; j++) {
-                const date = i * 7 + j + 1 - monthFirstDate.getDay();
+                const date = i * 7 + j + 1 - firstDate.getDay();
 
-                if (i === 0 && j < monthFirstDate.getDay()) {
+                if (i === 0 && j < firstDate.getDay()) {
                     row.push(<Grid item mobile={1} key={date}></Grid>);
-                } else if (i === 4 && j > monthFirstDate.getDay()) {
+                } else if (i === weeksLen - 1 && j > lastDate.getDay()) {
                     row.push(<Grid item mobile={1} key={date}></Grid>);
                 } else {
                     row.push(
                         <Grid item mobile={1} key={date}>
-                            <Typography variant="body2">{date}</Typography>
+                            <CustomThisMonthTypo variant="body1">{date}</CustomThisMonthTypo>
                         </Grid>
                     );
                 }
             }
 
-            week.push(
-                <CustomGridCont container columns={7} key={i}>
-                    {row}
-                </CustomGridCont>
-            );
+            week.push(<>{row}</>);
         }
 
         setCalendar(week);
     };
 
+    const handleTabChange = (e: SyntheticEvent, newVal: number) => {
+        setTabVal(newVal);
+    };
+
     return (
-        <Box height="100%" position="relative" ref={gridRef}>
-            <CustomGridTit container columns={7}>
-                <Grid item mobile={3} textAlign="right">
-                    <NavigateBeforeIcon />
+        <Box height="100%" position="relative">
+            <CustomGridTit container columns={5}>
+                <Grid item mobile={2} textAlign="right" key="prev">
+                    <NavigateBeforeIcon onClick={handleLastMonth} />
                 </Grid>
-                <Grid item mobile={1} textAlign="center">
-                    <Typography variant="h3">{month}월</Typography>
+                <Grid item mobile={1} textAlign="center" key="month">
+                    <Typography variant="h3">
+                        {year}년 {month}월
+                    </Typography>
                 </Grid>
-                <Grid item mobile={3} textAlign="left">
-                    <NavigateNextIcon />
+                <Grid item mobile={2} textAlign="left" key="next">
+                    {!(thisYear === year && thisMonth === month) && (
+                        <NavigateNextIcon onClick={handleNextMonth} />
+                    )}
                 </Grid>
             </CustomGridTit>
-            <CustomCalendarContBox sx={{ boxShadow: 1 }}>{calendar}</CustomCalendarContBox>
+            <CustomTabBox>
+                <Tabs
+                    value={tabVal}
+                    onChange={handleTabChange}
+                    TabIndicatorProps={{ style: { display: 'none' } }}
+                >
+                    <CustomTab label="일" disableRipple />
+                    <CustomTab label="주" disableRipple />
+                    <CustomTab label="월" disableRipple />
+                    <CustomTab label="년" disableRipple />
+                </Tabs>
+            </CustomTabBox>
+            <CustomGridCont container columns={7} sx={{ boxShadow: 1 }}>
+                {calendar}
+            </CustomGridCont>
         </Box>
     );
 };
