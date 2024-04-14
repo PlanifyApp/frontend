@@ -35,6 +35,7 @@ function App() {
                 <CommonBox>
                     <CommonInnerBox
                         height={{ laptop: height, mobile: '100%' }}
+                        maxHeight="90%"
                         boxShadow={{ laptop: 2, mobile: 0 }}
                     >
                         <Grid container height="100%">

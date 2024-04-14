@@ -1,9 +1,9 @@
 import { Input, Tabs } from '@mui/base';
 import { Box, Grid, Tab, Typography, styled } from '@mui/material';
 
-export const CustomTextFieldBox = styled(Box)`
+export const CustomTextFieldBox = styled(Grid)`
     position: absolute;
-    right: 0;
+    left: 0;
 `;
 
 export const CustomCalendarBox = styled(Box)`
