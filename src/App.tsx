@@ -35,7 +35,7 @@ function App() {
                 <CommonBox>
                     <CommonInnerBox
                         height={{ laptop: height, mobile: '100%' }}
-                        maxHeight="90%"
+                        maxHeight={{ laptop: '90%', mobile: '100%' }}
                         boxShadow={{ laptop: 2, mobile: 0 }}
                     >
                         <Grid container height="100%">
@@ -43,7 +43,10 @@ function App() {
                                 desktop={3}
                                 p="20px"
                                 position="relative"
-                                sx={{ display: { mobile: 'none', desktop: 'block' } }}
+                                sx={{
+                                    height: '100%',
+                                    display: { mobile: 'none', desktop: 'block' }
+                                }}
                             >
                                 <Aside />
                             </Grid>

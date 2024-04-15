@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import {
     CustomColorBox,
@@ -18,7 +18,6 @@ import { ModalComponent } from './aside/ModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
 import 'react-color-palette/css';
 import { CirclePicker } from 'react-color';
-import { CommonTextField } from '../assets/styles/common.styles';
 
 export const Aside = () => {
     const [color, setColor] = useState('#fff');
@@ -32,20 +31,20 @@ export const Aside = () => {
         <>
             <Box height="95%">
                 <Grid container columns={16} spacing={1}>
-                    <Grid desktop={2}>
+                    <Grid mobile={2}>
                         <img src={logo} alt="logo" width="100%" />
                     </Grid>
-                    <Grid desktop="auto">
+                    <Grid mobile="auto">
                         <Typography variant="body1" fontWeight="bold">
                             로그인 / 회원가입
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
-                    <Grid desktop={8}>
+                    <Grid mobile={8}>
                         <ButtonComponent str="회원가입" />
                     </Grid>
-                    <Grid desktop={8}>
+                    <Grid mobile={8}>
                         <ButtonComponent str="로그인" />
                     </Grid>
                 </Grid>
@@ -79,7 +78,7 @@ export const Aside = () => {
                         <form>
                             <Typography variant="h5">Add Group</Typography>
                             <FormControl style={{ margin: '10px 0' }}>
-                                <CommonTextField fullWidth placeholder="그룹명을 입력해주세요." />
+                                <TextField fullWidth placeholder="그룹명을 입력해주세요." />
                             </FormControl>
                             <FormControl>
                                 <CustomColorTestField fullWidth value={color} />

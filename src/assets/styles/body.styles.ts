@@ -1,7 +1,6 @@
-import { Input, Tabs } from '@mui/base';
 import { Box, Grid, Tab, Typography, styled } from '@mui/material';
 
-export const CustomTextFieldBox = styled(Grid)`
+export const CustomTopBox = styled(Grid)`
     position: absolute;
     left: 0;
 `;
@@ -17,9 +16,15 @@ export const CustomGridTit = styled(Grid)`
 `;
 
 export const CustomGridCont = styled(Grid)(({ theme }) => ({
-    height: '100%',
+    height: '40%',
     borderRadius: '15px',
     overflow: 'hidden',
+    [theme.breakpoints.up('laptop')]: {
+        height: '100%'
+    },
+    [theme.breakpoints.between('tablet', 'laptop')]: {
+        height: '60%'
+    },
 
     '& .MuiGrid-item': {
         boxSizing: 'border-box',
@@ -48,4 +53,17 @@ export const CustomTabBox = styled(Box)`
 
 export const CustomTab = styled(Tab)`
     min-width: 70px;
+`;
+
+export const AuthBox = styled(Box)`
+    position: relative;
+    height: 40px;
+    padding-left: 40px;
+    align-items: center;
+`;
+
+export const LogoBox = styled(Box)`
+    position: absolute;
+    left: 0;
+    width: 40px;
 `;

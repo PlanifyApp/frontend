@@ -1,4 +1,4 @@
-import { Box, Container, Grid, TextField, createTheme, styled } from '@mui/material';
+import { Box, TextField, createTheme, styled } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -24,12 +24,26 @@ export const theme = createTheme({
         },
         secondary: {
             main: '#E1E1C3'
+        },
+        text: {
+            primary: '#333'
+        }
+    },
+    breakpoints: {
+        values: {
+            mobile: 0,
+            tablet: 640,
+            laptop: 1024,
+            desktop: 1600
         }
     },
     typography: {
-        fontFamily: 'Noto Sans, sans-serif',
+        fontFamily: 'Nanum Gothic, sans-serif',
         fontSize: 16,
-        h3: {
+        h1: {
+            fontSize: '1.4rem'
+        },
+        h2: {
             fontSize: '1.3rem'
         },
         h4: {
@@ -45,15 +59,34 @@ export const theme = createTheme({
             fontSize: '.8rem'
         }
     },
-    breakpoints: {
-        values: {
-            mobile: 0,
-            tablet: 640,
-            laptop: 1024,
-            desktop: 1600
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    width: '100%',
+                    '& .MuiInputBase-root': {
+                        borderRadius: '15px',
+                        background: '#fff'
+                    }
+                }
+            }
         }
     }
 });
+
+theme.typography.h3 = {
+    fontSize: '1.2rem',
+    [theme.breakpoints.down('laptop')]: {
+        fontSize: '1.1rem'
+    }
+};
+
+theme.typography.body1 = {
+    fontSize: '1.rem',
+    [theme.breakpoints.down('laptop')]: {
+        fontSize: '.9rem'
+    }
+};
 
 export const CommonBox = styled(Box)`
     width: 100%;
@@ -67,11 +100,4 @@ export const CommonBox = styled(Box)`
 export const CommonInnerBox = styled(Box)`
     width: 100%;
     border-radius: 15px;
-`;
-
-export const CommonTextField = styled(TextField)`
-    & .MuiInputBase-root {
-        border-radius: 15px;
-        background: #fff;
-    }
 `;

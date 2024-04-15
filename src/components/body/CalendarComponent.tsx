@@ -1,6 +1,6 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Box } from '@mui/system';
-import { Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Grid, Tabs, Typography } from '@mui/material';
 import {
     CustomGridCont,
     CustomGridTit,
@@ -10,15 +10,13 @@ import {
 } from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { ListComponent } from '../aside/ListComponent';
 
 export const dowKo = ['일', '월', '화', '수', '목', '금', '토', '일'];
-// const milliseconds = 24 * 60 * 60 * 1000;
 
 export const date = new Date();
 export const thisYear = date.getFullYear();
 export const thisMonth = date.getMonth() + 1;
-// const day = date.getDate();
-// const dow = dowKo[date.getDay()];
 export const thisMonthFirstDate = new Date(thisYear, thisMonth - 1, 1);
 export const thisMonthLastDate = new Date(thisYear, thisMonth, 0);
 
@@ -89,28 +87,28 @@ export const CalendarComponent = () => {
         setCalendar(week);
     };
 
-    const handleTabChange = (e: SyntheticEvent, newVal: number) => {
-        setTabVal(newVal);
-    };
+    // const handleTabChange = (e: SyntheticEvent, newVal: number) => {
+    //     setTabVal(newVal);
+    // };
 
     return (
         <Box height="100%" position="relative">
-            <CustomGridTit container columns={5}>
-                <Grid item mobile={2} textAlign="right" key="prev">
+            <CustomGridTit container columns={{ mobile: 3, laptop: 5 }}>
+                <Grid item mobile={1} laptop={2} textAlign="right" key="prev">
                     <NavigateBeforeIcon onClick={handleLastMonth} />
                 </Grid>
-                <Grid item mobile={1} textAlign="center" key="month">
+                <Grid item mobile={1} laptop={1} textAlign="center" key="month">
                     <Typography variant="h3">
                         {year}년 {month}월
                     </Typography>
                 </Grid>
-                <Grid item mobile={2} textAlign="left" key="next">
+                <Grid item mobile={1} laptop={2} textAlign="left" key="next">
                     {!(thisYear === year && thisMonth === month) && (
                         <NavigateNextIcon onClick={handleNextMonth} />
                     )}
                 </Grid>
             </CustomGridTit>
-            <CustomTabBox>
+            {/* <CustomTabBox>
                 <Tabs
                     value={tabVal}
                     onChange={handleTabChange}
@@ -121,10 +119,16 @@ export const CalendarComponent = () => {
                     <CustomTab label="월" disableRipple />
                     <CustomTab label="년" disableRipple />
                 </Tabs>
-            </CustomTabBox>
+            </CustomTabBox> */}
             <CustomGridCont container columns={7} sx={{ boxShadow: 1 }}>
                 {calendar}
             </CustomGridCont>
+            <Box sx={{ display: { mobile: 'flex', laptop: 'none' } }}>
+                <Box py="25px" borderTop={1} borderColor="secondary.main">
+                    <Typography variant="h5">todo List</Typography>
+                    <ListComponent />
+                </Box>
+            </Box>
         </Box>
     );
 };
