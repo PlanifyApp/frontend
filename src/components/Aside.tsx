@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
 import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
@@ -7,7 +7,8 @@ import {
     CustomColorBox,
     CustomColorTestField,
     CustomDatePicker,
-    useIconStyle
+    useIconStyle,
+    TestBox
 } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
@@ -20,6 +21,7 @@ import 'react-color-palette/css';
 import { CirclePicker } from 'react-color';
 
 export const Aside = () => {
+    const [listHeight, setListHeight] = useState<number>(0);
     const [color, setColor] = useState('#fff');
     const [open, setOpen] = useState(false);
 
@@ -27,10 +29,24 @@ export const Aside = () => {
         setColor(colorCode);
     };
 
+    const getHeight = () => {
+        const height = document.querySelector('.asideBox')?.clientHeight;
+        if (height) setListHeight(height - 40 - 360 - 74);
+    };
+    useEffect(() => {
+        getHeight();
+
+        window.addEventListener('resize', getHeight);
+
+        return () => {
+            window.removeEventListener('resize', getHeight);
+        };
+    }, []);
+
     return (
         <>
-            <Box height="95%">
-                <Grid container columns={16} spacing={1}>
+            <Box height="95%" className="asideBox">
+                <Grid container columns={16} spacing={1} height="40px">
                     <Grid mobile={2}>
                         <img src={logo} alt="logo" width="100%" />
                     </Grid>
@@ -53,9 +69,19 @@ export const Aside = () => {
                         <CustomDatePicker views={['month', 'day']} />
                     </LocalizationProvider>
                 </Box>
-                <Box py="25px" borderTop={1} borderColor="secondary.main">
-                    <Typography variant="h5">todo List</Typography>
-                    <ListComponent />
+                <Box
+                    py="25px"
+                    borderTop={1}
+                    borderColor="secondary.main"
+                    height={listHeight}
+                    overflow="hidden"
+                >
+                    <Typography variant="h5" height="30px">
+                        todo List
+                    </Typography>
+                    <TestBox height={listHeight - 30} sx={{ overflowY: 'auto' }}>
+                        <ListComponent />
+                    </TestBox>
                 </Box>
             </Box>
             <Grid container alignItems="flex-end" height="5%">

@@ -15,6 +15,7 @@ export const CustomDatePicker = styled(DateCalendar)`
     padding: 0 5%;
     border-radius: 15px;
     background-color: #fff;
+    height: 300px;
     ,
     & .MuiPickersCalendarHeader-root {
         padding: 0;
@@ -121,3 +122,22 @@ export const CustomColorBox = styled(Box)`
         }
     }
 `;
+
+export const TestBox = styled(Box)(({ theme }) => ({
+    '&::-webkit-scrollbar': {
+        backgroundColor: theme.palette.background.default,
+        width: '7px'
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        width: '5px',
+        borderRadius: '16px',
+        transition: 'all .3s'
+        // border: '5px solid #fff'
+    },
+    '&:hover': {
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#a0a0a5'
+        }
+    }
+}));
