@@ -26,7 +26,6 @@ export const CalendarComponent = () => {
     const [firstDate, setFirstDate] = useState<Date>(thisMonthFirstDate);
     const [lastDate, setLastDate] = useState<Date>(thisMonthLastDate);
     const [calendar, setCalendar] = useState<JSX.Element[]>();
-    const [tabVal, setTabVal] = useState<number>(2);
 
     const handleLastMonth = () => {
         if (month === 1) {
@@ -86,10 +85,6 @@ export const CalendarComponent = () => {
 
         setCalendar(week);
     };
-
-    // const handleTabChange = (e: SyntheticEvent, newVal: number) => {
-    //     setTabVal(newVal);
-    // };
 
     return (
         <Box height="100%" position="relative">

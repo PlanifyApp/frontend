@@ -1,4 +1,4 @@
-import { Box, TextField, createTheme, styled } from '@mui/material';
+import { Box, Grid, createTheme, styled } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -88,6 +88,20 @@ theme.typography.body1 = {
     }
 };
 
+export const AsideContainer = styled(Box)`
+    padding: 20px;
+    position: relative;
+    height: 100%;
+`;
+
+export const BodyContainer = styled(Box)(({ theme }) => ({
+    padding: '20px',
+    height: '100%',
+    [theme.breakpoints.up('desktop')]: {
+        borderLeft: `1px solid ${theme.palette.secondary.main}`
+    }
+}));
+
 export const CommonBox = styled(Box)`
     width: 100%;
     height: 100vh;
@@ -97,7 +111,12 @@ export const CommonBox = styled(Box)`
     padding: 15px;
 `;
 
-export const CommonInnerBox = styled(Box)`
-    width: 100%;
-    border-radius: 15px;
-`;
+export const CommonInnerBox = styled(Box)(({ theme }) => ({
+    width: '100%',
+    borderRadius: '15px',
+    maxHeight: '100%',
+    [theme.breakpoints.up('laptop')]: {
+        maxHeight: '90%',
+        boxShadow: theme.shadows[2]
+    }
+}));

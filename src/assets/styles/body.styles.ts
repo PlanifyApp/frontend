@@ -55,12 +55,16 @@ export const CustomTab = styled(Tab)`
     min-width: 70px;
 `;
 
-export const AuthBox = styled(Box)`
-    position: relative;
-    height: 40px;
-    padding-left: 40px;
-    align-items: center;
-`;
+export const AuthBox = styled(Box)(({ theme }) => ({
+    position: 'relative',
+    height: '40px',
+    paddingLeft: '40px',
+    alignItems: 'center',
+    display: 'flex',
+    [theme.breakpoints.up('desktop')]: {
+        display: 'none'
+    }
+}));
 
 export const LogoBox = styled(Box)`
     position: absolute;

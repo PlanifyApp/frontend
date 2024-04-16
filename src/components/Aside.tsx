@@ -8,7 +8,9 @@ import {
     CustomColorTestField,
     CustomDatePicker,
     useIconStyle,
-    TestBox
+    TestBox,
+    AuthBox,
+    LogoBox
 } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
@@ -46,16 +48,14 @@ export const Aside = () => {
     return (
         <>
             <Box height="95%" className="asideBox">
-                <Grid container columns={16} spacing={1} height="40px">
-                    <Grid mobile={2}>
+                <AuthBox>
+                    <LogoBox>
                         <img src={logo} alt="logo" width="100%" />
-                    </Grid>
-                    <Grid mobile="auto">
-                        <Typography variant="body1" fontWeight="bold">
-                            로그인 / 회원가입
-                        </Typography>
-                    </Grid>
-                </Grid>
+                    </LogoBox>
+                    <Typography variant="body1" fontWeight="bold">
+                        로그인 / 회원가입
+                    </Typography>
+                </AuthBox>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
                     <Grid mobile={8}>
                         <ButtonComponent str="회원가입" />

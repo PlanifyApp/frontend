@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useRef, useState } from 'react';
 import { Box } from '@mui/system';
-import { Backdrop, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import {
+    Backdrop,
+    Grid,
+    IconButton,
+    InputAdornment,
+    Modal,
+    TextField,
+    Typography
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { CalendarComponent } from './body/CalendarComponent';
 import { AuthBox, CustomCalendarBox, CustomTopBox, LogoBox } from '../assets/styles/body.styles';
@@ -9,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
 
 export const Body = () => {
+    const backdropRef = useRef();
     const [open, setOpen] = useState(false);
 
     const handleClose = () => {
@@ -29,14 +38,14 @@ export const Body = () => {
             >
                 <CustomTopBox container columns={12}>
                     <Grid item laptop={9} mobile={8}>
-                        {/* <AuthBox sx={{ display: { mobile: 'flex', desktop: 'none' } }}>
-                        <LogoBox>
-                            <img src={logo} alt="logo" width="100%" />
-                        </LogoBox>
-                        <Typography variant="body1" fontWeight="bold">
-                            로그인 / 회원가입
-                        </Typography>
-                    </AuthBox> */}
+                        {/* <AuthBox>
+                            <LogoBox>
+                                <img src={logo} alt="logo" width="100%" />
+                            </LogoBox>
+                            <Typography variant="body1" fontWeight="bold">
+                                로그인 / 회원가입
+                            </Typography>
+                        </AuthBox> */}
                         <Box sx={{ display: { mobile: 'block', desktop: 'none' } }}>
                             <MenuIcon onClick={handleOpen} />
                         </Box>
@@ -59,7 +68,7 @@ export const Body = () => {
                     <CalendarComponent />
                 </CustomCalendarBox>
             </Box>
-            <Backdrop open={open} onClick={handleClose} sx={{ justifyContent: 'flex-start' }}>
+            <Modal open={open} onClose={handleClose} sx={{ justifyContent: 'flex-start' }}>
                 <Box
                     bgcolor="background.default"
                     height="100%"
@@ -68,7 +77,7 @@ export const Body = () => {
                 >
                     <Aside />
                 </Box>
-            </Backdrop>
+            </Modal>
         </>
     );
 };

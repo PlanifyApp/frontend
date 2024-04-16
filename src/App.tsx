@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Box, Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { Box, Container, CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Aside } from './components/Aside';
-import { CommonBox, CommonInnerBox, theme } from './assets/styles/common.styles';
+import {
+    AsideContainer,
+    BodyContainer,
+    CommonBox,
+    CommonInnerBox,
+    theme
+} from './assets/styles/common.styles';
 import { Body } from './components/Body';
 
 function App() {
+    const isShow = useMediaQuery(theme.breakpoints.up('desktop'));
     const [height, setHeight] = useState<number>(1600);
 
     const getHeight = () => {
@@ -33,34 +40,19 @@ function App() {
             <CssBaseline />
             <Container maxWidth="desktop" disableGutters>
                 <CommonBox>
-                    <CommonInnerBox
-                        height={{ laptop: height, mobile: '100%' }}
-                        maxHeight={{ laptop: '90%', mobile: '100%' }}
-                        boxShadow={{ laptop: 2, mobile: 0 }}
-                    >
-                        <Grid container height="100%">
-                            <Grid
-                                desktop={3}
-                                p="20px"
-                                position="relative"
-                                sx={{
-                                    height: '100%',
-                                    display: { mobile: 'none', desktop: 'block' }
-                                }}
-                            >
-                                <Aside />
-                            </Grid>
+                    <CommonInnerBox height={{ laptop: height, mobile: '100%' }}>
+                        <Grid container columns={12} height="100%">
+                            {isShow && (
+                                <Grid desktop={3}>
+                                    <AsideContainer>
+                                        <Aside />
+                                    </AsideContainer>
+                                </Grid>
+                            )}
                             <Grid mobile={12} desktop={9}>
-                                <Box
-                                    borderLeft={{
-                                        desktop: `1px solid ${theme.palette.secondary.main}`,
-                                        mobile: 'none'
-                                    }}
-                                    p="20px"
-                                    height="100%"
-                                >
+                                <BodyContainer>
                                     <Body />
-                                </Box>
+                                </BodyContainer>
                             </Grid>
                         </Grid>
                     </CommonInnerBox>

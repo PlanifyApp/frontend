@@ -133,7 +133,6 @@ export const TestBox = styled(Box)(({ theme }) => ({
         width: '5px',
         borderRadius: '16px',
         transition: 'all .3s'
-        // border: '5px solid #fff'
     },
     '&:hover': {
         '&::-webkit-scrollbar-thumb': {
@@ -141,3 +140,17 @@ export const TestBox = styled(Box)(({ theme }) => ({
         }
     }
 }));
+
+export const AuthBox = styled(Box)`
+    position: relative;
+    height: 40px;
+    padding-left: 40px;
+    align-items: center;
+    display: flex;
+`;
+
+export const LogoBox = styled(Box)`
+    position: absolute;
+    left: 0;
+    width: 40px;
+`;
