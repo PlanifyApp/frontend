@@ -10,7 +10,6 @@ import {
 } from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { ListComponent } from '../aside/ListComponent';
 
 export const dowKo = ['일', '월', '화', '수', '목', '금', '토', '일'];
 
@@ -118,12 +117,6 @@ export const CalendarComponent = () => {
             <CustomGridCont container columns={7} sx={{ boxShadow: 1 }}>
                 {calendar}
             </CustomGridCont>
-            <Box sx={{ display: { mobile: 'flex', laptop: 'none' } }}>
-                <Box py="25px" borderTop={1} borderColor="secondary.main">
-                    <Typography variant="h5">todo List</Typography>
-                    <ListComponent />
-                </Box>
-            </Box>
         </Box>
     );
 };

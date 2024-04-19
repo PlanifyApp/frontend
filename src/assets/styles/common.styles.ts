@@ -120,3 +120,21 @@ export const CommonInnerBox = styled(Box)(({ theme }) => ({
         boxShadow: theme.shadows[2]
     }
 }));
+
+export const ScrollBox = styled(Box)(({ theme }) => ({
+    '&::-webkit-scrollbar': {
+        backgroundColor: theme.palette.background.default,
+        width: '7px'
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        width: '5px',
+        borderRadius: '16px',
+        transition: 'all .3s'
+    },
+    '&:hover': {
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#a0a0a5'
+        }
+    }
+}));

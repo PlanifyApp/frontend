@@ -1,4 +1,4 @@
-import { Box, Grid, Tab, Typography, styled } from '@mui/material';
+import { Box, Grid, Tab, TextField, Typography, styled } from '@mui/material';
 
 export const CustomTopBox = styled(Grid)`
     position: absolute;
@@ -7,25 +7,18 @@ export const CustomTopBox = styled(Grid)`
 
 export const CustomCalendarBox = styled(Box)`
     height: 100%;
-    padding-top: 150px;
+    padding-top: 6em;
 `;
 
 export const CustomGridTit = styled(Grid)`
     position: absolute;
-    top: -60px;
+    top: -3em;
 `;
 
 export const CustomGridCont = styled(Grid)(({ theme }) => ({
-    height: '40%',
+    height: '100%',
     borderRadius: '15px',
     overflow: 'hidden',
-    [theme.breakpoints.up('laptop')]: {
-        height: '100%'
-    },
-    [theme.breakpoints.between('tablet', 'laptop')]: {
-        height: '60%'
-    },
-
     '& .MuiGrid-item': {
         boxSizing: 'border-box',
         backgroundColor: '#fff',
@@ -70,4 +63,19 @@ export const LogoBox = styled(Box)`
     position: absolute;
     left: 0;
     width: 40px;
+`;
+
+export const ModalBox = styled(Box)(({ theme }) => ({
+    height: '100%',
+    backgroundColor: theme.palette.background.default,
+    padding: '20px',
+    '&:focus-visible': {
+        outline: 'none!important'
+    }
+}));
+
+export const CustomTextField = styled(TextField)`
+    & .MuiInputBase-root {
+        height: 40px;
+    }
 `;

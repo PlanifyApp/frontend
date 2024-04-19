@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Box, Container, CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
+import { Container, CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Aside } from './components/Aside';
 import {
@@ -11,6 +11,8 @@ import {
     theme
 } from './assets/styles/common.styles';
 import { Body } from './components/Body';
+import { ModalProvider } from './context/ModalContext';
+import { Social } from './components/Social';
 
 function App() {
     const isShow = useMediaQuery(theme.breakpoints.up('desktop'));
@@ -49,7 +51,7 @@ function App() {
                                     </AsideContainer>
                                 </Grid>
                             )}
-                            <Grid mobile={12} desktop={9}>
+                            <Grid mobile={12} desktop={9} height="100%">
                                 <BodyContainer>
                                     <Body />
                                 </BodyContainer>
@@ -58,6 +60,9 @@ function App() {
                     </CommonInnerBox>
                 </CommonBox>
             </Container>
+            <ModalProvider>
+                <Social />
+            </ModalProvider>
         </ThemeProvider>
     );
 }

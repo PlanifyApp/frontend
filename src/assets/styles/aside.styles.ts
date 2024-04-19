@@ -1,9 +1,11 @@
+import { transform } from '@babel/core';
 import {
     Box,
     ButtonBase,
     List,
     ListItem,
     ListItemText,
+    Modal,
     Paper,
     TextField,
     styled
@@ -123,24 +125,6 @@ export const CustomColorBox = styled(Box)`
     }
 `;
 
-export const TestBox = styled(Box)(({ theme }) => ({
-    '&::-webkit-scrollbar': {
-        backgroundColor: theme.palette.background.default,
-        width: '7px'
-    },
-    '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        width: '5px',
-        borderRadius: '16px',
-        transition: 'all .3s'
-    },
-    '&:hover': {
-        '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#a0a0a5'
-        }
-    }
-}));
-
 export const AuthBox = styled(Box)`
     position: relative;
     height: 40px;
@@ -154,3 +138,24 @@ export const LogoBox = styled(Box)`
     left: 0;
     width: 40px;
 `;
+
+export const SocialBox = styled(Box)`
+    position: fixed;
+`;
+
+export const AuthModal = styled(Modal)(({ theme }) => ({
+    '& .MuiPaper-root': {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+        [theme.breakpoints.up('laptop')]: {
+            width: '500px',
+            height: '500px'
+        },
+        [theme.breakpoints.between('mobile', 'laptop')]: {
+            width: '80%',
+            height: '80%'
+        }
+    }
+}));

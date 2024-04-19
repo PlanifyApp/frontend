@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
 import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
@@ -8,7 +8,6 @@ import {
     CustomColorTestField,
     CustomDatePicker,
     useIconStyle,
-    TestBox,
     AuthBox,
     LogoBox
 } from '../assets/styles/aside.styles';
@@ -21,11 +20,12 @@ import { ModalComponent } from './aside/ModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
 import 'react-color-palette/css';
 import { CirclePicker } from 'react-color';
+import { ScrollBox } from '../assets/styles/common.styles';
+import { SocialModalComponent } from './main/SocialModalComponent';
 
 export const Aside = () => {
     const [listHeight, setListHeight] = useState<number>(0);
     const [color, setColor] = useState('#fff');
-    const [open, setOpen] = useState(false);
 
     const handleColor = (colorCode: string) => {
         setColor(colorCode);
@@ -33,7 +33,7 @@ export const Aside = () => {
 
     const getHeight = () => {
         const height = document.querySelector('.asideBox')?.clientHeight;
-        if (height) setListHeight(height - 40 - 360 - 74);
+        if (height) setListHeight(height - 40 - 360 - 75);
     };
     useEffect(() => {
         getHeight();
@@ -47,7 +47,7 @@ export const Aside = () => {
 
     return (
         <>
-            <Box height="95%" className="asideBox">
+            <Box height="calc(100% - 40px)" className="asideBox">
                 <AuthBox>
                     <LogoBox>
                         <img src={logo} alt="logo" width="100%" />
@@ -58,10 +58,11 @@ export const Aside = () => {
                 </AuthBox>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
                     <Grid mobile={8}>
-                        <ButtonComponent str="회원가입" />
+                        <SocialModalComponent str="일정추가" modalEn={<Box>ddddddddddddddd</Box>} />
+                        {/* <ButtonComponent str="일정 추가" /> */}
                     </Grid>
                     <Grid mobile={8}>
-                        <ButtonComponent str="로그인" />
+                        <ButtonComponent str="todo 추가" />
                     </Grid>
                 </Grid>
                 <Box py="30px">
@@ -70,7 +71,7 @@ export const Aside = () => {
                     </LocalizationProvider>
                 </Box>
                 <Box
-                    py="25px"
+                    pt="25px"
                     borderTop={1}
                     borderColor="secondary.main"
                     height={listHeight}
@@ -79,12 +80,12 @@ export const Aside = () => {
                     <Typography variant="h5" height="30px">
                         todo List
                     </Typography>
-                    <TestBox height={listHeight - 30} sx={{ overflowY: 'auto' }}>
+                    <ScrollBox height={'calc(100% - 30px)'} sx={{ overflowY: 'auto' }}>
                         <ListComponent />
-                    </TestBox>
+                    </ScrollBox>
                 </Box>
             </Box>
-            <Grid container alignItems="flex-end" height="5%">
+            <Grid container alignItems="flex-end" height="40px">
                 <ModalComponent
                     btnEl={<PlaylistAddCheckIcon {...useIconStyle} />}
                     modalEn={
