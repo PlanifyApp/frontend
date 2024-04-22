@@ -1,7 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
-import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
+import {
+    Box,
+    Chip,
+    FormGroup,
+    List,
+    ListItem,
+    ListItemText,
+    TextField,
+    Typography
+} from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import {
     CustomColorBox,
@@ -20,8 +29,9 @@ import { ModalComponent } from './aside/ModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
 import 'react-color-palette/css';
 import { CirclePicker } from 'react-color';
-import { ScrollBox } from '../assets/styles/common.styles';
-import { SocialModalComponent } from './main/SocialModalComponent';
+import { CommonFormControl, ScrollBox } from '../assets/styles/common.styles';
+import { CommonModalComponent } from './main/CommonModalComponent';
+import { AddScheduleComponent } from './main/AddScheduleComponent';
 
 export const Aside = () => {
     const [listHeight, setListHeight] = useState<number>(0);
@@ -58,8 +68,7 @@ export const Aside = () => {
                 </AuthBox>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
                     <Grid mobile={8}>
-                        <SocialModalComponent str="일정추가" modalEn={<Box>ddddddddddddddd</Box>} />
-                        {/* <ButtonComponent str="일정 추가" /> */}
+                        <CommonModalComponent str="일정추가" modalEn={<AddScheduleComponent />} />
                     </Grid>
                     <Grid mobile={8}>
                         <ButtonComponent str="todo 추가" />
@@ -103,14 +112,13 @@ export const Aside = () => {
                     btnEl={<PlaylistAddIcon {...useIconStyle} />}
                     modalEn={
                         <form>
-                            <Typography variant="h5">Add Group</Typography>
-                            <FormControl style={{ margin: '10px 0' }}>
+                            <CommonFormControl>
                                 <TextField fullWidth placeholder="그룹명을 입력해주세요." />
-                            </FormControl>
-                            <FormControl>
+                            </CommonFormControl>
+                            <CommonFormControl>
                                 <CustomColorTestField fullWidth value={color} />
-                            </FormControl>
-                            <FormControl style={{ margin: '3px 0 10px 0' }}>
+                            </CommonFormControl>
+                            <CommonFormControl>
                                 <CustomColorBox>
                                     <CirclePicker
                                         width="100%"
@@ -118,7 +126,7 @@ export const Aside = () => {
                                         circleSize={40}
                                     />
                                 </CustomColorBox>
-                            </FormControl>
+                            </CommonFormControl>
                             <FormControl>
                                 <ButtonComponent str="추가" />
                             </FormControl>

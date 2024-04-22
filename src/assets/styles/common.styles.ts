@@ -1,4 +1,4 @@
-import { Box, Grid, createTheme, styled } from '@mui/material';
+import { Box, FormControl, Grid, Modal, createTheme, styled } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -60,6 +60,11 @@ export const theme = createTheme({
         }
     },
     components: {
+        MuiButtonBase: {
+            defaultProps: {
+                disableRipple: true
+            }
+        },
         MuiTextField: {
             styleOverrides: {
                 root: {
@@ -74,17 +79,19 @@ export const theme = createTheme({
     }
 });
 
-theme.typography.h3 = {
-    fontSize: '1.2rem',
-    [theme.breakpoints.down('laptop')]: {
-        fontSize: '1.1rem'
-    }
-};
-
-theme.typography.body1 = {
-    fontSize: '1.rem',
-    [theme.breakpoints.down('laptop')]: {
-        fontSize: '.9rem'
+theme.typography = {
+    ...theme.typography,
+    h3: {
+        fontSize: '1.2rem',
+        [theme.breakpoints.down('laptop')]: {
+            fontSize: '1.1rem'
+        }
+    },
+    body1: {
+        fontSize: '1.rem',
+        [theme.breakpoints.down('laptop')]: {
+            fontSize: '.9rem'
+        }
     }
 };
 
@@ -135,6 +142,32 @@ export const ScrollBox = styled(Box)(({ theme }) => ({
     '&:hover': {
         '&::-webkit-scrollbar-thumb': {
             backgroundColor: '#a0a0a5'
+        }
+    }
+}));
+
+export const CommonFormControl = styled(FormControl)`
+    width: 100%;
+    margin-bottom: 10px;
+
+    .spaceBetween {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+`;
+
+export const CommonModal = styled(Modal)(({ theme }) => ({
+    '& .MuiPaper-root': {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '80%',
+        height: '80%',
+        [theme.breakpoints.up('laptop')]: {
+            maxWidth: '500px',
+            maxHeight: '500px'
         }
     }
 }));

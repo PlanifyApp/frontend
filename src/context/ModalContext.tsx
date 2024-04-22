@@ -1,49 +1,22 @@
-import { ReactNode, RefObject, createContext, useEffect, useRef, useState } from 'react';
+import { ReactNode, RefObject, createContext } from 'react';
+import { useModal } from '../hooks/useModal';
 
 export type ModalContextType = {
-    open: boolean;
-    toggleClick?: () => void;
-    modalRef?: RefObject<HTMLDivElement>;
+    isOpen: boolean;
+    handleToggle?: () => void;
+    ref?: RefObject<HTMLDivElement>;
     buttonRef?: RefObject<HTMLButtonElement>;
 };
 
 export const ModalContext = createContext<ModalContextType>({
-    open: false
+    isOpen: false
 });
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
-    const [open, setOpen] = useState(false);
-    const modalRef = useRef<HTMLDivElement>(null);
-    const buttonRef = useRef<HTMLButtonElement>(null);
-
-    const toggleClick = () => {
-        setOpen((prev) => !prev);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    useEffect(() => {
-        const onFocusOut = (e: MouseEvent) => {
-            if (
-                modalRef.current &&
-                buttonRef.current &&
-                !modalRef.current.contains(e.target as Node) &&
-                !buttonRef.current.contains(e.target as Node)
-            ) {
-                handleClose();
-            }
-        };
-
-        document.addEventListener('click', onFocusOut);
-        return () => {
-            document.removeEventListener('click', onFocusOut);
-        };
-    }, []);
+    const { ref, buttonRef, isOpen, handleToggle } = useModal();
 
     return (
-        <ModalContext.Provider value={{ open, toggleClick, modalRef, buttonRef }}>
+        <ModalContext.Provider value={{ isOpen, handleToggle, ref, buttonRef }}>
             {children}
         </ModalContext.Provider>
     );

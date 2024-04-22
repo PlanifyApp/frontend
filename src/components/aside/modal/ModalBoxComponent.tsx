@@ -4,10 +4,10 @@ import { ModalContext, ModalContextType } from '../../../context/ModalContext';
 import { CustomGroupBox, CustomGroupPaper } from '../../../assets/styles/aside.styles';
 
 export const ModalBoxComponent = ({ children }: { children: ReactNode }) => {
-    const { open, modalRef } = useContext<ModalContextType>(ModalContext);
+    const { isOpen, ref } = useContext<ModalContextType>(ModalContext);
 
     return (
-        <Grow in={open} ref={modalRef}>
+        <Grow in={isOpen} ref={ref}>
             <CustomGroupBox>
                 <CustomGroupPaper>{children}</CustomGroupPaper>
             </CustomGroupBox>

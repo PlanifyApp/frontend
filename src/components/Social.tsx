@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import { ModalContext } from '../context/ModalContext';
 
 export const Social = () => {
-    const { open, modalRef } = useContext(ModalContext);
+    const { isOpen, ref } = useContext(ModalContext);
 
     return (
-        <Modal open={open} ref={modalRef}>
+        <Modal open={isOpen} ref={ref}>
             <Box>test</Box>
         </Modal>
     );

@@ -3,10 +3,10 @@ import { ModalContext, ModalContextType } from '../../../context/ModalContext';
 import { ButtonBase } from '@mui/material';
 
 export const ModalButtonComponent = ({ children }: { children: ReactNode }) => {
-    const { toggleClick, buttonRef } = useContext<ModalContextType>(ModalContext);
+    const { handleToggle, buttonRef } = useContext<ModalContextType>(ModalContext);
 
     return (
-        <ButtonBase disableRipple onClick={toggleClick} ref={buttonRef}>
+        <ButtonBase disableRipple onClick={handleToggle} ref={buttonRef}>
             {children}
         </ButtonBase>
     );

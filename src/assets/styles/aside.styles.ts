@@ -2,6 +2,7 @@ import { transform } from '@babel/core';
 import {
     Box,
     ButtonBase,
+    Chip,
     List,
     ListItem,
     ListItemText,
@@ -10,7 +11,7 @@ import {
     TextField,
     styled
 } from '@mui/material';
-import { DateCalendar } from '@mui/x-date-pickers';
+import { DateCalendar, MultiSectionDigitalClock } from '@mui/x-date-pickers';
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -143,19 +144,32 @@ export const SocialBox = styled(Box)`
     position: fixed;
 `;
 
-export const AuthModal = styled(Modal)(({ theme }) => ({
-    '& .MuiPaper-root': {
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
-        [theme.breakpoints.up('laptop')]: {
-            width: '500px',
-            height: '500px'
-        },
-        [theme.breakpoints.between('mobile', 'laptop')]: {
-            width: '80%',
-            height: '80%'
+export const ChipIcon = styled(Box)`
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+`;
+
+export const CustomClock = styled(MultiSectionDigitalClock)`
+    & .MuiList-root {
+        &::-webkit-scrollbar {
+            display: none;
         }
     }
+
+    ,
+    & .MuiButtonBase-root {
+        border-radius: 20px;
+    }
+`;
+
+export const CustomDateModal = styled(Box)(({ theme }) => ({
+    position: 'absolute',
+    transform: 'translate(0, 100%)',
+    bottom: '-10px',
+    right: 0,
+    zIndex: 999,
+    background: '#fff',
+    borderRadius: '20px',
+    boxShadow: theme.shadows[2]
 }));
