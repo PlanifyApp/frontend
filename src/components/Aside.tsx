@@ -32,6 +32,7 @@ import { CirclePicker } from 'react-color';
 import { CommonFormControl, ScrollBox } from '../assets/styles/common.styles';
 import { CommonModalComponent } from './main/CommonModalComponent';
 import { AddScheduleComponent } from './main/AddScheduleComponent';
+import { AddTodoComponent } from './main/AddTodoComponent';
 
 export const Aside = () => {
     const [listHeight, setListHeight] = useState<number>(0);
@@ -71,7 +72,7 @@ export const Aside = () => {
                         <CommonModalComponent str="일정추가" modalEn={<AddScheduleComponent />} />
                     </Grid>
                     <Grid mobile={8}>
-                        <ButtonComponent str="todo 추가" />
+                        <CommonModalComponent str="todo 추가" modalEn={<AddTodoComponent />} />
                     </Grid>
                 </Grid>
                 <Box py="30px">
