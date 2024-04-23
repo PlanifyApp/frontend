@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { ModalContext } from '../../../context/ModalContext';
 import { ButtonComponent } from '../../aside/ButtonComponent';
+import { Box } from '@mui/material';
 
-export const CommonButtonComponent = ({ str }: { str: string }) => {
+export const CommonButtonComponent = ({ btn }: { btn: ReactNode }) => {
     const { handleToggle, buttonRef } = useContext(ModalContext);
 
-    return <ButtonComponent str={str} onClick={handleToggle} ref={buttonRef} />;
+    return (
+        <Box onClick={handleToggle} ref={buttonRef}>
+            {btn}
+        </Box>
+    );
 };

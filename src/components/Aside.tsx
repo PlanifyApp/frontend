@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
 import {
@@ -8,6 +8,7 @@ import {
     List,
     ListItem,
     ListItemText,
+    Modal,
     TextField,
     Typography
 } from '@mui/material';
@@ -33,8 +34,12 @@ import { CommonFormControl, ScrollBox } from '../assets/styles/common.styles';
 import { CommonModalComponent } from './main/CommonModalComponent';
 import { AddScheduleComponent } from './main/AddScheduleComponent';
 import { AddTodoComponent } from './main/AddTodoComponent';
+import { useModal } from '../hooks/useModal';
+import { CommonButtonComponent } from './main/modal/CommonButtonComponent';
+import { Social } from './Social';
 
 export const Aside = () => {
+    const timeRef = useRef<NodeJS.Timeout>();
     const [listHeight, setListHeight] = useState<number>(0);
     const [color, setColor] = useState('#fff');
 
@@ -43,9 +48,16 @@ export const Aside = () => {
     };
 
     const getHeight = () => {
-        const height = document.querySelector('.asideBox')?.clientHeight;
-        if (height) setListHeight(height - 40 - 360 - 75);
+        if (timeRef.current) {
+            clearTimeout(timeRef.current);
+        }
+
+        timeRef.current = setTimeout(() => {
+            const height = document.querySelector('.asideBox')?.clientHeight;
+            if (height) setListHeight(height - 40 - 360 - 75);
+        }, 500);
     };
+
     useEffect(() => {
         getHeight();
 
@@ -53,6 +65,7 @@ export const Aside = () => {
 
         return () => {
             window.removeEventListener('resize', getHeight);
+            clearTimeout(timeRef.current);
         };
     }, []);
 
@@ -63,16 +76,29 @@ export const Aside = () => {
                     <LogoBox>
                         <img src={logo} alt="logo" width="100%" />
                     </LogoBox>
-                    <Typography variant="body1" fontWeight="bold">
-                        로그인 / 회원가입
-                    </Typography>
+                    <Box>
+                        <CommonModalComponent
+                            btn={
+                                <Typography variant="body1" fontWeight="bold">
+                                    로그인 / 회원가입
+                                </Typography>
+                            }
+                            modalEn={<Social />}
+                        />
+                    </Box>
                 </AuthBox>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
                     <Grid mobile={8}>
-                        <CommonModalComponent str="일정추가" modalEn={<AddScheduleComponent />} />
+                        <CommonModalComponent
+                            btn={<ButtonComponent str="일정추가" />}
+                            modalEn={<AddScheduleComponent />}
+                        />
                     </Grid>
                     <Grid mobile={8}>
-                        <CommonModalComponent str="todo 추가" modalEn={<AddTodoComponent />} />
+                        <CommonModalComponent
+                            btn={<ButtonComponent str="todo 추가" />}
+                            modalEn={<AddTodoComponent />}
+                        />
                     </Grid>
                 </Grid>
                 <Box py="30px">

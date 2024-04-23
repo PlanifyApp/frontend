@@ -1,8 +1,10 @@
 import { transform } from '@babel/core';
 import {
     Box,
+    Button,
     ButtonBase,
     Chip,
+    FormControl,
     List,
     ListItem,
     ListItemText,
@@ -12,6 +14,10 @@ import {
     styled
 } from '@mui/material';
 import { DateCalendar, MultiSectionDigitalClock } from '@mui/x-date-pickers';
+import { CommonFormControl } from './common.styles';
+import naver from '../imgs/social/btn_naver.svg';
+import google from '../imgs/social/btn_google.svg';
+import kakao from '../imgs/social/btn_kakao.svg';
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -140,10 +146,6 @@ export const LogoBox = styled(Box)`
     width: 40px;
 `;
 
-export const SocialBox = styled(Box)`
-    position: fixed;
-`;
-
 export const ChipIcon = styled(Box)`
     width: 15px;
     height: 15px;
@@ -173,3 +175,34 @@ export const CustomDateModal = styled(Box)(({ theme }) => ({
     borderRadius: '20px',
     boxShadow: theme.shadows[2]
 }));
+
+export const CustomFormControl = styled(CommonFormControl)`
+    margin-top: 30px;
+`;
+export const CustomDateButton = styled(Button)`
+    margin-left: 5px;
+    border-radius: 20px;
+    padding: 5px 13px;
+    background: #f0f0f0;
+    color: #333;
+`;
+
+export const SocialBox = styled(Box)`
+    height: 147px;
+    border-radius: 15px;
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-indent: -999px;
+`;
+export const SocialNaverBox = styled(SocialBox)`
+    background-image: url('${naver}');
+`;
+
+export const SocialGoogleBox = styled(SocialBox)`
+    background-image: url('${google}');
+`;
+
+export const SocialKakaoBox = styled(SocialBox)`
+    background-image: url('${kakao}');
+`;

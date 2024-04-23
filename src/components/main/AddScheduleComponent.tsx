@@ -1,6 +1,5 @@
 import {
     Box,
-    Button,
     Chip,
     FormControl,
     FormGroup,
@@ -10,16 +9,28 @@ import {
     Typography
 } from '@mui/material';
 import { CommonFormControl } from '../../assets/styles/common.styles';
-import { ChipIcon, CustomClock, CustomDateModal } from '../../assets/styles/aside.styles';
+import {
+    ChipIcon,
+    CustomClock,
+    CustomDateButton,
+    CustomDateModal,
+    CustomFormControl
+} from '../../assets/styles/aside.styles';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
 import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { useModal } from '../../hooks/useModal';
+import { currentDateInfo } from '../../utils/date';
+
+const { min, date } = currentDateInfo;
+const minute = Math.floor(min);
+const newDate = date.setMinutes(minute);
 
 export const AddScheduleComponent = () => {
-    const [value, setValue] = useState<Dayjs | null>(dayjs(new Date()));
+    const [stDate, setStDate] = useState<Dayjs>(dayjs(newDate));
+    const [enDate, setEnDate] = useState<Dayjs>(dayjs(newDate));
 
     const {
         ref: stCalendarRef,
@@ -58,7 +69,7 @@ export const AddScheduleComponent = () => {
                 <CommonFormControl>
                     <TextField fullWidth placeholder="메모" />
                 </CommonFormControl>
-                <CommonFormControl>
+                <CustomFormControl>
                     <Box className="spaceBetween">
                         <Typography variant="body1">일정 선택</Typography>
                         <Chip
@@ -72,36 +83,46 @@ export const AddScheduleComponent = () => {
                             }
                         />
                     </Box>
-                </CommonFormControl>
+                </CustomFormControl>
                 <CommonFormControl>
                     <Box className="spaceBetween">
                         <Typography variant="body1">시작일</Typography>
                         <Stack direction="row">
                             <Box>
-                                <Button
-                                    value="2024.4.22"
+                                <CustomDateButton
+                                    value={stDate.format('YYYY.MM.DD')}
                                     onClick={stCalendarHandleToggle}
                                     ref={stCalendarBtnRef}
                                 >
-                                    2024.04.22
-                                </Button>
+                                    {stDate.format('YYYY.MM.DD')}
+                                </CustomDateButton>
                                 <CustomDateModal boxShadow={3} ref={stCalendarRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        {stCalendarOpen && <DateCalendar value={value} />}
+                                        {stCalendarOpen && (
+                                            <DateCalendar
+                                                value={stDate}
+                                                onChange={(date) => setStDate(date)}
+                                            />
+                                        )}
                                     </LocalizationProvider>
                                 </CustomDateModal>
                             </Box>
                             <Box>
-                                <Button
-                                    value="08:00"
+                                <CustomDateButton
+                                    value={stDate.format('HH:mm')}
                                     onClick={stTimeHandleToggle}
                                     ref={stTimeBtnRef}
                                 >
-                                    08:00
-                                </Button>
+                                    {stDate.format('HH:mm')}
+                                </CustomDateButton>
                                 <CustomDateModal boxShadow={3} ref={stTimeRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        {stTimeOpen && <CustomClock value={value} />}
+                                        {stTimeOpen && (
+                                            <CustomClock
+                                                value={stDate}
+                                                onChange={(time) => setStDate(time)}
+                                            />
+                                        )}
                                     </LocalizationProvider>
                                 </CustomDateModal>
                             </Box>
@@ -113,30 +134,40 @@ export const AddScheduleComponent = () => {
                         <Typography variant="body1">종료일</Typography>
                         <Stack direction="row">
                             <Box>
-                                <Button
-                                    value="2024.4.22"
+                                <CustomDateButton
+                                    value={enDate.format('YYYY.MM.DD')}
                                     onClick={enCalendarHandleToggle}
                                     ref={enCalendarBtnRef}
                                 >
-                                    2024.04.22
-                                </Button>
+                                    {enDate.format('YYYY.MM.DD')}
+                                </CustomDateButton>
                                 <CustomDateModal boxShadow={3} ref={enCalendarRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        {enCalendarOpen && <DateCalendar value={value} />}
+                                        {enCalendarOpen && (
+                                            <DateCalendar
+                                                value={enDate}
+                                                onChange={(date) => setEnDate(date)}
+                                            />
+                                        )}
                                     </LocalizationProvider>
                                 </CustomDateModal>
                             </Box>
                             <Box>
-                                <Button
-                                    value="08:00"
+                                <CustomDateButton
+                                    value={enDate.format('HH:mm')}
                                     onClick={enTimeHandleToggle}
                                     ref={enTimeBtnRef}
                                 >
-                                    08:00
-                                </Button>
+                                    {enDate.format('HH:mm')}
+                                </CustomDateButton>
                                 <CustomDateModal boxShadow={3} ref={enTimeRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        {enTimeOpen && <CustomClock value={value} />}
+                                        {enTimeOpen && (
+                                            <CustomClock
+                                                value={enDate}
+                                                onChange={(time) => setEnDate(time)}
+                                            />
+                                        )}
                                     </LocalizationProvider>
                                 </CustomDateModal>
                             </Box>

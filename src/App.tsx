@@ -11,8 +11,6 @@ import {
     theme
 } from './assets/styles/common.styles';
 import { Body } from './components/Body';
-import { ModalProvider } from './context/ModalContext';
-import { Social } from './components/Social';
 
 function App() {
     const isShow = useMediaQuery(theme.breakpoints.up('desktop'));
@@ -60,9 +58,6 @@ function App() {
                     </CommonInnerBox>
                 </CommonBox>
             </Container>
-            <ModalProvider>
-                <Social />
-            </ModalProvider>
         </ThemeProvider>
     );
 }

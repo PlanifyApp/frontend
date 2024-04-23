@@ -3,10 +3,10 @@ import { ModalProvider } from '../../context/ModalContext';
 import { CommonButtonComponent } from './modal/CommonButtonComponent';
 import { CommonBoxComponent } from './modal/CommonBoxComponent';
 
-export const CommonModalComponent = ({ str, modalEn }: { str: string; modalEn: ReactNode }) => {
+export const CommonModalComponent = ({ btn, modalEn }: { btn: ReactNode; modalEn: ReactNode }) => {
     return (
         <ModalProvider>
-            <CommonButtonComponent str={str} />
+            <CommonButtonComponent btn={btn} />
             <CommonBoxComponent>{modalEn}</CommonBoxComponent>
         </ModalProvider>
     );

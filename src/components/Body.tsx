@@ -28,7 +28,6 @@ import { ScrollBox, theme } from '../assets/styles/common.styles';
 export const Body = () => {
     const isShow = useMediaQuery(theme.breakpoints.down('laptop'));
     const [open, setOpen] = useState(false);
-    const [height, setHeight] = useState(0);
 
     const handleClose = () => {
         setOpen(false);
@@ -36,21 +35,6 @@ export const Body = () => {
     const handleOpen = () => {
         setOpen(true);
     };
-
-    const getHeight = () => {
-        const height = document.querySelector('.listBox')?.clientHeight;
-        if (height) setHeight(height);
-    };
-
-    useEffect(() => {
-        getHeight();
-
-        window.addEventListener('resize', getHeight);
-
-        return () => {
-            window.removeEventListener('resize', getHeight);
-        };
-    }, []);
 
     return (
         <>
