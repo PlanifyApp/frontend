@@ -6,6 +6,14 @@ export const Social = () => {
         window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/naver`;
     };
 
+    const googleLocation = () => {
+        window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/google`;
+    };
+
+    const kakaoLocation = () => {
+        window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/kakao`;
+    };
+
     return (
         <Stack spacing={3}>
             <Typography variant="h3" align="center">
@@ -21,10 +29,14 @@ export const Social = () => {
                     </SocialNaverBox>
                 </Grid>
                 <Grid item mobile={1}>
-                    <SocialGoogleBox className="socialGoogle">google</SocialGoogleBox>
+                    <SocialGoogleBox className="socialGoogle" onClick={googleLocation}>
+                        google
+                    </SocialGoogleBox>
                 </Grid>
                 <Grid item mobile={1}>
-                    <SocialKakaoBox className="socialKakao">kakao</SocialKakaoBox>
+                    <SocialKakaoBox className="socialKakao" onClick={kakaoLocation}>
+                        kakao
+                    </SocialKakaoBox>
                 </Grid>
             </Grid>
         </Stack>
