@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosInstance } from 'axios';
+import { getCookieToken } from './cookie';
 
 export const api: AxiosInstance = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
@@ -8,7 +9,7 @@ export const api: AxiosInstance = axios.create({
 // 요청 인터셉터
 api.interceptors.request.use(
     (config) => {
-        config.headers['Authorization'] = 'Bearer your_access_token';
+        config.headers['Authorization'] = `Bearer ${getCookieToken()}`;
         return config;
     },
     (error) => {

@@ -24,6 +24,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
 import { ListComponent } from './aside/ListComponent';
 import { ScrollBox, theme } from '../assets/styles/common.styles';
+import { api } from '../apis/baseApi';
 
 export const Body = () => {
     const isShow = useMediaQuery(theme.breakpoints.down('laptop'));
@@ -35,6 +36,15 @@ export const Body = () => {
     const handleOpen = () => {
         setOpen(true);
     };
+
+    useEffect(() => {
+        const getUser = async () => {
+            const res = await api.get('/user/info');
+            console.log(res);
+        };
+
+        getUser();
+    }, []);
 
     return (
         <>
