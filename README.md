@@ -1,46 +1,22 @@
-# Getting Started with Create React App
+# 일정 관리 앱 Planify
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![recoil](https://img.shields.io/badge/recoil-%2320232a.svg?style=for-the-badge&logo=recoil&logoColor=%3578E5)
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
 
-## Available Scripts
+> 아이폰 캘리더를 보면 오늘의 할일을 작성할 때 꼭 시간을 작성해야한다.<br>
+> 만약 특정시간이 없는 오늘의 할일 정도라면? 종일이라는 옵션을 선택하던가 24시간을 체크해야할 것이다.<br>
+> 스케쥴과 오늘의 할일을 분리하고 싶었다. 그렇다고 어플을 따로 설치하기엔 '내 할일'이라는 큰 영역에 모두 들어와있기도 하고 관리가 힘들었다.<br>
+> 개인적으로 아이폰 캘린더와 투두 관련 어플을 사용해보며 느낀참에 '아 요거 한번 만들어봐야겠다'라는 생각이 들었다. (물론 어딘가에 존재하고 있는 앱 또는 웹이겠지만.. 난 아이디어가 부족하다ㅠㅠ)
 
-In the project directory, you can run:
+## 프로젝트 설치 및 실행 방법
 
-### `npm start`
+배포 url :
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`npm install`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+`npm run dev`
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+`http://localhost:3000`
