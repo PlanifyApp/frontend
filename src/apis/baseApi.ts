@@ -9,10 +9,13 @@ export const api: AxiosInstance = axios.create({
 // 요청 인터셉터
 api.interceptors.request.use(
     (config) => {
-        config.headers['Authorization'] = `Bearer ${getCookieToken()}`;
+        if (getCookieToken() !== '') {
+            config.headers['Authorization'] = `Bearer ${getCookieToken()}`;
+        }
         return config;
     },
     (error) => {
+        console.log('error,', error);
         return Promise.reject(error);
     }
 );

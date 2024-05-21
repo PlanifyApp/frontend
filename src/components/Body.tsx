@@ -1,22 +1,12 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, useMediaQuery } from '@mui/system';
-import {
-    Backdrop,
-    Grid,
-    IconButton,
-    InputAdornment,
-    Modal,
-    TextField,
-    Typography
-} from '@mui/material';
+import { Grid, IconButton, InputAdornment, Modal, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { CalendarComponent } from './body/CalendarComponent';
 import {
-    AuthBox,
     CustomCalendarBox,
     CustomTextField,
     CustomTopBox,
-    LogoBox,
     ModalBox
 } from '../assets/styles/body.styles';
 import logo from '../assets/imgs/logo.png';
@@ -24,7 +14,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
 import { ListComponent } from './aside/ListComponent';
 import { ScrollBox, theme } from '../assets/styles/common.styles';
-import { api } from '../apis/baseApi';
 
 export const Body = () => {
     const isShow = useMediaQuery(theme.breakpoints.down('laptop'));
@@ -36,15 +25,6 @@ export const Body = () => {
     const handleOpen = () => {
         setOpen(true);
     };
-
-    useEffect(() => {
-        const getUser = async () => {
-            const res = await api.get('/user/info');
-            console.log(res);
-        };
-
-        getUser();
-    }, []);
 
     return (
         <>
@@ -61,12 +41,16 @@ export const Body = () => {
                             <LogoBox>
                                 <img src={logo} alt="logo" width="100%" />
                             </LogoBox>
-                            <Typography variant="body1" fontWeight="bold">
+                            <Typography variant="body1" fontWeight="bold" sx={{cursor: 'pointer'}}>
                                 로그인 / 회원가입
                             </Typography>
                         </AuthBox> */}
-                        <Box sx={{ display: { mobile: 'block', desktop: 'none' } }}>
-                            <MenuIcon onClick={handleOpen} />
+                        <Box
+                            sx={{
+                                display: { mobile: 'block', desktop: 'none' }
+                            }}
+                        >
+                            <MenuIcon onClick={handleOpen} sx={{ cursor: 'pointer' }} />
                         </Box>
                     </Grid>
                     <Grid item laptop={3} mobile={4}>

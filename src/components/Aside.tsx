@@ -1,17 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
-import {
-    Box,
-    Chip,
-    FormGroup,
-    List,
-    ListItem,
-    ListItemText,
-    Modal,
-    TextField,
-    Typography
-} from '@mui/material';
+import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import {
     CustomColorBox,
@@ -34,11 +24,13 @@ import { CommonFormControl, ScrollBox } from '../assets/styles/common.styles';
 import { CommonModalComponent } from './main/CommonModalComponent';
 import { AddScheduleComponent } from './main/AddScheduleComponent';
 import { AddTodoComponent } from './main/AddTodoComponent';
-import { useModal } from '../hooks/useModal';
-import { CommonButtonComponent } from './main/modal/CommonButtonComponent';
 import { Social } from './Social';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../recoil/userState';
+import { UserData } from '../type/userType';
 
 export const Aside = () => {
+    const user: UserData = useRecoilValue(userState);
     const timeRef = useRef<NodeJS.Timeout>();
     const [listHeight, setListHeight] = useState<number>(0);
     const [color, setColor] = useState('#fff');
@@ -77,29 +69,58 @@ export const Aside = () => {
                         <img src={logo} alt="logo" width="100%" />
                     </LogoBox>
                     <Box>
-                        <CommonModalComponent
-                            btn={
-                                <Typography variant="body1" fontWeight="bold">
-                                    로그인 / 회원가입
-                                </Typography>
-                            }
-                            modalEn={<Social />}
-                        />
+                        {user.id ? (
+                            <Typography variant="body1" fontWeight="bold">
+                                {user.email || user.nickname || user.name}
+                            </Typography>
+                        ) : (
+                            <CommonModalComponent
+                                btn={
+                                    <Typography
+                                        variant="body1"
+                                        fontWeight="bold"
+                                        sx={{ cursor: 'pointer' }}
+                                    >
+                                        로그인 / 회원가입
+                                    </Typography>
+                                }
+                                modalEn={<Social />}
+                            />
+                        )}
                     </Box>
                 </AuthBox>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
-                    <Grid mobile={8}>
-                        <CommonModalComponent
-                            btn={<ButtonComponent str="일정추가" />}
-                            modalEn={<AddScheduleComponent />}
-                        />
-                    </Grid>
-                    <Grid mobile={8}>
-                        <CommonModalComponent
-                            btn={<ButtonComponent str="todo 추가" />}
-                            modalEn={<AddTodoComponent />}
-                        />
-                    </Grid>
+                    {user.id ? (
+                        <>
+                            <Grid mobile={8}>
+                                <CommonModalComponent
+                                    btn={<ButtonComponent str="일정추가" />}
+                                    modalEn={<AddScheduleComponent />}
+                                />
+                            </Grid>
+                            <Grid mobile={8}>
+                                <CommonModalComponent
+                                    btn={<ButtonComponent str="todo 추가" />}
+                                    modalEn={<AddTodoComponent />}
+                                />
+                            </Grid>
+                        </>
+                    ) : (
+                        <>
+                            <Grid mobile={8}>
+                                <CommonModalComponent
+                                    btn={<ButtonComponent str="일정추가" />}
+                                    modalEn={<Social />}
+                                />
+                            </Grid>
+                            <Grid mobile={8}>
+                                <CommonModalComponent
+                                    btn={<ButtonComponent str="todo 추가" />}
+                                    modalEn={<Social />}
+                                />
+                            </Grid>
+                        </>
+                    )}
                 </Grid>
                 <Box py="30px">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
