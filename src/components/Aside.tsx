@@ -1,26 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
-import { Box, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import {
-    CustomColorBox,
-    CustomColorTestField,
-    CustomDatePicker,
-    useIconStyle,
-    AuthBox,
-    LogoBox
-} from '../assets/styles/aside.styles';
+import { CustomDatePicker, useIconStyle, AuthBox, LogoBox } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import { FormControl } from '@mui/base';
 import { ListComponent } from './aside/ListComponent';
 import { ModalComponent } from './aside/ModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
 import 'react-color-palette/css';
-import { CirclePicker } from 'react-color';
-import { CommonFormControl, ScrollBox } from '../assets/styles/common.styles';
+import { ScrollBox } from '../assets/styles/common.styles';
 import { CommonModalComponent } from './main/CommonModalComponent';
 import { AddScheduleComponent } from './main/AddScheduleComponent';
 import { AddTodoComponent } from './main/AddTodoComponent';
@@ -28,17 +19,13 @@ import { Social } from './Social';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../recoil/userState';
 import { UserData } from '../type/userType';
+import { GroupListComponent } from './main/GroupListComponent';
+import { GroupFormComponent } from './main/GroupFormComponent';
 
 export const Aside = () => {
     const user: UserData = useRecoilValue(userState);
     const timeRef = useRef<NodeJS.Timeout>();
     const [listHeight, setListHeight] = useState<number>(0);
-    const [color, setColor] = useState('#fff');
-
-    const handleColor = (colorCode: string) => {
-        setColor(colorCode);
-    };
-
     const getHeight = () => {
         if (timeRef.current) {
             clearTimeout(timeRef.current);
@@ -145,41 +132,11 @@ export const Aside = () => {
             <Grid container alignItems="flex-end" height="40px">
                 <ModalComponent
                     btnEl={<PlaylistAddCheckIcon {...useIconStyle} />}
-                    modalEn={
-                        <List>
-                            <ListItem>
-                                <ListItemText primary="운동" />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText primary="업무" />
-                            </ListItem>
-                        </List>
-                    }
+                    modalEn={<GroupListComponent />}
                 />
                 <ModalComponent
                     btnEl={<PlaylistAddIcon {...useIconStyle} />}
-                    modalEn={
-                        <form>
-                            <CommonFormControl>
-                                <TextField fullWidth placeholder="그룹명을 입력해주세요." />
-                            </CommonFormControl>
-                            <CommonFormControl>
-                                <CustomColorTestField fullWidth value={color} />
-                            </CommonFormControl>
-                            <CommonFormControl>
-                                <CustomColorBox>
-                                    <CirclePicker
-                                        width="100%"
-                                        onChange={(data) => handleColor(data.hex)}
-                                        circleSize={40}
-                                    />
-                                </CustomColorBox>
-                            </CommonFormControl>
-                            <FormControl>
-                                <ButtonComponent str="추가" />
-                            </FormControl>
-                        </form>
-                    }
+                    modalEn={<GroupFormComponent />}
                 />
             </Grid>
         </>
