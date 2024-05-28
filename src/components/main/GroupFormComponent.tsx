@@ -1,28 +1,53 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CommonFormControl } from '../../assets/styles/common.styles';
 import { TextField } from '@mui/material';
-import { CustomColorBox, CustomColorTestField } from '../../assets/styles/aside.styles';
+import {
+    CloseBtnWrap,
+    CustomColorBox,
+    CustomColorTestField,
+    closeBtn
+} from '../../assets/styles/aside.styles';
 import { CirclePicker } from 'react-color';
 import { FormControl } from '@mui/base';
 import { ButtonComponent } from '../aside/ButtonComponent';
 import { api } from '../../apis/baseApi';
+import { useRecoilState } from 'recoil';
+import { groupList } from '../../recoil/groupList';
+import { ModalContext, ModalContextType } from '../../context/ModalContext';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 export const GroupFormComponent = () => {
+    const { handleToggle } = useContext<ModalContextType>(ModalContext);
     const [title, setTitle] = useState<string>('');
     const [color, setColor] = useState<string>('#fff');
+    const [group, setGroup] = useRecoilState(groupList);
 
     const handleColor = (colorCode: string) => {
         setColor(colorCode);
     };
 
     const handleOnSubmit = async () => {
-        const res = await api.post('/group/store', { title: title, color: color });
+        try {
+            const { data } = await api.post('/group/store', { title: title, color: color });
 
-        console.log(res);
+            if (data.status === 200) {
+                setGroup([...group, { title: data.newGroup.title, color: data.newGroup.color }]);
+                setTitle('');
+                setColor('#fff');
+            }
+
+            handleToggle && handleToggle();
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
-        <form>
+        <>
+            <CloseBtnWrap marginBottom="10px">
+                <CloseOutlinedIcon {...closeBtn} onClick={handleToggle} />
+            </CloseBtnWrap>
+
             <CommonFormControl>
                 <TextField
                     fullWidth
@@ -46,6 +71,6 @@ export const GroupFormComponent = () => {
             <FormControl>
                 <ButtonComponent str="추가" onClick={handleOnSubmit} />
             </FormControl>
-        </form>
+        </>
     );
 };

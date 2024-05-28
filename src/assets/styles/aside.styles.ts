@@ -46,6 +46,10 @@ export const CustomListItem = styled(ListItem)`
     padding: 0;
     margin-top: 15px;
 
+    &:first-child {
+        margin-top: 0;
+    }
+
     & .MuiButtonBase-root {
         padding: 0;
 
@@ -77,7 +81,7 @@ export const CustomButton = styled(ButtonBase)(({ theme }) => ({
 export const useIconStyle = {
     sx: {
         color: 'rgba(0, 0, 0, 0.54)',
-        width: '35px',
+        width: '30px',
         height: 'auto',
         marginRight: '10px',
         cursor: 'pointer',
@@ -206,3 +210,15 @@ export const SocialGoogleBox = styled(SocialBox)`
 export const SocialKakaoBox = styled(SocialBox)`
     background-image: url('${kakao}');
 `;
+
+export const CloseBtnWrap = styled(Box)`
+    display: flex;
+    flex-direction: row-reverse;
+`;
+
+export const closeBtn = {
+    sx: {
+        color: 'rgba(0, 0, 0, 0.54)',
+        cursor: 'pointer'
+    }
+};

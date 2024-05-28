@@ -5,8 +5,9 @@ import { Box, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { CustomDatePicker, useIconStyle, AuthBox, LogoBox } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import DragIndicatorOutlinedIcon from '@mui/icons-material/DragIndicatorOutlined';
+import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
+import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { ListComponent } from './aside/ListComponent';
 import { ModalComponent } from './aside/ModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
@@ -121,7 +122,7 @@ export const Aside = () => {
                     height={listHeight}
                     overflow="hidden"
                 >
-                    <Typography variant="h5" height="30px">
+                    <Typography variant="h5" height="30px" marginBottom="15px">
                         todo List
                     </Typography>
                     <ScrollBox height={'calc(100% - 30px)'} sx={{ overflowY: 'auto' }}>
@@ -131,11 +132,11 @@ export const Aside = () => {
             </Box>
             <Grid container alignItems="flex-end" height="40px">
                 <ModalComponent
-                    btnEl={<PlaylistAddCheckIcon {...useIconStyle} />}
+                    btnEl={<DragIndicatorOutlinedIcon {...useIconStyle} />}
                     modalEn={<GroupListComponent />}
                 />
                 <ModalComponent
-                    btnEl={<PlaylistAddIcon {...useIconStyle} />}
+                    btnEl={<ControlPointOutlinedIcon {...useIconStyle} />}
                     modalEn={<GroupFormComponent />}
                 />
             </Grid>
