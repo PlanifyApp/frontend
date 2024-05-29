@@ -7,7 +7,6 @@ import { CustomDatePicker, useIconStyle, AuthBox, LogoBox } from '../assets/styl
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DragIndicatorOutlinedIcon from '@mui/icons-material/DragIndicatorOutlined';
 import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
-import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
 import { ListComponent } from './aside/ListComponent';
 import { ModalComponent } from './aside/ModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';

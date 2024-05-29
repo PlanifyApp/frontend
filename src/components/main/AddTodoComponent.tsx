@@ -1,81 +1,71 @@
-import {
-    Button,
-    FormControl,
-    FormGroup,
-    Grid,
-    IconButton,
-    InputAdornment,
-    List,
-    ListItem,
-    TextField,
-    Typography
-} from '@mui/material';
+import { TextField } from '@mui/material';
 import { CommonFormControl } from '../../assets/styles/common.styles';
-import { Box } from '@mui/system';
 import {
+    CustomDateBox,
     CustomDateButton,
     CustomDateModal,
-    CustomFormControl
+    CustomTodoBox,
+    CustomTodoFormControl,
+    CustomTodoTitle
 } from '../../assets/styles/aside.styles';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { ButtonComponent } from '../aside/ButtonComponent';
 import { useModal } from '../../hooks/useModal';
 import { useState } from 'react';
 import { currentDateInfo } from '../../utils/date';
 import dayjs, { Dayjs } from 'dayjs';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { ButtonComponent } from '../aside/ButtonComponent';
+import { FormControl } from '@mui/base';
+import { api } from '../../apis/baseApi';
 
 export const AddTodoComponent = () => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
+    const [value, setValue] = useState<string>('');
     const [date, setDate] = useState<Dayjs>(dayjs(currentDateInfo.date));
 
+    const handleOnSubmit = async () => {
+        try {
+            const res = await api.post('/todo/store', {
+                title: value,
+                date: date.format('YYYY-MM-DD')
+            });
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
-        <Box>
-            <CommonFormControl>
+        <CustomTodoBox>
+            <CustomTodoTitle variant="h4">todo 추가</CustomTodoTitle>
+            <FormControl>
+                <CustomDateBox>
+                    <CustomDateButton
+                        disableRipple
+                        value={date.format('YYYY.MM.DD')}
+                        ref={buttonRef}
+                        onClick={handleToggle}
+                    >
+                        {date.format('YYYY.MM.DD')}
+                    </CustomDateButton>
+                    <CustomDateModal boxShadow={3} ref={ref}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            {isOpen && <DateCalendar onChange={(date) => setDate(date)} />}
+                        </LocalizationProvider>
+                    </CustomDateModal>
+                </CustomDateBox>
+            </FormControl>
+            <CustomTodoFormControl>
                 <TextField
                     fullWidth
                     placeholder="메모"
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <AddIcon />
-                            </InputAdornment>
-                        )
-                    }}
+                    sx={{ margin: '15px 0' }}
+                    onChange={(e) => setValue(e.target.value)}
                 />
-            </CommonFormControl>
-            <CustomFormControl>
-                <Box className="spaceBetween">
-                    <Typography variant="body1">날짜</Typography>
-                    <Box>
-                        <CustomDateButton
-                            value={date.format('YYYY.MM.DD')}
-                            ref={buttonRef}
-                            onClick={handleToggle}
-                        >
-                            {date.format('YYYY.MM.DD')}
-                        </CustomDateButton>
-                        <CustomDateModal boxShadow={3} ref={ref}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                {isOpen && <DateCalendar onChange={(date) => setDate(date)} />}
-                            </LocalizationProvider>
-                        </CustomDateModal>
-                    </Box>
-                </Box>
-            </CustomFormControl>
-            <List>
-                <ListItem
-                    secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                            <RemoveIcon />
-                        </IconButton>
-                    }
-                >
-                    운동
-                </ListItem>
-            </List>
-        </Box>
+            </CustomTodoFormControl>
+            <CustomTodoFormControl>
+                <ButtonComponent str="추가" onClick={handleOnSubmit} />
+            </CustomTodoFormControl>
+        </CustomTodoBox>
     );
 };
