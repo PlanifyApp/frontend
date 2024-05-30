@@ -9,47 +9,49 @@ import { currentDateInfo } from '../../utils/date';
 
 export const ListComponent = () => {
     const [date, setDate] = useState<Dayjs>(dayjs(currentDateInfo.date));
-    const [data, setData] = useState<
-        { id: string; title: string; date: string; is_done: string }[]
+    const [todoData, setTodoData] = useState<
+        { id: string; title: string; date: string; isDone: string }[]
     >([]);
 
     const handleOnClick = async (id: string) => {
         try {
-            const res = await api.post('/todo/store', {
-                id: id
+            const { data } = await api.put(`/todo/check/${id}`);
+
+            if (data.status === 200) {
+                getTodoList();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getTodoList = async () => {
+        try {
+            const { data } = await api.get('/todo/list', {
+                params: {
+                    date: date.format('YYYY-MM-DD')
+                }
             });
+
+            if (data.status === 200) {
+                setTodoData(data.newData);
+            }
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(() => {
-        const getTodoList = async () => {
-            try {
-                const { data } = await api.get('/todo/list', {
-                    params: {
-                        date: date.format('YYYY-MM-DD')
-                    }
-                });
-
-                if (data.status === 200) {
-                    setData(data.newData);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         getTodoList();
     }, []);
 
     return (
         <CustomList>
-            {data.map((data, idx) => (
+            {todoData.map((data, idx) => (
                 <CustomListItem key={idx}>
                     <ListItemButton disableRipple>
-                        <ListItemIcon onClick={handleOnClick}>
-                            {data.is_done === 'Y' ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+                        <ListItemIcon onClick={() => handleOnClick(data.id)}>
+                            {data.isDone === 'Y' ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
                         </ListItemIcon>
                         <CustomListItemText primary={data.title} />
                     </ListItemButton>
