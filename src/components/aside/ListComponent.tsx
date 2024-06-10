@@ -6,12 +6,12 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { api } from '../../apis/baseApi';
 import dayjs, { Dayjs } from 'dayjs';
 import { currentDateInfo } from '../../utils/date';
+import { useRecoilState } from 'recoil';
+import { todoList } from '../../recoil/todoList';
 
 export const ListComponent = () => {
     const [date, setDate] = useState<Dayjs>(dayjs(currentDateInfo.date));
-    const [todoData, setTodoData] = useState<
-        { id: string; title: string; date: string; isDone: string }[]
-    >([]);
+    const [todoData, setTodoData] = useRecoilState(todoList);
 
     const handleOnClick = async (id: string) => {
         try {
@@ -34,7 +34,7 @@ export const ListComponent = () => {
             });
 
             if (data.status === 200) {
-                setTodoData(data.newData);
+                setTodoData(data.dataList);
             }
         } catch (error) {
             console.log(error);

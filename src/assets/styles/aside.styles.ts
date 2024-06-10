@@ -218,7 +218,7 @@ export const SocialBox = styled(Box)`
     background-size: 60%;
     background-position: center;
     background-repeat: no-repeat;
-    text-indent: -999px;
+    text-indent: -9999px;
 `;
 export const SocialNaverBox = styled(SocialBox)`
     background-image: url('${naver}');

@@ -1,5 +1,4 @@
 import { TextField } from '@mui/material';
-import { CommonFormControl } from '../../assets/styles/common.styles';
 import {
     CustomDateBox,
     CustomDateButton,
@@ -11,25 +10,35 @@ import {
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useModal } from '../../hooks/useModal';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { currentDateInfo } from '../../utils/date';
 import dayjs, { Dayjs } from 'dayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
 import { FormControl } from '@mui/base';
 import { api } from '../../apis/baseApi';
+import { ModalContext, ModalContextType } from '../../context/ModalContext';
+import { todoList } from '../../recoil/todoList';
+import { useRecoilState } from 'recoil';
 
 export const AddTodoComponent = () => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
+    const { handleToggle: handleModalToggle } = useContext<ModalContextType>(ModalContext);
     const [value, setValue] = useState<string>('');
     const [date, setDate] = useState<Dayjs>(dayjs(currentDateInfo.date));
+    const [todoData, setTodoData] = useRecoilState(todoList);
 
     const handleOnSubmit = async () => {
         try {
-            const res = await api.post('/todo/store', {
+            const { data } = await api.post('/todo/store', {
                 title: value,
                 date: date.format('YYYY-MM-DD')
             });
-            console.log(res);
+
+            if (data.status === 200) {
+                setValue('');
+                handleModalToggle && handleModalToggle();
+                // todo 업데이트
+            }
         } catch (error) {
             console.log(error);
         }

@@ -26,6 +26,7 @@ export const Aside = () => {
     const user: UserData = useRecoilValue(userState);
     const timeRef = useRef<NodeJS.Timeout>();
     const [listHeight, setListHeight] = useState<number>(0);
+
     const getHeight = () => {
         if (timeRef.current) {
             clearTimeout(timeRef.current);

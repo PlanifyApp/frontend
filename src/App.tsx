@@ -5,8 +5,6 @@ import { CommonBox, CommonInnerBox, theme } from './assets/styles/common.styles'
 import { RecoilRoot } from 'recoil';
 import { Main } from './pages/Main';
 
-// type userType = {};
-
 function App() {
     const [height, setHeight] = useState<number>(1600);
 

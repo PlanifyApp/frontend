@@ -23,6 +23,8 @@ import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { useModal } from '../../hooks/useModal';
 import { currentDateInfo } from '../../utils/date';
+import { useRecoilValue } from 'recoil';
+import { groupList } from '../../recoil/groupList';
 
 const { min, date } = currentDateInfo;
 const minute = Math.floor(min);
@@ -31,6 +33,7 @@ const newDate = date.setMinutes(minute);
 export const AddScheduleComponent = () => {
     const [stDate, setStDate] = useState<Dayjs>(dayjs(newDate));
     const [enDate, setEnDate] = useState<Dayjs>(dayjs(newDate));
+    const group = useRecoilValue(groupList);
 
     const {
         ref: stCalendarRef,
