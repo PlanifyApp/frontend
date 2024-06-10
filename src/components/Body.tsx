@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Box, useMediaQuery } from '@mui/system';
 import { Grid, IconButton, InputAdornment, Modal, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -14,16 +14,24 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
 import { ListComponent } from './aside/ListComponent';
 import { ScrollBox, theme } from '../assets/styles/common.styles';
+import { useRecoilState } from 'recoil';
+import { selectedDate } from '../recoil/selectedDate';
 
 export const Body = () => {
     const isShow = useMediaQuery(theme.breakpoints.down('laptop'));
     const [open, setOpen] = useState(false);
+    const [date, setDate] = useRecoilState(selectedDate);
 
     const handleClose = () => {
         setOpen(false);
     };
+
     const handleOpen = () => {
         setOpen(true);
+    };
+
+    const handleOnClick = (val: string) => {
+        setDate(val);
     };
 
     return (
@@ -68,7 +76,7 @@ export const Body = () => {
                     </Grid>
                 </CustomTopBox>
                 <CustomCalendarBox height={{ laptop: '100%', mobile: '50%' }}>
-                    <CalendarComponent />
+                    <CalendarComponent handleOnClick={handleOnClick} />
                 </CustomCalendarBox>
                 {isShow && (
                     <Box height="50%" overflow="hidden" className="listBox">

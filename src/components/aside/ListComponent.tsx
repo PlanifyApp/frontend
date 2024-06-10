@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CustomList, CustomListItem, CustomListItemText } from '../../assets/styles/aside.styles';
 import { ListItemButton, ListItemIcon } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { api } from '../../apis/baseApi';
-import dayjs, { Dayjs } from 'dayjs';
-import { currentDateInfo } from '../../utils/date';
-import { useRecoilState } from 'recoil';
+import dayjs from 'dayjs';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { todoList } from '../../recoil/todoList';
+import { selectedDate } from '../../recoil/selectedDate';
 
 export const ListComponent = () => {
-    const [date, setDate] = useState<Dayjs>(dayjs(currentDateInfo.date));
+    const date = useRecoilValue(selectedDate);
     const [todoData, setTodoData] = useRecoilState(todoList);
 
     const handleOnClick = async (id: string) => {
@@ -29,7 +29,7 @@ export const ListComponent = () => {
         try {
             const { data } = await api.get('/todo/list', {
                 params: {
-                    date: date.format('YYYY-MM-DD')
+                    date: dayjs(date).format('YYYY-MM-DD')
                 }
             });
 
@@ -43,7 +43,7 @@ export const ListComponent = () => {
 
     useEffect(() => {
         getTodoList();
-    }, []);
+    }, [date]);
 
     return (
         <CustomList>

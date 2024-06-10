@@ -1,17 +1,15 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
-import { Grid, Tabs, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import {
     CustomGridCont,
     CustomGridTit,
-    CustomTab,
-    CustomTabBox,
     CustomThisMonthTypo
 } from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-export const dowKo = ['일', '월', '화', '수', '목', '금', '토', '일'];
+export const dowKo = ['일', '월', '화', '수', '목', '금', '토'];
 
 export const date = new Date();
 export const thisYear = date.getFullYear();
@@ -19,7 +17,7 @@ export const thisMonth = date.getMonth() + 1;
 export const thisMonthFirstDate = new Date(thisYear, thisMonth - 1, 1);
 export const thisMonthLastDate = new Date(thisYear, thisMonth, 0);
 
-export const CalendarComponent = () => {
+export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: string) => void }) => {
     const [year, setYear] = useState<number>(thisYear);
     const [month, setMonth] = useState<number>(thisMonth);
     const [firstDate, setFirstDate] = useState<Date>(thisMonthFirstDate);
@@ -72,7 +70,14 @@ export const CalendarComponent = () => {
                     row.push(<Grid item mobile={1} key={date}></Grid>);
                 } else {
                     row.push(
-                        <Grid item mobile={1} key={date}>
+                        <Grid
+                            item
+                            mobile={1}
+                            key={date}
+                            color={j === 0 ? 'red' : j === 6 ? 'blue' : '#333'}
+                            sx={{ cursor: 'pointer' }}
+                            onClick={() => handleOnClick(`${year}-${month}-${date}`)}
+                        >
                             <CustomThisMonthTypo variant="body1">{date}</CustomThisMonthTypo>
                         </Grid>
                     );
@@ -114,6 +119,13 @@ export const CalendarComponent = () => {
                     <CustomTab label="년" disableRipple />
                 </Tabs>
             </CustomTabBox> */}
+            <Grid container columns={7}>
+                {dowKo.map((data, idx) => (
+                    <Grid item mobile={1} key={idx}>
+                        {data}
+                    </Grid>
+                ))}
+            </Grid>
             <CustomGridCont container columns={7} sx={{ boxShadow: 1 }}>
                 {calendar}
             </CustomGridCont>
