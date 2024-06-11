@@ -12,32 +12,59 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useModal } from '../../hooks/useModal';
 import { useContext, useState } from 'react';
 import { currentDateInfo } from '../../utils/date';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
 import { FormControl } from '@mui/base';
 import { api } from '../../apis/baseApi';
 import { ModalContext, ModalContextType } from '../../context/ModalContext';
 import { todoList } from '../../recoil/todoList';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { selectedDate } from '../../recoil/selectedDate';
 
 export const AddTodoComponent = () => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
     const { handleToggle: handleModalToggle } = useContext<ModalContextType>(ModalContext);
+    const selectDate = useRecoilValue(selectedDate);
     const [value, setValue] = useState<string>('');
-    const [date, setDate] = useState<Dayjs>(dayjs(currentDateInfo.date));
-    const [todoData, setTodoData] = useRecoilState(todoList);
+    const [date, setDate] = useState(selectDate);
+    const [, setTodoData] = useRecoilState(todoList);
+
+    const handleAlert = (msg: string, fn: () => void) => {
+        const ans = confirm(msg);
+
+        if (ans) fn();
+        else return;
+    };
+
+    const getTodoList = async () => {
+        try {
+            const { data } = await api.get('/todo/list', {
+                params: {
+                    date: dayjs(date).format('YYYY-MM-DD')
+                }
+            });
+
+            if (data.status === 200) {
+                setTodoData(data.dataList);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleOnSubmit = async () => {
         try {
             const { data } = await api.post('/todo/store', {
                 title: value,
-                date: date.format('YYYY-MM-DD')
+                date: date
             });
 
             if (data.status === 200) {
                 setValue('');
-                handleModalToggle && handleModalToggle();
-                // todo 업데이트
+                // handleModalToggle && handleModalToggle();
+                if (selectDate === date) {
+                    getTodoList();
+                }
             }
         } catch (error) {
             console.log(error);
@@ -51,15 +78,19 @@ export const AddTodoComponent = () => {
                 <CustomDateBox>
                     <CustomDateButton
                         disableRipple
-                        value={date.format('YYYY.MM.DD')}
+                        value={date}
                         ref={buttonRef}
                         onClick={handleToggle}
                     >
-                        {date.format('YYYY.MM.DD')}
+                        {date}
                     </CustomDateButton>
                     <CustomDateModal boxShadow={3} ref={ref}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            {isOpen && <DateCalendar onChange={(date) => setDate(date)} />}
+                            {isOpen && (
+                                <DateCalendar
+                                    onChange={(date) => setDate(dayjs(date).format('YYYY-MM-DD'))}
+                                />
+                            )}
                         </LocalizationProvider>
                     </CustomDateModal>
                 </CustomDateBox>
@@ -73,7 +104,10 @@ export const AddTodoComponent = () => {
                 />
             </CustomTodoFormControl>
             <CustomTodoFormControl>
-                <ButtonComponent str="추가" onClick={handleOnSubmit} />
+                <ButtonComponent
+                    str="추가"
+                    onClick={() => handleAlert('추가하시겠습니까?', handleOnSubmit)}
+                />
             </CustomTodoFormControl>
         </CustomTodoBox>
     );

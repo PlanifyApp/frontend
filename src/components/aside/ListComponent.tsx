@@ -29,7 +29,7 @@ export const ListComponent = () => {
         try {
             const { data } = await api.get('/todo/list', {
                 params: {
-                    date: dayjs(date).format('YYYY-MM-DD')
+                    date: date
                 }
             });
 

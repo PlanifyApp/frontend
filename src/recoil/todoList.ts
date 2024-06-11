@@ -3,12 +3,5 @@ import { todoItem } from '../type/todoType';
 
 export const todoList = atom<todoItem[]>({
     key: 'todoList',
-    default: [
-        {
-            id: '',
-            date: '',
-            title: '',
-            isDone: ''
-        }
-    ]
+    default: []
 });

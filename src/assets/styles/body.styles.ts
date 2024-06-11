@@ -36,8 +36,33 @@ export const CustomGridCont = styled(Grid)(({ theme }) => ({
 }));
 
 export const CustomThisMonthTypo = styled(Typography)`
-    padding: 15px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
 `;
+
+export const CustomTodayTypo = styled(CustomThisMonthTypo)(({ theme }) => ({
+    top: '15px',
+    left: '13px',
+    width: '32px',
+    height: '32px',
+    textAlign: 'center',
+    lineHeight: '30px',
+    color: '#fff',
+    background: theme.palette.primary.main,
+    borderRadius: '50%'
+}));
+
+export const CustomSelectedTypo = styled(CustomThisMonthTypo)(({ theme }) => ({
+    top: '15px',
+    left: '13px',
+    width: '32px',
+    height: '32px',
+    textAlign: 'center',
+    lineHeight: '30px',
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: '50%'
+}));
 
 export const CustomTabBox = styled(Box)`
     position: absolute;
@@ -79,3 +104,15 @@ export const CustomTextField = styled(TextField)`
         height: 40px;
     }
 `;
+
+export const TodoCircleBox = styled(Box)(({ theme }) => ({
+    position: 'absolute',
+    top: '22px',
+    left: '48px',
+
+    svg: {
+        width: '15px',
+        height: '15px',
+        color: theme.palette.primary.main
+    }
+}));

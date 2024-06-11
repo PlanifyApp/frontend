@@ -4,25 +4,28 @@ import { Grid, Typography } from '@mui/material';
 import {
     CustomGridCont,
     CustomGridTit,
-    CustomThisMonthTypo
+    CustomSelectedTypo,
+    CustomThisMonthTypo,
+    CustomTodayTypo,
+    TodoCircleBox
 } from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-
-export const dowKo = ['일', '월', '화', '수', '목', '금', '토'];
-
-export const date = new Date();
-export const thisYear = date.getFullYear();
-export const thisMonth = date.getMonth() + 1;
-export const thisMonthFirstDate = new Date(thisYear, thisMonth - 1, 1);
-export const thisMonthLastDate = new Date(thisYear, thisMonth, 0);
+import { currentDateInfo, dowKo } from '../../utils/date';
+import { useRecoilValue } from 'recoil';
+import { selectedDate } from '../../recoil/selectedDate';
+import dayjs from 'dayjs';
+import { api } from '../../apis/baseApi';
+import CircleIcon from '@mui/icons-material/Circle';
 
 export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: string) => void }) => {
-    const [year, setYear] = useState<number>(thisYear);
-    const [month, setMonth] = useState<number>(thisMonth);
-    const [firstDate, setFirstDate] = useState<Date>(thisMonthFirstDate);
-    const [lastDate, setLastDate] = useState<Date>(thisMonthLastDate);
+    const [year, setYear] = useState<number>(currentDateInfo.thisYear);
+    const [month, setMonth] = useState<number>(currentDateInfo.thisMonth);
+    const [firstDate, setFirstDate] = useState<Date>(currentDateInfo.thisMonthFirstDate);
+    const [lastDate, setLastDate] = useState<Date>(currentDateInfo.thisMonthLastDate);
     const [calendar, setCalendar] = useState<JSX.Element[]>();
+    const selectDate = useRecoilValue(selectedDate);
+    const [todoList, setTodoList] = useState([]);
 
     const handleLastMonth = () => {
         if (month === 1) {
@@ -42,17 +45,37 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
         }
     };
 
+    const handleMonthTodo = async () => {
+        try {
+            const { data } = await api.get(`/todo/month`, {
+                params: {
+                    year,
+                    month
+                }
+            });
+
+            if (data.status === 200) {
+                console.log(data.todo);
+                setTodoList(data.todo);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         const newFirstDate = new Date(year, month - 1, 1);
         setFirstDate(newFirstDate);
 
         const newLastDate = new Date(year, month, 0);
         setLastDate(newLastDate);
+
+        handleMonthTodo();
     }, [year, month]);
 
     useEffect(() => {
         calendarGrid();
-    }, [firstDate, lastDate]);
+    }, [firstDate, lastDate, selectDate]);
 
     const calendarGrid = () => {
         const week = [];
@@ -69,16 +92,31 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                 } else if (i === weeksLen - 1 && j > lastDate.getDay()) {
                     row.push(<Grid item mobile={1} key={date}></Grid>);
                 } else {
+                    const dateFormatted = dayjs(`${year}-${month}-${date}`).format('YYYY-MM-DD');
+
                     row.push(
                         <Grid
                             item
                             mobile={1}
                             key={date}
                             color={j === 0 ? 'red' : j === 6 ? 'blue' : '#333'}
-                            sx={{ cursor: 'pointer' }}
-                            onClick={() => handleOnClick(`${year}-${month}-${date}`)}
+                            sx={{ position: 'relative', cursor: 'pointer' }}
+                            onClick={() => handleOnClick(dateFormatted)}
                         >
-                            <CustomThisMonthTypo variant="body1">{date}</CustomThisMonthTypo>
+                            {todoList[date] > 0 && (
+                                <TodoCircleBox>
+                                    <CircleIcon />
+                                </TodoCircleBox>
+                            )}
+                            {currentDateInfo.thisYear === year &&
+                            currentDateInfo.thisMonth === month &&
+                            currentDateInfo.date.getDate() === date ? (
+                                <CustomTodayTypo variant="body1">{date}</CustomTodayTypo>
+                            ) : selectDate === dateFormatted ? (
+                                <CustomSelectedTypo variant="body1">{date}</CustomSelectedTypo>
+                            ) : (
+                                <CustomThisMonthTypo variant="body1">{date}</CustomThisMonthTypo>
+                            )}
                         </Grid>
                     );
                 }
@@ -102,9 +140,9 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                     </Typography>
                 </Grid>
                 <Grid item mobile={1} laptop={2} textAlign="left" key="next">
-                    {!(thisYear === year && thisMonth === month) && (
-                        <NavigateNextIcon onClick={handleNextMonth} />
-                    )}
+                    {!(
+                        currentDateInfo.thisYear === year && currentDateInfo.thisMonth === month
+                    ) && <NavigateNextIcon onClick={handleNextMonth} />}
                 </Grid>
             </CustomGridTit>
             {/* <CustomTabBox>
