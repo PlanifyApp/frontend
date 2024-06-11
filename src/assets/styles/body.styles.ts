@@ -41,7 +41,7 @@ export const CustomThisMonthTypo = styled(Typography)`
     left: 20px;
 `;
 
-export const CustomTodayTypo = styled(CustomThisMonthTypo)(({ theme }) => ({
+export const CustomSelectedTypo = styled(CustomThisMonthTypo)(({ theme }) => ({
     top: '15px',
     left: '13px',
     width: '32px',
@@ -53,7 +53,7 @@ export const CustomTodayTypo = styled(CustomThisMonthTypo)(({ theme }) => ({
     borderRadius: '50%'
 }));
 
-export const CustomSelectedTypo = styled(CustomThisMonthTypo)(({ theme }) => ({
+export const CustomTodayTypo = styled(CustomThisMonthTypo)(({ theme }) => ({
     top: '15px',
     left: '13px',
     width: '32px',
