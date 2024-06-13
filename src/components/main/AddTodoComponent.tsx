@@ -10,20 +10,17 @@ import {
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useModal } from '../../hooks/useModal';
-import { KeyboardEvent, useContext, useState } from 'react';
-import { currentDateInfo } from '../../utils/date';
+import { KeyboardEvent, useState } from 'react';
 import dayjs from 'dayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
 import { FormControl } from '@mui/base';
 import { api } from '../../apis/baseApi';
-import { ModalContext, ModalContextType } from '../../context/ModalContext';
 import { todoList } from '../../recoil/todoList';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedDate } from '../../recoil/selectedDate';
 
 export const AddTodoComponent = () => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
-    const { handleToggle: handleModalToggle } = useContext<ModalContextType>(ModalContext);
     const selectDate = useRecoilValue(selectedDate);
     const [value, setValue] = useState<string>('');
     const [date, setDate] = useState(selectDate);
