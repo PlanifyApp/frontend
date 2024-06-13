@@ -10,7 +10,7 @@ import {
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useModal } from '../../hooks/useModal';
-import { useContext, useState } from 'react';
+import { KeyboardEvent, useContext, useState } from 'react';
 import { currentDateInfo } from '../../utils/date';
 import dayjs from 'dayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
@@ -49,6 +49,12 @@ export const AddTodoComponent = () => {
             }
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const handleKeydown = async (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleAlert('추가하시겠습니까?', handleOnSubmit);
         }
     };
 
@@ -101,6 +107,8 @@ export const AddTodoComponent = () => {
                     placeholder="메모"
                     sx={{ margin: '15px 0' }}
                     onChange={(e) => setValue(e.target.value)}
+                    onKeyDown={handleKeydown}
+                    value={value}
                 />
             </CustomTodoFormControl>
             <CustomTodoFormControl>

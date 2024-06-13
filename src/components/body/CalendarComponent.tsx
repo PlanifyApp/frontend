@@ -75,7 +75,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
 
     useEffect(() => {
         calendarGrid();
-    }, [firstDate, lastDate, selectDate]);
+    }, [firstDate, lastDate, selectDate, todoList]);
 
     const calendarGrid = () => {
         const week = [];
