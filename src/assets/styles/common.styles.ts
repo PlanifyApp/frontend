@@ -171,3 +171,7 @@ export const CommonModal = styled(Modal)(({ theme }) => ({
         }
     }
 }));
+
+export const CommonModalBox = styled(Box)(({ theme }) => ({
+    position: 'absolute'
+}));

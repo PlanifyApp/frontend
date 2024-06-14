@@ -15,7 +15,7 @@ import {
     styled
 } from '@mui/material';
 import { DateCalendar, MultiSectionDigitalClock } from '@mui/x-date-pickers';
-import { CommonFormControl } from './common.styles';
+import { CommonFormControl, CommonModalBox } from './common.styles';
 import naver from '../imgs/social/btn_naver.svg';
 import google from '../imgs/social/btn_google.svg';
 import kakao from '../imgs/social/btn_kakao.svg';
@@ -70,7 +70,7 @@ export const CustomListItemText = styled(ListItemText)`
 
 export const CustomButton = styled(ButtonBase)(({ theme }) => ({
     width: '100%',
-    padding: '15px 0',
+    padding: '15px',
     borderRadius: '15px',
     backgroundColor: theme.palette.primary.main,
 
@@ -243,3 +243,19 @@ export const closeBtn = {
         cursor: 'pointer'
     }
 };
+
+export const GroupModalBox = styled(CommonModalBox)(({ theme }) => ({
+    right: 0,
+    top: '43px',
+    zIndex: '999',
+    background: '#fff',
+    borderRadius: '15px',
+    boxShadow: theme.shadows[2]
+}));
+
+export const GroupButton = styled(Button)`
+    color: #333;
+    &:hover {
+        background: none;
+    }
+`;

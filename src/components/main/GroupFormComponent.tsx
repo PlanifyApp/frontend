@@ -31,7 +31,10 @@ export const GroupFormComponent = () => {
             const { data } = await api.post('/group/store', { title: title, color: color });
 
             if (data.status === 200) {
-                setGroup([...group, { title: data.newGroup.title, color: data.newGroup.color }]);
+                setGroup([
+                    ...group,
+                    { id: data.id, title: data.newGroup.title, color: data.newGroup.color }
+                ]);
                 setTitle('');
                 setColor('#fff');
             }

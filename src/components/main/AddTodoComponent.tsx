@@ -56,6 +56,8 @@ export const AddTodoComponent = () => {
     };
 
     const handleOnSubmit = async () => {
+        handleValidate();
+
         try {
             const { data } = await api.post('/todo/store', {
                 title: value,
@@ -71,6 +73,13 @@ export const AddTodoComponent = () => {
             }
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const handleValidate = () => {
+        if (value === '') {
+            alert('내용을 입력해주세요');
+            return;
         }
     };
 
