@@ -26,6 +26,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
     const [calendar, setCalendar] = useState<JSX.Element[]>();
     const selectDate = useRecoilValue(selectedDate);
     const [todoList, setTodoList] = useState([]);
+    const [scheduleList, setScheduleList] = useState<{ [key: number]: [] }>({});
 
     const handleLastMonth = () => {
         if (month === 1) {
@@ -55,8 +56,24 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
             });
 
             if (data.status === 200) {
-                console.log(data.todo);
                 setTodoList(data.todo);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleMonthSchedule = async () => {
+        try {
+            const { data } = await api.get(`/schedule/month`, {
+                params: {
+                    year,
+                    month
+                }
+            });
+
+            if (data.status === 200) {
+                setScheduleList(data.schedule);
             }
         } catch (error) {
             console.log(error);
@@ -71,6 +88,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
         setLastDate(newLastDate);
 
         handleMonthTodo();
+        handleMonthSchedule();
     }, [year, month]);
 
     useEffect(() => {
@@ -117,6 +135,10 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                             ) : (
                                 <CustomThisMonthTypo variant="body1">{date}</CustomThisMonthTypo>
                             )}
+                            {scheduleList[date] &&
+                                scheduleList[date].map((data: any, idx: number) => (
+                                    <Box key={idx}>{data.title}</Box>
+                                ))}
                         </Grid>
                     );
                 }

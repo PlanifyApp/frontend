@@ -50,7 +50,7 @@ export const AddScheduleComponent = () => {
     const [groupIdx, setGroupIdx] = useState<number>(NaN);
     const [title, setTitle] = useState<string>('');
     const [memo, setMemo] = useState<string>('');
-    console.log(group);
+
     const {
         ref: stCalendarRef,
         buttonRef: stCalendarBtnRef,
@@ -281,7 +281,7 @@ export const AddScheduleComponent = () => {
                                                 value={dayjs(enDate)}
                                                 onChange={(time) =>
                                                     setEnDate(
-                                                        dayjs(time).format('YYYY.MM.DD HH:mm:ss')
+                                                        dayjs(time).format('YYYY-MM-DD HH:mm:ss')
                                                     )
                                                 }
                                             />
