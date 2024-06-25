@@ -116,3 +116,7 @@ export const TodoCircleBox = styled(Box)(({ theme }) => ({
         color: theme.palette.primary.main
     }
 }));
+
+export const ScheduleBox = styled(Box)`
+    padding: 45px 20px 20px 20px;
+`;

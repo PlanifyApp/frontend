@@ -7,6 +7,7 @@ import {
     CustomSelectedTypo,
     CustomThisMonthTypo,
     CustomTodayTypo,
+    ScheduleBox,
     TodoCircleBox
 } from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -93,7 +94,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
 
     useEffect(() => {
         calendarGrid();
-    }, [firstDate, lastDate, selectDate, todoList]);
+    }, [firstDate, lastDate, selectDate, todoList, scheduleList]);
 
     const calendarGrid = () => {
         const week = [];
@@ -135,10 +136,14 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                             ) : (
                                 <CustomThisMonthTypo variant="body1">{date}</CustomThisMonthTypo>
                             )}
-                            {scheduleList[date] &&
-                                scheduleList[date].map((data: any, idx: number) => (
-                                    <Box key={idx}>{data.title}</Box>
-                                ))}
+                            <ScheduleBox>
+                                {scheduleList[date] &&
+                                    scheduleList[date].map((data: any, idx: number) => (
+                                        <Typography key={idx} color={data.color}>
+                                            {data.title}
+                                        </Typography>
+                                    ))}
+                            </ScheduleBox>
                         </Grid>
                     );
                 }

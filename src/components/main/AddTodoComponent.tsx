@@ -66,7 +66,7 @@ export const AddTodoComponent = () => {
 
             if (data.status === 200) {
                 setValue('');
-                // handleModalToggle && handleModalToggle();
+
                 if (selectDate === date) {
                     getTodoList();
                 }

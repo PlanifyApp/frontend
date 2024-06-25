@@ -1,23 +1,16 @@
 import {
     Box,
-    Button,
-    Chip,
     FormControl,
     FormGroup,
     Grid,
     Stack,
     TextField,
     Typography,
-    Menu,
-    MenuItem,
     List,
-    ListItem,
-    ButtonBase
+    ListItem
 } from '@mui/material';
-import { CommonFormControl, CommonModal, CommonModalBox } from '../../assets/styles/common.styles';
+import { CommonFormControl } from '../../assets/styles/common.styles';
 import {
-    ChipIcon,
-    CustomButton,
     CustomClock,
     CustomDateButton,
     CustomDateModal,
@@ -28,19 +21,14 @@ import {
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
-import { MouseEvent, useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import { useState } from 'react';
+import dayjs from 'dayjs';
 import { useModal } from '../../hooks/useModal';
-import { currentDateInfo } from '../../utils/date';
 import { useRecoilValue } from 'recoil';
 import { groupList } from '../../recoil/groupList';
 import { selectedDate } from '../../recoil/selectedDate';
 import CircleIcon from '@mui/icons-material/Circle';
 import { api } from '../../apis/baseApi';
-
-const { min, date } = currentDateInfo;
-const minute = Math.floor(min);
-const newDate = date.setMinutes(minute);
 
 export const AddScheduleComponent = () => {
     const selectDate = useRecoilValue(selectedDate);
@@ -100,9 +88,6 @@ export const AddScheduleComponent = () => {
 
             if (data.status === 200) {
                 alert('저장되었습니다.');
-                // if (selectDate === date) {
-                //     getTodoList();
-                // }
             }
         } catch (error) {
             console.log(error);
