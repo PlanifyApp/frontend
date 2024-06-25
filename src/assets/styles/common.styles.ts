@@ -2,12 +2,12 @@ import { Box, FormControl, Grid, Modal, createTheme, styled } from '@mui/materia
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
-        xs: false; // removes the `xs` breakpoint
+        xs: false;
         sm: false;
         md: false;
         lg: false;
         xl: false;
-        mobile: true; // adds the `mobile` breakpoint
+        mobile: true;
         tablet: true;
         laptop: true;
         desktop: true;
@@ -95,6 +95,32 @@ theme.typography = {
     }
 };
 
+export const FixedWrapper = styled(Box)`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+`;
+
+export const FixedInnerWrapper = styled(Box)(({ theme }) => ({
+    width: '100%',
+    borderRadius: '15px',
+    maxHeight: '100%',
+    [theme.breakpoints.up('laptop')]: {
+        maxHeight: '90%',
+        boxShadow: theme.shadows[2]
+    }
+}));
+
+export const PositionFixedCenter = styled(Box)`
+    position: fixed;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+`;
+
 export const AsideContainer = styled(Box)`
     padding: 20px;
     position: relative;
@@ -106,25 +132,6 @@ export const BodyContainer = styled(Box)(({ theme }) => ({
     height: '100%',
     [theme.breakpoints.up('desktop')]: {
         borderLeft: `1px solid ${theme.palette.secondary.main}`
-    }
-}));
-
-export const CommonBox = styled(Box)`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-`;
-
-export const CommonInnerBox = styled(Box)(({ theme }) => ({
-    width: '100%',
-    borderRadius: '15px',
-    maxHeight: '100%',
-    [theme.breakpoints.up('laptop')]: {
-        maxHeight: '90%',
-        boxShadow: theme.shadows[2]
     }
 }));
 

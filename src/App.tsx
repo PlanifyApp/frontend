@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
-import { CommonBox, CommonInnerBox, theme } from './assets/styles/common.styles';
+import { FixedWrapper, FixedInnerWrapper, theme } from './assets/styles/common.styles';
 import { RecoilRoot } from 'recoil';
 import { Main } from './pages/Main';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
+    const queryClient = new QueryClient();
     const [height, setHeight] = useState<number>(1600);
 
     const getHeight = () => {
@@ -28,18 +30,20 @@ function App() {
     }, []);
 
     return (
-        <RecoilRoot>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Container maxWidth="desktop" disableGutters>
-                    <CommonBox>
-                        <CommonInnerBox height={{ laptop: height, mobile: '100%' }}>
-                            <Main />
-                        </CommonInnerBox>
-                    </CommonBox>
-                </Container>
-            </ThemeProvider>
-        </RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+            <RecoilRoot>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Container maxWidth="desktop" disableGutters>
+                        <FixedWrapper>
+                            <FixedInnerWrapper height={{ laptop: height, mobile: '100%' }}>
+                                <Main />
+                            </FixedInnerWrapper>
+                        </FixedWrapper>
+                    </Container>
+                </ThemeProvider>
+            </RecoilRoot>
+        </QueryClientProvider>
     );
 }
 

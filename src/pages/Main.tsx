@@ -3,31 +3,39 @@ import { AsideContainer, BodyContainer, theme } from '../assets/styles/common.st
 import { Aside } from '../components/Aside';
 import { Body } from '../components/Body';
 import { useEffect } from 'react';
-import { api } from '../apis/baseApi';
 import { useRecoilState } from 'recoil';
 import { userState } from '../recoil/userState';
+import { useQuery } from '@tanstack/react-query';
+import { getUserData } from '../services/userService';
+import { Loading } from '../components/Loading';
 
 export const Main = () => {
     const isShow = useMediaQuery(theme.breakpoints.up('desktop'));
     const [, setUserState] = useRecoilState(userState);
+    const {
+        data: useData,
+        isLoading,
+        error
+    } = useQuery({ queryKey: ['user'], queryFn: getUserData });
 
     useEffect(() => {
-        const getUser = async () => {
-            const { data } = await api.get('/user/info');
-
-            if (data.status === 200) {
+        if (useData) {
+            if (useData.status === 200) {
                 setUserState({
-                    id: data.user.id,
-                    email: data.user.email,
-                    name: data.user.name,
-                    nickname: data.user.nickname,
-                    image: data.user.image
+                    id: useData.user.id,
+                    email: useData.user.email,
+                    name: useData.user.name,
+                    nickname: useData.user.nickname,
+                    image: useData.user.image
                 });
+            } else {
+                alert(useData.message);
             }
-        };
+        }
+    }, [useData]);
 
-        getUser();
-    }, []);
+    if (isLoading) return <Loading />;
+    if (error) return <div>Error loading user data</div>;
 
     return (
         <Grid container columns={12} height="100%">
