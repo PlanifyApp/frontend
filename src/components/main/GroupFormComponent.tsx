@@ -13,11 +13,11 @@ import { ButtonComponent } from '../aside/ButtonComponent';
 import { api } from '../../apis/baseApi';
 import { useRecoilState } from 'recoil';
 import { groupList } from '../../recoil/groupList';
-import { ModalContext, ModalContextType } from '../../context/ModalContext';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { useModal } from '../../hooks/useModal';
 
 export const GroupFormComponent = () => {
-    const { handleToggle } = useContext<ModalContextType>(ModalContext);
+    const { handleToggle } = useModal();
     const [title, setTitle] = useState<string>('');
     const [color, setColor] = useState<string>('#fff');
     const [group, setGroup] = useRecoilState(groupList);

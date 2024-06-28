@@ -1,5 +1,5 @@
 import { Grid, useMediaQuery } from '@mui/material';
-import { AsideContainer, BodyContainer, theme } from '../assets/styles/common.styles';
+import { Wrapper, theme, BodyWrapper, AsideWrapper } from '../assets/styles/common.styles';
 import { Aside } from '../components/Aside';
 import { Body } from '../components/Body';
 import { useEffect } from 'react';
@@ -8,6 +8,7 @@ import { userState } from '../recoil/userState';
 import { useQuery } from '@tanstack/react-query';
 import { getUserData } from '../services/userService';
 import { Loading } from '../components/Loading';
+import { Error } from '../components/Error';
 
 export const Main = () => {
     const isShow = useMediaQuery(theme.breakpoints.up('desktop'));
@@ -35,21 +36,23 @@ export const Main = () => {
     }, [useData]);
 
     if (isLoading) return <Loading />;
-    if (error) return <div>Error loading user data</div>;
+    if (error) return <Error />;
 
     return (
         <Grid container columns={12} height="100%">
             {isShow && (
                 <Grid desktop={3}>
-                    <AsideContainer>
+                    <AsideWrapper>
                         <Aside />
-                    </AsideContainer>
+                    </AsideWrapper>
                 </Grid>
             )}
             <Grid mobile={12} desktop={9} height="100%">
-                <BodyContainer>
-                    <Body />
-                </BodyContainer>
+                <Wrapper>
+                    <BodyWrapper>
+                        <Body />
+                    </BodyWrapper>
+                </Wrapper>
             </Grid>
         </Grid>
     );

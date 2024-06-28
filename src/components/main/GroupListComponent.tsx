@@ -1,5 +1,5 @@
 import { ListItemIcon } from '@mui/material';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { api } from '../../apis/baseApi';
 import {
     CloseBtnWrap,
@@ -11,10 +11,10 @@ import {
 import { useRecoilState } from 'recoil';
 import { groupList } from '../../recoil/groupList';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { ModalContext, ModalContextType } from '../../context/ModalContext';
+import { useModal } from '../../hooks/useModal';
 
 export const GroupListComponent = () => {
-    const { handleToggle } = useContext<ModalContextType>(ModalContext);
+    const { handleToggle } = useModal();
     const [group, setGroup] = useRecoilState(groupList);
 
     const getUserGroup = async () => {

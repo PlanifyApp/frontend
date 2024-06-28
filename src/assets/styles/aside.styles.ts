@@ -1,15 +1,12 @@
-import { transform } from '@babel/core';
 import {
     Box,
     Button,
     ButtonBase,
-    Chip,
     FormControl,
+    Grid,
     List,
     ListItem,
     ListItemText,
-    Modal,
-    Paper,
     TextField,
     Typography,
     styled
@@ -19,6 +16,20 @@ import { CommonFormControl, CommonModalBox } from './common.styles';
 import naver from '../imgs/social/btn_naver.svg';
 import google from '../imgs/social/btn_google.svg';
 import kakao from '../imgs/social/btn_kakao.svg';
+
+export const AuthWrapper = styled(Box)`
+    position: relative;
+    height: 40px;
+    padding-left: 40px;
+    align-items: center;
+    display: flex;
+`;
+
+//
+
+export const GroupModalWrapper = styled(Grid)`
+    position: relative;
+`;
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -93,23 +104,6 @@ export const useIconStyle = {
     }
 };
 
-export const CustomGroupBox = styled(Box)`
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    max-height: 30vh;
-    padding-right: 40px;
-    z-index: 999;
-`;
-
-export const CustomGroupPaper = styled(Paper)`
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 20px;
-`;
-
 export const CustomColorTestField = styled(TextField)`
     & .MuiInputBase-input::after {
         display: inline-block;
@@ -135,14 +129,6 @@ export const CustomColorBox = styled(Box)`
             padding: 5px;
         }
     }
-`;
-
-export const AuthBox = styled(Box)`
-    position: relative;
-    height: 40px;
-    padding-left: 40px;
-    align-items: center;
-    display: flex;
 `;
 
 export const LogoBox = styled(Box)`

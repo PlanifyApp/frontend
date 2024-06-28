@@ -3,16 +3,22 @@ import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
 import { Box, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { CustomDatePicker, useIconStyle, AuthBox, LogoBox } from '../assets/styles/aside.styles';
+import {
+    CustomDatePicker,
+    useIconStyle,
+    AuthWrapper,
+    LogoBox,
+    GroupModalWrapper
+} from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DragIndicatorOutlinedIcon from '@mui/icons-material/DragIndicatorOutlined';
 import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
 import { ListComponent } from './aside/ListComponent';
-import { ModalComponent } from './aside/ModalComponent';
+import { GroupModalComponent } from './aside/GroupModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
 import 'react-color-palette/css';
 import { ScrollBox } from '../assets/styles/common.styles';
-import { CommonModalComponent } from './main/CommonModalComponent';
+import { MiddleModalComponent } from './main/MiddleModalComponent';
 import { AddScheduleComponent } from './main/AddScheduleComponent';
 import { AddTodoComponent } from './main/AddTodoComponent';
 import { Social } from './Social';
@@ -52,7 +58,7 @@ export const Aside = () => {
     return (
         <>
             <Box height="calc(100% - 40px)" className="asideBox">
-                <AuthBox>
+                <AuthWrapper>
                     <LogoBox>
                         <img src={logo} alt="logo" width="100%" />
                     </LogoBox>
@@ -62,7 +68,7 @@ export const Aside = () => {
                                 {user.email || user.nickname || user.name}
                             </Typography>
                         ) : (
-                            <CommonModalComponent
+                            <MiddleModalComponent
                                 btn={
                                     <Typography
                                         variant="body1"
@@ -76,39 +82,20 @@ export const Aside = () => {
                             />
                         )}
                     </Box>
-                </AuthBox>
+                </AuthWrapper>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
-                    {user.id ? (
-                        <>
-                            <Grid mobile={8}>
-                                <CommonModalComponent
-                                    btn={<ButtonComponent str="일정추가" />}
-                                    modalEn={<AddScheduleComponent />}
-                                />
-                            </Grid>
-                            <Grid mobile={8}>
-                                <CommonModalComponent
-                                    btn={<ButtonComponent str="todo 추가" />}
-                                    modalEn={<AddTodoComponent />}
-                                />
-                            </Grid>
-                        </>
-                    ) : (
-                        <>
-                            <Grid mobile={8}>
-                                <CommonModalComponent
-                                    btn={<ButtonComponent str="일정추가" />}
-                                    modalEn={<Social />}
-                                />
-                            </Grid>
-                            <Grid mobile={8}>
-                                <CommonModalComponent
-                                    btn={<ButtonComponent str="todo 추가" />}
-                                    modalEn={<Social />}
-                                />
-                            </Grid>
-                        </>
-                    )}
+                    <Grid mobile={8}>
+                        <MiddleModalComponent
+                            btn={<ButtonComponent str="일정추가" />}
+                            modalEn={user.id ? <AddScheduleComponent /> : <Social />}
+                        />
+                    </Grid>
+                    <Grid mobile={8}>
+                        <MiddleModalComponent
+                            btn={<ButtonComponent str="todo 추가" />}
+                            modalEn={user.id ? <AddTodoComponent /> : <Social />}
+                        />
+                    </Grid>
                 </Grid>
                 <Box py="30px">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -130,16 +117,16 @@ export const Aside = () => {
                     </ScrollBox>
                 </Box>
             </Box>
-            <Grid container alignItems="flex-end" height="40px">
-                <ModalComponent
+            <GroupModalWrapper container alignItems="flex-end">
+                <GroupModalComponent
                     btnEl={<DragIndicatorOutlinedIcon {...useIconStyle} />}
                     modalEn={<GroupListComponent />}
                 />
-                <ModalComponent
+                <GroupModalComponent
                     btnEl={<ControlPointOutlinedIcon {...useIconStyle} />}
                     modalEn={<GroupFormComponent />}
                 />
-            </Grid>
+            </GroupModalWrapper>
         </>
     );
 };

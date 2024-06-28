@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, Modal, createTheme, styled } from '@mui/material';
+import { Box, FormControl, Modal, createTheme, styled } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -121,15 +121,17 @@ export const PositionFixedCenter = styled(Box)`
     transform: translate(-50%, -50%);
 `;
 
-export const AsideContainer = styled(Box)`
+export const Wrapper = styled(Box)`
     padding: 20px;
     position: relative;
     height: 100%;
 `;
 
-export const BodyContainer = styled(Box)(({ theme }) => ({
-    padding: '20px',
-    height: '100%',
+export const AsideWrapper = styled(Wrapper)`
+    padding-right: 0;
+`;
+
+export const BodyWrapper = styled(Wrapper)(({ theme }) => ({
     [theme.breakpoints.up('desktop')]: {
         borderLeft: `1px solid ${theme.palette.secondary.main}`
     }
@@ -163,21 +165,6 @@ export const CommonFormControl = styled(FormControl)`
         justify-content: space-between;
     }
 `;
-
-export const CommonModal = styled(Modal)(({ theme }) => ({
-    '& .MuiPaper-root': {
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '80%',
-        height: '80%',
-        [theme.breakpoints.up('laptop')]: {
-            maxWidth: '500px',
-            maxHeight: '500px'
-        }
-    }
-}));
 
 export const CommonModalBox = styled(Box)(({ theme }) => ({
     position: 'absolute'
