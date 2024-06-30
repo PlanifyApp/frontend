@@ -34,6 +34,7 @@ export const MiddleModalInnerWrapper = styled(ModalInnerWrapper)(({ theme }) => 
     }
 }));
 
-export const GroupModalWrapper = styled(FlexibleModalWrapper)(`
-    
+export const GroupModalInnerWrapper = styled(ModalInnerWrapper)(`
+    bottom: 30px;
+    max-height: 30vh;
 `);

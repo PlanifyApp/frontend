@@ -29,8 +29,6 @@ export const AuthWrapper = styled(Box)`
 
 export const GroupModalWrapper = styled(Grid)`
     position: relative;
-    bottom: 30px;
-    max-height: 30vh;
 `;
 
 export const CustomDatePicker = styled(DateCalendar)`
