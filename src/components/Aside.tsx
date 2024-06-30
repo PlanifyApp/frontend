@@ -7,7 +7,7 @@ import {
     CustomDatePicker,
     useIconStyle,
     AuthWrapper,
-    LogoBox,
+    LogoWrap,
     GroupModalWrapper
 } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -59,9 +59,9 @@ export const Aside = () => {
         <>
             <Box height="calc(100% - 40px)" className="asideBox">
                 <AuthWrapper>
-                    <LogoBox>
+                    <LogoWrap>
                         <img src={logo} alt="logo" width="100%" />
-                    </LogoBox>
+                    </LogoWrap>
                     <Box>
                         {user.id ? (
                             <Typography variant="body1" fontWeight="bold">

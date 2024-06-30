@@ -84,12 +84,6 @@ export const AuthBox = styled(Box)(({ theme }) => ({
     }
 }));
 
-export const LogoBox = styled(Box)`
-    position: absolute;
-    left: 0;
-    width: 40px;
-`;
-
 export const ModalBox = styled(Box)(({ theme }) => ({
     height: '100%',
     backgroundColor: theme.palette.background.default,

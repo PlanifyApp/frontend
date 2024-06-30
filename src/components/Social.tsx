@@ -1,5 +1,5 @@
 import { Grid, Stack, Typography } from '@mui/material';
-import { SocialGoogleBox, SocialKakaoBox, SocialNaverBox } from '../assets/styles/aside.styles';
+import { SocialGoogleBox, SocialKakaoBox, SocialNaverBox } from '../assets/styles/social.styles';
 
 export const Social = () => {
     const naverLocation = () => {

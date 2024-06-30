@@ -45,14 +45,6 @@ export const Body = () => {
             >
                 <CustomTopBox container columns={12}>
                     <Grid item laptop={9} mobile={8}>
-                        {/* <AuthBox>
-                            <LogoBox>
-                                <img src={logo} alt="logo" width="100%" />
-                            </LogoBox>
-                            <Typography variant="body1" fontWeight="bold" sx={{cursor: 'pointer'}}>
-                                로그인 / 회원가입
-                            </Typography>
-                        </AuthBox> */}
                         <Box
                             sx={{
                                 display: { mobile: 'block', desktop: 'none' }

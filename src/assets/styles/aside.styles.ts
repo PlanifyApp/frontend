@@ -13,9 +13,6 @@ import {
 } from '@mui/material';
 import { DateCalendar, MultiSectionDigitalClock } from '@mui/x-date-pickers';
 import { CommonFormControl, CommonModalBox } from './common.styles';
-import naver from '../imgs/social/btn_naver.svg';
-import google from '../imgs/social/btn_google.svg';
-import kakao from '../imgs/social/btn_kakao.svg';
 
 export const AuthWrapper = styled(Box)`
     position: relative;
@@ -25,11 +22,17 @@ export const AuthWrapper = styled(Box)`
     display: flex;
 `;
 
-//
-
 export const GroupModalWrapper = styled(Grid)`
     position: relative;
 `;
+
+export const LogoWrap = styled(Box)`
+    position: absolute;
+    left: 0;
+    width: 40px;
+`;
+
+//
 
 export const CustomDatePicker = styled(DateCalendar)`
     width: 100% !important;
@@ -130,12 +133,6 @@ export const CustomColorBox = styled(Box)`
     }
 `;
 
-export const LogoBox = styled(Box)`
-    position: absolute;
-    left: 0;
-    width: 40px;
-`;
-
 export const ChipIcon = styled(Box)`
     width: 15px;
     height: 15px;
@@ -195,26 +192,6 @@ export const CustomDateBox = styled(Box)`
     position: relative;
     display: flex;
     justify-content: center;
-`;
-
-export const SocialBox = styled(Box)`
-    height: 147px;
-    border-radius: 15px;
-    background-size: 60%;
-    background-position: center;
-    background-repeat: no-repeat;
-    text-indent: -9999px;
-`;
-export const SocialNaverBox = styled(SocialBox)`
-    background-image: url('${naver}');
-`;
-
-export const SocialGoogleBox = styled(SocialBox)`
-    background-image: url('${google}');
-`;
-
-export const SocialKakaoBox = styled(SocialBox)`
-    background-image: url('${kakao}');
 `;
 
 export const CloseBtnWrap = styled(Box)`
