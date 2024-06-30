@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { ButtonBase, Grow } from '@mui/material';
 import { useModal } from '../../hooks/useModal';
-import { GroupFlexibleModalWrapper, ModalInnerWrapper } from '../../assets/styles/modal.styles';
+import { FlexibleModalWrapper, ModalInnerWrapper } from '../../assets/styles/modal.styles';
 
 export const GroupModalComponent = ({
     btnEl,
@@ -18,9 +18,9 @@ export const GroupModalComponent = ({
                 {btnEl}
             </ButtonBase>
             <Grow in={isOpen} ref={ref}>
-                <GroupFlexibleModalWrapper>
+                <FlexibleModalWrapper>
                     <ModalInnerWrapper>{modalEn}</ModalInnerWrapper>
-                </GroupFlexibleModalWrapper>
+                </FlexibleModalWrapper>
             </Grow>
         </>
     );

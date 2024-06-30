@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { useModal } from '../../hooks/useModal';
 import { Box } from '@mui/material';
-import { AuthMiddleModalInnerWrapper, MiddleModalWrapper } from '../../assets/styles/modal.styles';
+import { MiddleModalInnerWrapper, MiddleModalWrapper } from '../../assets/styles/modal.styles';
 
 export const MiddleModalComponent = ({ btn, modalEn }: { btn: ReactNode; modalEn: ReactNode }) => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
@@ -12,7 +12,7 @@ export const MiddleModalComponent = ({ btn, modalEn }: { btn: ReactNode; modalEn
                 {btn}
             </Box>
             <MiddleModalWrapper open={isOpen}>
-                <AuthMiddleModalInnerWrapper ref={ref}>{modalEn}</AuthMiddleModalInnerWrapper>
+                <MiddleModalInnerWrapper ref={ref}>{modalEn}</MiddleModalInnerWrapper>
             </MiddleModalWrapper>
         </>
     );

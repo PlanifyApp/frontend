@@ -8,13 +8,6 @@ export const ModalInnerWrapper = styled(Paper)`
     padding: 20px;
 `;
 
-// export const ModalInnerWrapper = styled(Box)`
-//     position: absolute;
-//     background-color: #fff;
-//     border-radius: 15px;
-//     padding: 20px;
-// `;
-
 export const MiddleModalWrapper = styled(Modal)`
     & .MuiPaper-root {
         position: fixed;
@@ -29,7 +22,7 @@ export const FlexibleModalWrapper = styled(Box)`
     z-index: 999;
 `;
 
-export const AuthMiddleModalInnerWrapper = styled(ModalInnerWrapper)(({ theme }) => ({
+export const MiddleModalInnerWrapper = styled(ModalInnerWrapper)(({ theme }) => ({
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
@@ -41,7 +34,6 @@ export const AuthMiddleModalInnerWrapper = styled(ModalInnerWrapper)(({ theme })
     }
 }));
 
-export const GroupFlexibleModalWrapper = styled(FlexibleModalWrapper)(`
-    bottom: 30px;
-    max-height: 30vh;
+export const GroupModalWrapper = styled(FlexibleModalWrapper)(`
+    
 `);

@@ -29,6 +29,8 @@ export const AuthWrapper = styled(Box)`
 
 export const GroupModalWrapper = styled(Grid)`
     position: relative;
+    bottom: 30px;
+    max-height: 30vh;
 `;
 
 export const CustomDatePicker = styled(DateCalendar)`
@@ -36,7 +38,6 @@ export const CustomDatePicker = styled(DateCalendar)`
     padding: 0 5%;
     border-radius: 15px;
     background-color: #fff;
-    height: 300px;
     ,
     & .MuiPickersCalendarHeader-root {
         padding: 0;
