@@ -1,18 +1,6 @@
-import {
-    Box,
-    Button,
-    ButtonBase,
-    FormControl,
-    Grid,
-    List,
-    ListItem,
-    ListItemText,
-    TextField,
-    Typography,
-    styled
-} from '@mui/material';
+import { Box, Button, Grid, List, ListItem, ListItemText, TextField, styled } from '@mui/material';
 import { DateCalendar, MultiSectionDigitalClock } from '@mui/x-date-pickers';
-import { CommonFormControl, CommonModalBox } from './common.styles';
+import { CommonFormControl } from './common.styles';
 
 export const AuthWrapper = styled(Box)`
     position: relative;
@@ -32,9 +20,7 @@ export const LogoWrap = styled(Box)`
     width: 40px;
 `;
 
-//
-
-export const CustomDatePicker = styled(DateCalendar)`
+export const DatePicker = styled(DateCalendar)`
     width: 100% !important;
     padding: 0 5%;
     border-radius: 15px;
@@ -52,6 +38,7 @@ export const CustomDatePicker = styled(DateCalendar)`
     }
 `;
 
+//
 export const CustomList = styled(List)`
     padding: 0;
 `;
@@ -80,17 +67,6 @@ export const CustomListItemText = styled(ListItemText)`
         white-space: nowrap;
     }
 `;
-
-export const CustomButton = styled(ButtonBase)(({ theme }) => ({
-    width: '100%',
-    padding: '15px',
-    borderRadius: '15px',
-    backgroundColor: theme.palette.primary.main,
-
-    '& .MuiTypography-root': {
-        color: '#fff'
-    }
-}));
 
 export const useIconStyle = {
     sx: {
@@ -152,46 +128,8 @@ export const CustomClock = styled(MultiSectionDigitalClock)`
     }
 `;
 
-export const CustomDateModal = styled(Box)(({ theme }) => ({
-    position: 'absolute',
-    transform: 'translate(0, 100%)',
-    bottom: '-5px',
-    zIndex: 999,
-    background: '#fff',
-    borderRadius: '20px',
-    boxShadow: theme.shadows[2]
-}));
-
 export const CustomFormControl = styled(CommonFormControl)`
     margin-top: 30px;
-`;
-export const CustomTodoFormControl = styled(FormControl)`
-    width: 100%;
-`;
-export const CustomTodoBox = styled(Box)`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 50px;
-`;
-export const CustomTodoTitle = styled(Typography)`
-    position: absolute;
-    top: 20px;
-    font-weight: bold;
-    text-align: center;
-`;
-export const CustomDateButton = styled(Button)`
-    border-radius: 20px;
-    padding: 5px 13px;
-    background: #f0f0f0;
-    color: #333;
-`;
-export const CustomDateBox = styled(Box)`
-    position: relative;
-    display: flex;
-    justify-content: center;
 `;
 
 export const CloseBtnWrap = styled(Box)`
@@ -206,7 +144,8 @@ export const closeBtn = {
     }
 };
 
-export const GroupModalBox = styled(CommonModalBox)(({ theme }) => ({
+export const GroupModalBox = styled(Box)(({ theme }) => ({
+    position: 'absolute',
     right: 0,
     top: '43px',
     zIndex: '999',

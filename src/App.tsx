@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
-import { FixedWrapper, FixedInnerWrapper, theme } from './assets/styles/common.styles';
+import { RootWrapper, RootInnerWrapper, theme } from './assets/styles/common.styles';
 import { RecoilRoot } from 'recoil';
 import { Main } from './pages/Main';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -35,11 +35,11 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
                     <Container maxWidth="desktop" disableGutters>
-                        <FixedWrapper>
-                            <FixedInnerWrapper height={{ laptop: height, mobile: '100%' }}>
+                        <RootWrapper>
+                            <RootInnerWrapper height={{ laptop: height, mobile: '100%' }}>
                                 <Main />
-                            </FixedInnerWrapper>
-                        </FixedWrapper>
+                            </RootInnerWrapper>
+                        </RootWrapper>
                     </Container>
                 </ThemeProvider>
             </RecoilRoot>

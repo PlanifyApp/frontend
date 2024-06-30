@@ -4,11 +4,11 @@ import logo from '../assets/imgs/logo.png';
 import { Box, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import {
-    CustomDatePicker,
     useIconStyle,
     AuthWrapper,
     LogoWrap,
-    GroupModalWrapper
+    GroupModalWrapper,
+    DatePicker
 } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DragIndicatorOutlinedIcon from '@mui/icons-material/DragIndicatorOutlined';
@@ -99,7 +99,7 @@ export const Aside = () => {
                 </Grid>
                 <Box py="30px">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <CustomDatePicker views={['month', 'day']} />
+                        <DatePicker views={['month', 'day']} />
                     </LocalizationProvider>
                 </Box>
                 <Box

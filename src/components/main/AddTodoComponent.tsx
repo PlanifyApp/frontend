@@ -1,12 +1,4 @@
 import { TextField } from '@mui/material';
-import {
-    CustomDateBox,
-    CustomDateButton,
-    CustomDateModal,
-    CustomTodoBox,
-    CustomTodoFormControl,
-    CustomTodoTitle
-} from '../../assets/styles/aside.styles';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useModal } from '../../hooks/useModal';
@@ -18,6 +10,13 @@ import { api } from '../../apis/baseApi';
 import { todoList } from '../../recoil/todoList';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedDate } from '../../recoil/selectedDate';
+import {
+    TodoDateWrapper,
+    TodoFormControl,
+    TodoTitle,
+    TodoWrapper
+} from '../../assets/styles/todo.styles';
+import { DateButton, DateModal } from '../../assets/styles/common.styles';
 
 export const AddTodoComponent = () => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
@@ -84,19 +83,14 @@ export const AddTodoComponent = () => {
     };
 
     return (
-        <CustomTodoBox>
-            <CustomTodoTitle variant="h4">todo 추가</CustomTodoTitle>
+        <TodoWrapper>
+            <TodoTitle variant="h4">todo 추가</TodoTitle>
             <FormControl>
-                <CustomDateBox>
-                    <CustomDateButton
-                        disableRipple
-                        value={date}
-                        ref={buttonRef}
-                        onClick={handleToggle}
-                    >
+                <TodoDateWrapper>
+                    <DateButton disableRipple value={date} ref={buttonRef} onClick={handleToggle}>
                         {date}
-                    </CustomDateButton>
-                    <CustomDateModal boxShadow={3} ref={ref}>
+                    </DateButton>
+                    <DateModal boxShadow={3} ref={ref}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             {isOpen && (
                                 <DateCalendar
@@ -104,10 +98,10 @@ export const AddTodoComponent = () => {
                                 />
                             )}
                         </LocalizationProvider>
-                    </CustomDateModal>
-                </CustomDateBox>
+                    </DateModal>
+                </TodoDateWrapper>
             </FormControl>
-            <CustomTodoFormControl>
+            <TodoFormControl>
                 <TextField
                     fullWidth
                     placeholder="메모"
@@ -116,13 +110,13 @@ export const AddTodoComponent = () => {
                     onKeyDown={handleKeydown}
                     value={value}
                 />
-            </CustomTodoFormControl>
-            <CustomTodoFormControl>
+            </TodoFormControl>
+            <TodoFormControl>
                 <ButtonComponent
                     str="추가"
                     onClick={() => handleAlert('추가하시겠습니까?', handleOnSubmit)}
                 />
-            </CustomTodoFormControl>
-        </CustomTodoBox>
+            </TodoFormControl>
+        </TodoWrapper>
     );
 };

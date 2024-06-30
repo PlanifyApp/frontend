@@ -1,4 +1,4 @@
-import { Box, FormControl, Modal, createTheme, styled } from '@mui/material';
+import { Box, ButtonBase, FormControl, Button, createTheme, styled } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -95,7 +95,7 @@ theme.typography = {
     }
 };
 
-export const FixedWrapper = styled(Box)`
+export const RootWrapper = styled(Box)`
     width: 100%;
     height: 100vh;
     display: flex;
@@ -104,7 +104,7 @@ export const FixedWrapper = styled(Box)`
     padding: 15px;
 `;
 
-export const FixedInnerWrapper = styled(Box)(({ theme }) => ({
+export const RootInnerWrapper = styled(Box)(({ theme }) => ({
     width: '100%',
     borderRadius: '15px',
     maxHeight: '100%',
@@ -137,6 +137,49 @@ export const BodyWrapper = styled(Wrapper)(({ theme }) => ({
     }
 }));
 
+// button
+export const CommonButton = styled(ButtonBase)(({ theme }) => ({
+    width: '100%',
+    padding: '15px',
+    borderRadius: '15px',
+    backgroundColor: theme.palette.primary.main,
+
+    '& .MuiTypography-root': {
+        color: '#fff'
+    }
+}));
+
+// form control
+export const CommonFormControl = styled(FormControl)`
+    width: 100%;
+    margin-bottom: 10px;
+
+    .spaceBetween {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+`;
+
+// date button
+export const DateButton = styled(Button)`
+    border-radius: 20px;
+    padding: 5px 13px;
+    background: #f0f0f0;
+    color: #333;
+`;
+
+// date modal
+export const DateModal = styled(Box)(({ theme }) => ({
+    position: 'absolute',
+    transform: 'translate(0, 100%)',
+    bottom: '-5px',
+    zIndex: 999,
+    background: '#fff',
+    borderRadius: '20px',
+    boxShadow: theme.shadows[2]
+}));
+
 export const ScrollBox = styled(Box)(({ theme }) => ({
     '&::-webkit-scrollbar': {
         backgroundColor: theme.palette.background.default,
@@ -153,19 +196,4 @@ export const ScrollBox = styled(Box)(({ theme }) => ({
             backgroundColor: '#a0a0a5'
         }
     }
-}));
-
-export const CommonFormControl = styled(FormControl)`
-    width: 100%;
-    margin-bottom: 10px;
-
-    .spaceBetween {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-    }
-`;
-
-export const CommonModalBox = styled(Box)(({ theme }) => ({
-    position: 'absolute'
 }));

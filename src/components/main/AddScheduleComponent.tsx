@@ -9,11 +9,9 @@ import {
     List,
     ListItem
 } from '@mui/material';
-import { CommonFormControl } from '../../assets/styles/common.styles';
+import { CommonFormControl, DateButton, DateModal } from '../../assets/styles/common.styles';
 import {
     CustomClock,
-    CustomDateButton,
-    CustomDateModal,
     CustomFormControl,
     GroupButton,
     GroupModalBox
@@ -185,13 +183,10 @@ export const AddScheduleComponent = () => {
                         <Typography variant="body1">시작일</Typography>
                         <Stack direction="row" spacing={1}>
                             <Box>
-                                <CustomDateButton
-                                    onClick={stCalendarHandleToggle}
-                                    ref={stCalendarBtnRef}
-                                >
+                                <DateButton onClick={stCalendarHandleToggle} ref={stCalendarBtnRef}>
                                     {dayjs(stDate).format('YYYY-MM-DD')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={stCalendarRef}>
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={stCalendarRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {stCalendarOpen && (
                                             <DateCalendar
@@ -204,13 +199,13 @@ export const AddScheduleComponent = () => {
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                             <Box>
-                                <CustomDateButton onClick={stTimeHandleToggle} ref={stTimeBtnRef}>
+                                <DateButton onClick={stTimeHandleToggle} ref={stTimeBtnRef}>
                                     {dayjs(stDate).format('HH:mm')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={stTimeRef}>
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={stTimeRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {stTimeOpen && (
                                             <CustomClock
@@ -223,7 +218,7 @@ export const AddScheduleComponent = () => {
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                         </Stack>
                     </Box>
@@ -233,13 +228,10 @@ export const AddScheduleComponent = () => {
                         <Typography variant="body1">종료일</Typography>
                         <Stack direction="row" spacing={1}>
                             <Box>
-                                <CustomDateButton
-                                    onClick={enCalendarHandleToggle}
-                                    ref={enCalendarBtnRef}
-                                >
+                                <DateButton onClick={enCalendarHandleToggle} ref={enCalendarBtnRef}>
                                     {dayjs(enDate).format('YYYY-MM-DD')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={enCalendarRef}>
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={enCalendarRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {enCalendarOpen && (
                                             <DateCalendar
@@ -253,13 +245,13 @@ export const AddScheduleComponent = () => {
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                             <Box>
-                                <CustomDateButton onClick={enTimeHandleToggle} ref={enTimeBtnRef}>
+                                <DateButton onClick={enTimeHandleToggle} ref={enTimeBtnRef}>
                                     {dayjs(enDate).format('HH:mm')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={enTimeRef}>
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={enTimeRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {enTimeOpen && (
                                             <CustomClock
@@ -272,7 +264,7 @@ export const AddScheduleComponent = () => {
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                         </Stack>
                     </Box>
