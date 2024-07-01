@@ -4,10 +4,11 @@ import { Grid, IconButton, InputAdornment, Modal, Typography } from '@mui/materi
 import SearchIcon from '@mui/icons-material/Search';
 import { CalendarComponent } from './body/CalendarComponent';
 import {
-    CustomCalendarBox,
-    CustomTextField,
-    CustomTopBox,
-    ModalBox
+    BodyContainer,
+    BodyGridWrapper,
+    BodyTextField,
+    CalendarBoxWrapper,
+    ModalWrapper
 } from '../assets/styles/body.styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
@@ -35,14 +36,8 @@ export const Body = () => {
 
     return (
         <>
-            <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                height="100%"
-                position="relative"
-            >
-                <CustomTopBox container columns={12}>
+            <BodyContainer>
+                <BodyGridWrapper container columns={12}>
                     <Grid item laptop={9} mobile={8}>
                         <Box
                             sx={{
@@ -53,7 +48,7 @@ export const Body = () => {
                         </Box>
                     </Grid>
                     <Grid item laptop={3} mobile={4}>
-                        <CustomTextField
+                        <BodyTextField
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -65,10 +60,10 @@ export const Body = () => {
                             }}
                         />
                     </Grid>
-                </CustomTopBox>
-                <CustomCalendarBox height={{ laptop: '100%', mobile: '50%' }}>
+                </BodyGridWrapper>
+                <CalendarBoxWrapper height={{ laptop: '100%', mobile: '50%' }}>
                     <CalendarComponent handleOnClick={handleOnClick} />
-                </CustomCalendarBox>
+                </CalendarBoxWrapper>
                 {isShow && (
                     <Box height="50%" overflow="hidden" className="listBox">
                         <Box
@@ -85,11 +80,11 @@ export const Body = () => {
                         </Box>
                     </Box>
                 )}
-            </Box>
+            </BodyContainer>
             <Modal open={open} onClose={handleClose} sx={{ justifyContent: 'flex-start' }}>
-                <ModalBox width={{ mobile: '100%', tablet: '500px' }}>
+                <ModalWrapper width={{ mobile: '100%', tablet: '500px' }}>
                     <Aside />
-                </ModalBox>
+                </ModalWrapper>
             </Modal>
         </>
     );
