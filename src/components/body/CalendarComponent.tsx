@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import { Grid, Typography } from '@mui/material';
-import {
-    CustomGridCont,
-    CustomGridTit,
-    CustomSelectedTypo,
-    CustomThisMonthTypo,
-    CustomTodayTypo,
-    ScheduleBox,
-    TodoCircleBox
-} from '../../assets/styles/body.styles';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { currentDateInfo, dowKo } from '../../utils/date';
 import { useRecoilValue } from 'recoil';
 import { selectedDate } from '../../recoil/selectedDate';
 import dayjs from 'dayjs';
-import { api } from '../../apis/baseApi';
 import CircleIcon from '@mui/icons-material/Circle';
+import { useMutation } from '@tanstack/react-query';
+import { getTodoMonthlyList, getScheduleMonthlyList } from '../../services/calendarService';
+import {
+    CalendarDate,
+    CalendarGrid,
+    CalendarSelectedDate,
+    CalendarToday,
+    CalendarWrapper,
+    ScheduleWrap,
+    TodoCircleIcon
+} from '../../assets/styles/calendar.styles';
 
 export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: string) => void }) => {
     const [year, setYear] = useState<number>(currentDateInfo.thisYear);
@@ -28,6 +29,22 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
     const selectDate = useRecoilValue(selectedDate);
     const [todoList, setTodoList] = useState([]);
     const [scheduleList, setScheduleList] = useState<{ [key: number]: [] }>({});
+    const { mutate: mutateTodoMonthlyList } = useMutation({
+        mutationFn: () => getTodoMonthlyList({ year, month }),
+        onSuccess: (data) => {
+            if (data.status === 200) {
+                setTodoList(data.todo);
+            }
+        }
+    });
+    const { mutate: mutateScheduleMonthlyList } = useMutation({
+        mutationFn: () => getScheduleMonthlyList({ year, month }),
+        onSuccess: (data) => {
+            if (data.status === 200) {
+                setScheduleList(data.schedule);
+            }
+        }
+    });
 
     const handleLastMonth = () => {
         if (month === 1) {
@@ -47,40 +64,6 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
         }
     };
 
-    const handleMonthTodo = async () => {
-        try {
-            const { data } = await api.get(`/todo/month`, {
-                params: {
-                    year,
-                    month
-                }
-            });
-
-            if (data.status === 200) {
-                setTodoList(data.todo);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleMonthSchedule = async () => {
-        try {
-            const { data } = await api.get(`/schedule/month`, {
-                params: {
-                    year,
-                    month
-                }
-            });
-
-            if (data.status === 200) {
-                setScheduleList(data.schedule);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     useEffect(() => {
         const newFirstDate = new Date(year, month - 1, 1);
         setFirstDate(newFirstDate);
@@ -88,8 +71,8 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
         const newLastDate = new Date(year, month, 0);
         setLastDate(newLastDate);
 
-        handleMonthTodo();
-        handleMonthSchedule();
+        mutateTodoMonthlyList();
+        mutateScheduleMonthlyList();
     }, [year, month]);
 
     useEffect(() => {
@@ -123,27 +106,27 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                             onClick={() => handleOnClick(dateFormatted)}
                         >
                             {todoList[date] > 0 && (
-                                <TodoCircleBox>
+                                <TodoCircleIcon>
                                     <CircleIcon />
-                                </TodoCircleBox>
+                                </TodoCircleIcon>
                             )}
                             {currentDateInfo.thisYear === year &&
                             currentDateInfo.thisMonth === month &&
                             currentDateInfo.date.getDate() === date ? (
-                                <CustomTodayTypo variant="body1">{date}</CustomTodayTypo>
+                                <CalendarToday variant="body1">{date}</CalendarToday>
                             ) : selectDate === dateFormatted ? (
-                                <CustomSelectedTypo variant="body1">{date}</CustomSelectedTypo>
+                                <CalendarSelectedDate variant="body1">{date}</CalendarSelectedDate>
                             ) : (
-                                <CustomThisMonthTypo variant="body1">{date}</CustomThisMonthTypo>
+                                <CalendarDate variant="body1">{date}</CalendarDate>
                             )}
-                            <ScheduleBox>
+                            <ScheduleWrap>
                                 {scheduleList[date] &&
                                     scheduleList[date].map((data: any, idx: number) => (
                                         <Typography key={idx} color={data.color}>
                                             {data.title}
                                         </Typography>
                                     ))}
-                            </ScheduleBox>
+                            </ScheduleWrap>
                         </Grid>
                     );
                 }
@@ -157,7 +140,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
 
     return (
         <Box height="100%" position="relative">
-            <CustomGridTit container columns={{ mobile: 3, laptop: 5 }}>
+            <CalendarWrapper container columns={{ mobile: 3, laptop: 5 }}>
                 <Grid item mobile={1} laptop={2} textAlign="right" key="prev">
                     <NavigateBeforeIcon onClick={handleLastMonth} />
                 </Grid>
@@ -171,19 +154,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                         currentDateInfo.thisYear === year && currentDateInfo.thisMonth === month
                     ) && <NavigateNextIcon onClick={handleNextMonth} />}
                 </Grid>
-            </CustomGridTit>
-            {/* <CustomTabBox>
-                <Tabs
-                    value={tabVal}
-                    onChange={handleTabChange}
-                    TabIndicatorProps={{ style: { display: 'none' } }}
-                >
-                    <CustomTab label="일" disableRipple />
-                    <CustomTab label="주" disableRipple />
-                    <CustomTab label="월" disableRipple />
-                    <CustomTab label="년" disableRipple />
-                </Tabs>
-            </CustomTabBox> */}
+            </CalendarWrapper>
             <Grid container columns={7}>
                 {dowKo.map((data, idx) => (
                     <Grid item mobile={1} key={idx}>
@@ -191,9 +162,9 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                     </Grid>
                 ))}
             </Grid>
-            <CustomGridCont container columns={7} sx={{ boxShadow: 1 }}>
+            <CalendarGrid container columns={7} sx={{ boxShadow: 1 }}>
                 {calendar}
-            </CustomGridCont>
+            </CalendarGrid>
         </Box>
     );
 };
