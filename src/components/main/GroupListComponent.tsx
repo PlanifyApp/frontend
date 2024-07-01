@@ -1,17 +1,16 @@
 import { ListItemIcon } from '@mui/material';
 import { useEffect } from 'react';
 import { api } from '../../apis/baseApi';
-import {
-    CloseBtnWrap,
-    CustomList,
-    CustomListItem,
-    CustomListItemText,
-    closeBtn
-} from '../../assets/styles/aside.styles';
+import { CloseBtnWrap, closeBtn } from '../../assets/styles/aside.styles';
 import { useRecoilState } from 'recoil';
 import { groupList } from '../../recoil/groupList';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useModal } from '../../hooks/useModal';
+import {
+    ListItemInlineText,
+    ListItemWrapper,
+    ListWrapper
+} from '../../assets/styles/common.styles';
 
 export const GroupListComponent = () => {
     const { handleToggle } = useModal();
@@ -39,10 +38,10 @@ export const GroupListComponent = () => {
                 <CloseOutlinedIcon {...closeBtn} onClick={handleToggle} />
             </CloseBtnWrap>
 
-            <CustomList>
+            <ListWrapper>
                 {group.length > 0 &&
                     group.map((data, index) => (
-                        <CustomListItem key={index}>
+                        <ListItemWrapper key={index}>
                             <ListItemIcon
                                 sx={{
                                     minWidth: 'initial',
@@ -53,10 +52,10 @@ export const GroupListComponent = () => {
                                     backgroundColor: data.color
                                 }}
                             ></ListItemIcon>
-                            <CustomListItemText primary={data.title} />
-                        </CustomListItem>
+                            <ListItemInlineText primary={data.title} />
+                        </ListItemWrapper>
                     ))}
-            </CustomList>
+            </ListWrapper>
         </>
     );
 };

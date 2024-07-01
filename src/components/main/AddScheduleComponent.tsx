@@ -26,7 +26,8 @@ import { useRecoilValue } from 'recoil';
 import { groupList } from '../../recoil/groupList';
 import { selectedDate } from '../../recoil/selectedDate';
 import CircleIcon from '@mui/icons-material/Circle';
-import { api } from '../../apis/baseApi';
+import { useMutation } from '@tanstack/react-query';
+import { saveScheduleData } from '../../services/scheduleService';
 
 export const AddScheduleComponent = () => {
     const selectDate = useRecoilValue(selectedDate);
@@ -72,24 +73,25 @@ export const AddScheduleComponent = () => {
         handleToggle: groupHandleToggle
     } = useModal();
 
-    const handleOnSubmit = async () => {
-        handleValidate();
-
-        try {
-            const { data } = await api.post('/schedule/store', {
+    const { mutate: mutateScheduleData } = useMutation({
+        mutationFn: () =>
+            saveScheduleData({
                 title,
                 memo,
                 stDate,
                 enDate,
                 groupId: group[groupIdx].id
-            });
-
+            }),
+        onSuccess: (data) => {
             if (data.status === 200) {
                 alert('저장되었습니다.');
             }
-        } catch (error) {
-            console.log(error);
         }
+    });
+
+    const handleOnSubmit = async () => {
+        handleValidate();
+        mutateScheduleData();
     };
 
     const handleValidate = () => {

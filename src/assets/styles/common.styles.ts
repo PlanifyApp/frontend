@@ -1,4 +1,14 @@
-import { Box, ButtonBase, FormControl, Button, createTheme, styled } from '@mui/material';
+import {
+    Box,
+    ButtonBase,
+    FormControl,
+    Button,
+    createTheme,
+    styled,
+    List,
+    ListItem,
+    ListItemText
+} from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -180,7 +190,8 @@ export const DateModal = styled(Box)(({ theme }) => ({
     boxShadow: theme.shadows[2]
 }));
 
-export const ScrollBox = styled(Box)(({ theme }) => ({
+// common scroll design
+export const ScrollWrapper = styled(Box)(({ theme }) => ({
     '&::-webkit-scrollbar': {
         backgroundColor: theme.palette.background.default,
         width: '7px'
@@ -197,3 +208,33 @@ export const ScrollBox = styled(Box)(({ theme }) => ({
         }
     }
 }));
+
+//common list style
+export const ListWrapper = styled(List)`
+    padding: 0;
+`;
+
+export const ListItemWrapper = styled(ListItem)`
+    padding: 0;
+    margin-top: 15px;
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    & .MuiButtonBase-root {
+        padding: 0;
+
+        &:hover {
+            background: none;
+        }
+    }
+`;
+
+export const ListItemInlineText = styled(ListItemText)`
+    & .MuiTypography-root {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+`;

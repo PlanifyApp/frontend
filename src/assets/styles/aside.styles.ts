@@ -1,4 +1,4 @@
-import { Box, Button, Grid, List, ListItem, ListItemText, TextField, styled } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography, styled } from '@mui/material';
 import { DateCalendar, MultiSectionDigitalClock } from '@mui/x-date-pickers';
 import { CommonFormControl } from './common.styles';
 
@@ -38,35 +38,17 @@ export const DatePicker = styled(DateCalendar)`
     }
 `;
 
+export const TodoListWrapper = styled(Box)(({ theme }) => ({
+    paddingTop: '25px',
+    borderTop: `1px solid ${theme.palette.secondary.main}`,
+    overflow: 'hidden'
+}));
+
+export const TodoListTitle = styled(Typography)`
+    height: 30px;
+    margin-bottom: 15px;
+`;
 //
-export const CustomList = styled(List)`
-    padding: 0;
-`;
-
-export const CustomListItem = styled(ListItem)`
-    padding: 0;
-    margin-top: 15px;
-
-    &:first-of-type {
-        margin-top: 0;
-    }
-
-    & .MuiButtonBase-root {
-        padding: 0;
-
-        &:hover {
-            background: none;
-        }
-    }
-`;
-
-export const CustomListItemText = styled(ListItemText)`
-    & .MuiTypography-root {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-`;
 
 export const useIconStyle = {
     sx: {
@@ -107,12 +89,6 @@ export const CustomColorBox = styled(Box)`
             padding: 5px;
         }
     }
-`;
-
-export const ChipIcon = styled(Box)`
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
 `;
 
 export const CustomClock = styled(MultiSectionDigitalClock)`

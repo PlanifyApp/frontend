@@ -9,11 +9,10 @@ import {
     CustomTopBox,
     ModalBox
 } from '../assets/styles/body.styles';
-import logo from '../assets/imgs/logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
 import { ListComponent } from './aside/ListComponent';
-import { ScrollBox, theme } from '../assets/styles/common.styles';
+import { ScrollWrapper, theme } from '../assets/styles/common.styles';
 import { useRecoilState } from 'recoil';
 import { selectedDate } from '../recoil/selectedDate';
 
@@ -80,9 +79,9 @@ export const Body = () => {
                             height="100%"
                         >
                             <Typography variant="h5">todo List</Typography>
-                            <ScrollBox sx={{ overflowY: 'auto' }} height="calc(100% - 55px)">
+                            <ScrollWrapper sx={{ overflowY: 'auto' }} height="calc(100% - 55px)">
                                 <ListComponent />
-                            </ScrollBox>
+                            </ScrollWrapper>
                         </Box>
                     </Box>
                 )}

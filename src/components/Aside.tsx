@@ -8,7 +8,9 @@ import {
     AuthWrapper,
     LogoWrap,
     GroupModalWrapper,
-    DatePicker
+    DatePicker,
+    TodoListWrapper,
+    TodoListTitle
 } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DragIndicatorOutlinedIcon from '@mui/icons-material/DragIndicatorOutlined';
@@ -17,7 +19,7 @@ import { ListComponent } from './aside/ListComponent';
 import { GroupModalComponent } from './modal/GroupModalComponent';
 import { ButtonComponent } from './aside/ButtonComponent';
 import 'react-color-palette/css';
-import { ScrollBox } from '../assets/styles/common.styles';
+import { ScrollWrapper } from '../assets/styles/common.styles';
 import { MiddleModalComponent } from './modal/MiddleModalComponent';
 import { AddScheduleComponent } from './main/AddScheduleComponent';
 import { AddTodoComponent } from './main/AddTodoComponent';
@@ -102,20 +104,12 @@ export const Aside = () => {
                         <DatePicker views={['month', 'day']} />
                     </LocalizationProvider>
                 </Box>
-                <Box
-                    pt="25px"
-                    borderTop={1}
-                    borderColor="secondary.main"
-                    height={listHeight}
-                    overflow="hidden"
-                >
-                    <Typography variant="h5" height="30px" marginBottom="15px">
-                        todo List
-                    </Typography>
-                    <ScrollBox height={'calc(100% - 30px)'} sx={{ overflowY: 'auto' }}>
+                <TodoListWrapper height={listHeight}>
+                    <TodoListTitle variant="h5">todo List</TodoListTitle>
+                    <ScrollWrapper height={'calc(100% - 30px)'} sx={{ overflowY: 'auto' }}>
                         <ListComponent />
-                    </ScrollBox>
-                </Box>
+                    </ScrollWrapper>
+                </TodoListWrapper>
             </Box>
             <GroupModalWrapper container alignItems="flex-end">
                 <GroupModalComponent

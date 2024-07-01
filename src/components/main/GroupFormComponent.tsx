@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useState } from 'react';
 import { CommonFormControl } from '../../assets/styles/common.styles';
 import { TextField } from '@mui/material';
 import {
@@ -10,26 +10,21 @@ import {
 import { CirclePicker } from 'react-color';
 import { FormControl } from '@mui/base';
 import { ButtonComponent } from '../aside/ButtonComponent';
-import { api } from '../../apis/baseApi';
 import { useRecoilState } from 'recoil';
 import { groupList } from '../../recoil/groupList';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useModal } from '../../hooks/useModal';
+import { useMutation } from '@tanstack/react-query';
+import { saveGroupData } from '../../services/groupService';
 
 export const GroupFormComponent = () => {
     const { handleToggle } = useModal();
     const [title, setTitle] = useState<string>('');
     const [color, setColor] = useState<string>('#fff');
     const [group, setGroup] = useRecoilState(groupList);
-
-    const handleColor = (colorCode: string) => {
-        setColor(colorCode);
-    };
-
-    const handleOnSubmit = async () => {
-        try {
-            const { data } = await api.post('/group/store', { title: title, color: color });
-
+    const { mutate: mutateGroupData } = useMutation({
+        mutationFn: () => saveGroupData({ title, color }),
+        onSuccess: (data) => {
             if (data.status === 200) {
                 setGroup([
                     ...group,
@@ -38,11 +33,11 @@ export const GroupFormComponent = () => {
                 setTitle('');
                 setColor('#fff');
             }
-
-            handleToggle && handleToggle();
-        } catch (error) {
-            console.log(error);
         }
+    });
+
+    const handleColor = (colorCode: string) => {
+        setColor(colorCode);
     };
 
     return (
@@ -72,7 +67,7 @@ export const GroupFormComponent = () => {
                 </CustomColorBox>
             </CommonFormControl>
             <FormControl>
-                <ButtonComponent str="추가" onClick={handleOnSubmit} />
+                <ButtonComponent str="추가" onClick={mutateGroupData} />
             </FormControl>
         </>
     );

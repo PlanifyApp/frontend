@@ -17,6 +17,8 @@ import {
     TodoWrapper
 } from '../../assets/styles/todo.styles';
 import { DateButton, DateModal } from '../../assets/styles/common.styles';
+import { useMutation } from '@tanstack/react-query';
+import { getTodoList, saveTodoData } from '../../services/todoService';
 
 export const AddTodoComponent = () => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
@@ -25,27 +27,34 @@ export const AddTodoComponent = () => {
     const [date, setDate] = useState(selectDate);
     const [, setTodoData] = useRecoilState(todoList);
 
+    const { mutate: mutateTodoList } = useMutation({
+        mutationFn: (date: string) => getTodoList(date),
+        onSuccess: (data) => {
+            if (data.status === 200) {
+                setTodoData(data.dataList);
+            }
+        }
+    });
+
+    const { mutate: mutateTodoData } = useMutation({
+        mutationFn: () => saveTodoData({ title: value, date }),
+        onSuccess: (data) => {
+            if (data.status === 200) {
+                setValue('');
+
+                if (selectDate === date) {
+                    const formattedDate = dayjs(date).format('YYYY-MM-DD');
+                    mutateTodoList(formattedDate);
+                }
+            }
+        }
+    });
+
     const handleAlert = (msg: string, fn: () => void) => {
         const ans = confirm(msg);
 
         if (ans) fn();
         else return;
-    };
-
-    const getTodoList = async () => {
-        try {
-            const { data } = await api.get('/todo/list', {
-                params: {
-                    date: dayjs(date).format('YYYY-MM-DD')
-                }
-            });
-
-            if (data.status === 200) {
-                setTodoData(data.dataList);
-            }
-        } catch (error) {
-            console.log(error);
-        }
     };
 
     const handleKeydown = async (e: KeyboardEvent<HTMLInputElement>) => {
@@ -56,23 +65,7 @@ export const AddTodoComponent = () => {
 
     const handleOnSubmit = async () => {
         handleValidate();
-
-        try {
-            const { data } = await api.post('/todo/store', {
-                title: value,
-                date: date
-            });
-
-            if (data.status === 200) {
-                setValue('');
-
-                if (selectDate === date) {
-                    getTodoList();
-                }
-            }
-        } catch (error) {
-            console.log(error);
-        }
+        mutateTodoData();
     };
 
     const handleValidate = () => {
