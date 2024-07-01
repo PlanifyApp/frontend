@@ -11,26 +11,21 @@ import {
     ListItemWrapper,
     ListWrapper
 } from '../../assets/styles/common.styles';
+import { useQuery } from '@tanstack/react-query';
+import { getGroupList } from '../../services/groupService';
 
 export const GroupListComponent = () => {
     const { handleToggle } = useModal();
     const [group, setGroup] = useRecoilState(groupList);
-
-    const getUserGroup = async () => {
-        try {
-            const { data } = await api.get('/group/list');
-
+    useQuery({
+        queryKey: ['groupList'],
+        queryFn: async () => {
+            const data = await getGroupList();
             if (data.status == 200) {
                 setGroup(data.newData);
             }
-        } catch (error) {
-            console.log(error);
         }
-    };
-
-    useEffect(() => {
-        getUserGroup();
-    }, []);
+    });
 
     return (
         <>

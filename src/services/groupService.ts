@@ -10,3 +10,14 @@ export const saveGroupData = async ({ title, color }: { title: string; color: st
         throw error;
     }
 };
+
+export const getGroupList = async () => {
+    try {
+        const { data } = await api.get('/group/list');
+
+        return data;
+    } catch (error) {
+        console.log('Error get group list:', error);
+        throw error;
+    }
+};
