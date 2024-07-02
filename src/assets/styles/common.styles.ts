@@ -192,6 +192,7 @@ export const DateModal = styled(Box)(({ theme }) => ({
 
 // common scroll design
 export const ScrollWrapper = styled(Box)(({ theme }) => ({
+    overflowY: 'auto',
     '&::-webkit-scrollbar': {
         backgroundColor: theme.palette.background.default,
         width: '7px'

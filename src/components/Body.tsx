@@ -8,6 +8,7 @@ import {
     BodyGridWrapper,
     BodyTextField,
     CalendarBoxWrapper,
+    MenuWrapper,
     ModalWrapper
 } from '../assets/styles/body.styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -39,13 +40,9 @@ export const Body = () => {
             <BodyContainer>
                 <BodyGridWrapper container columns={12}>
                     <Grid item laptop={9} mobile={8}>
-                        <Box
-                            sx={{
-                                display: { mobile: 'block', desktop: 'none' }
-                            }}
-                        >
+                        <MenuWrapper>
                             <MenuIcon onClick={handleOpen} sx={{ cursor: 'pointer' }} />
-                        </Box>
+                        </MenuWrapper>
                     </Grid>
                     <Grid item laptop={3} mobile={4}>
                         <BodyTextField
@@ -61,7 +58,7 @@ export const Body = () => {
                         />
                     </Grid>
                 </BodyGridWrapper>
-                <CalendarBoxWrapper height={{ laptop: '100%', mobile: '50%' }}>
+                <CalendarBoxWrapper>
                     <CalendarComponent handleOnClick={handleOnClick} />
                 </CalendarBoxWrapper>
                 {isShow && (
@@ -74,7 +71,7 @@ export const Body = () => {
                             height="100%"
                         >
                             <Typography variant="h5">todo List</Typography>
-                            <ScrollWrapper sx={{ overflowY: 'auto' }} height="calc(100% - 55px)">
+                            <ScrollWrapper height="calc(100% - 55px)">
                                 <ListComponent />
                             </ScrollWrapper>
                         </Box>
@@ -82,7 +79,7 @@ export const Body = () => {
                 )}
             </BodyContainer>
             <Modal open={open} onClose={handleClose} sx={{ justifyContent: 'flex-start' }}>
-                <ModalWrapper width={{ mobile: '100%', tablet: '500px' }}>
+                <ModalWrapper>
                     <Aside />
                 </ModalWrapper>
             </Modal>

@@ -1,6 +1,4 @@
 import { ListItemIcon } from '@mui/material';
-import { useEffect } from 'react';
-import { api } from '../../apis/baseApi';
 import { CloseBtnWrap, closeBtn } from '../../assets/styles/aside.styles';
 import { useRecoilState } from 'recoil';
 import { groupList } from '../../recoil/groupList';
