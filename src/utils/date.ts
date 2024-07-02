@@ -1,4 +1,4 @@
-export const dowKo = ['일', '월', '화', '수', '목', '금', '토', '일'];
+export const dowKo = ['일', '월', '화', '수', '목', '금', '토'];
 
 const date = new Date();
 const thisYear = date.getFullYear();

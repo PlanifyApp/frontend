@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import { Container, CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Aside } from './components/Aside';
-import {
-    AsideContainer,
-    BodyContainer,
-    CommonBox,
-    CommonInnerBox,
-    theme
-} from './assets/styles/common.styles';
-import { Body } from './components/Body';
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { RootWrapper, RootInnerWrapper, theme } from './assets/styles/common.styles';
+import { RecoilRoot } from 'recoil';
+import { Main } from './pages/Main';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
-    const isShow = useMediaQuery(theme.breakpoints.up('desktop'));
+    const queryClient = new QueryClient();
     const [height, setHeight] = useState<number>(1600);
 
     const getHeight = () => {
@@ -36,29 +30,20 @@ function App() {
     }, []);
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Container maxWidth="desktop" disableGutters>
-                <CommonBox>
-                    <CommonInnerBox height={{ laptop: height, mobile: '100%' }}>
-                        <Grid container columns={12} height="100%">
-                            {isShow && (
-                                <Grid desktop={3}>
-                                    <AsideContainer>
-                                        <Aside />
-                                    </AsideContainer>
-                                </Grid>
-                            )}
-                            <Grid mobile={12} desktop={9} height="100%">
-                                <BodyContainer>
-                                    <Body />
-                                </BodyContainer>
-                            </Grid>
-                        </Grid>
-                    </CommonInnerBox>
-                </CommonBox>
-            </Container>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+            <RecoilRoot>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Container maxWidth="desktop" disableGutters>
+                        <RootWrapper>
+                            <RootInnerWrapper height={{ laptop: height, mobile: '100%' }}>
+                                <Main />
+                            </RootInnerWrapper>
+                        </RootWrapper>
+                    </Container>
+                </ThemeProvider>
+            </RecoilRoot>
+        </QueryClientProvider>
     );
 }
 

@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { CustomButton } from '../../assets/styles/aside.styles';
+import { CommonButton } from '../../assets/styles/common.styles';
 import { Typography } from '@mui/material';
 
 type ComponentProps = {
@@ -11,10 +11,10 @@ export const ButtonComponent = forwardRef<HTMLButtonElement, ComponentProps>((pr
     const { str, onClick } = props;
 
     return (
-        <CustomButton onClick={onClick} ref={ref}>
+        <CommonButton onClick={onClick} ref={ref}>
             <Typography variant="body1" fontWeight="bold">
                 {str}
             </Typography>
-        </CustomButton>
+        </CommonButton>
     );
 });

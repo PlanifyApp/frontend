@@ -1,7 +1,19 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
-import { SocialGoogleBox, SocialKakaoBox, SocialNaverBox } from '../assets/styles/aside.styles';
+import { Grid, Stack, Typography } from '@mui/material';
+import { SocialGoogleBox, SocialKakaoBox, SocialNaverBox } from '../assets/styles/social.styles';
 
 export const Social = () => {
+    const naverLocation = () => {
+        window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/naver`;
+    };
+
+    const googleLocation = () => {
+        window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/google`;
+    };
+
+    const kakaoLocation = () => {
+        window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/kakao`;
+    };
+
     return (
         <Stack spacing={3}>
             <Typography variant="h3" align="center">
@@ -12,13 +24,19 @@ export const Social = () => {
             </Typography>
             <Grid container columns={3} height="100%" alignItems="center" justifyContent="center">
                 <Grid item mobile={1}>
-                    <SocialNaverBox className="socialNaver">naver</SocialNaverBox>
+                    <SocialNaverBox className="socialNaver" onClick={naverLocation}>
+                        naver
+                    </SocialNaverBox>
                 </Grid>
                 <Grid item mobile={1}>
-                    <SocialGoogleBox className="socialGoogle">google</SocialGoogleBox>
+                    <SocialGoogleBox className="socialGoogle" onClick={googleLocation}>
+                        google
+                    </SocialGoogleBox>
                 </Grid>
                 <Grid item mobile={1}>
-                    <SocialKakaoBox className="socialKakao">kakao</SocialKakaoBox>
+                    <SocialKakaoBox className="socialKakao" onClick={kakaoLocation}>
+                        kakao
+                    </SocialKakaoBox>
                 </Grid>
             </Grid>
         </Stack>

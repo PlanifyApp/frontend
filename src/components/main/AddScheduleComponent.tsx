@@ -1,36 +1,42 @@
 import {
     Box,
-    Chip,
     FormControl,
     FormGroup,
     Grid,
     Stack,
     TextField,
-    Typography
+    Typography,
+    List,
+    ListItem
 } from '@mui/material';
-import { CommonFormControl } from '../../assets/styles/common.styles';
+import { CommonFormControl, DateButton, DateModal } from '../../assets/styles/common.styles';
 import {
-    ChipIcon,
     CustomClock,
-    CustomDateButton,
-    CustomDateModal,
-    CustomFormControl
+    CustomFormControl,
+    GroupButton,
+    GroupModalBox
 } from '../../assets/styles/aside.styles';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
 import { useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useModal } from '../../hooks/useModal';
-import { currentDateInfo } from '../../utils/date';
-
-const { min, date } = currentDateInfo;
-const minute = Math.floor(min);
-const newDate = date.setMinutes(minute);
+import { useRecoilValue } from 'recoil';
+import { groupList } from '../../recoil/groupList';
+import { selectedDate } from '../../recoil/selectedDate';
+import CircleIcon from '@mui/icons-material/Circle';
+import { useMutation } from '@tanstack/react-query';
+import { saveScheduleData } from '../../services/scheduleService';
 
 export const AddScheduleComponent = () => {
-    const [stDate, setStDate] = useState<Dayjs>(dayjs(newDate));
-    const [enDate, setEnDate] = useState<Dayjs>(dayjs(newDate));
+    const selectDate = useRecoilValue(selectedDate);
+    const [stDate, setStDate] = useState<string>(selectDate);
+    const [enDate, setEnDate] = useState<string>(selectDate);
+    const group = useRecoilValue(groupList);
+    const [groupIdx, setGroupIdx] = useState<number>(NaN);
+    const [title, setTitle] = useState<string>('');
+    const [memo, setMemo] = useState<string>('');
 
     const {
         ref: stCalendarRef,
@@ -60,71 +66,161 @@ export const AddScheduleComponent = () => {
         handleToggle: enTimeHandleToggle
     } = useModal();
 
+    const {
+        ref: groupRef,
+        buttonRef: groupBtnRef,
+        isOpen: groupOpen,
+        handleToggle: groupHandleToggle
+    } = useModal();
+
+    const { mutate: mutateScheduleData } = useMutation({
+        mutationFn: () =>
+            saveScheduleData({
+                title,
+                memo,
+                stDate,
+                enDate,
+                groupId: group[groupIdx].id
+            }),
+        onSuccess: (data) => {
+            if (data.status === 200) {
+                alert('저장되었습니다.');
+            }
+        }
+    });
+
+    const handleOnSubmit = async () => {
+        handleValidate();
+        mutateScheduleData();
+    };
+
+    const handleValidate = () => {
+        if (title === '') {
+            alert('제목을 입력해주세요');
+            return false;
+        }
+
+        if (memo === '') {
+            alert('메모를 입력해주세요');
+            return false;
+        }
+
+        if (Number.isNaN(groupIdx)) {
+            alert('카테고리를 선택해주세요');
+            return false;
+        }
+
+        if (dayjs(stDate) > dayjs(enDate)) {
+            alert('날짜를 확인해주세요.');
+            return false;
+        }
+    };
+
     return (
         <Grid container direction="column" justifyContent="space-between" height="100%">
             <FormGroup>
                 <CommonFormControl>
-                    <TextField fullWidth placeholder="제목" />
+                    <TextField
+                        fullWidth
+                        placeholder="제목"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
                 </CommonFormControl>
                 <CommonFormControl>
-                    <TextField fullWidth placeholder="메모" />
+                    <TextField
+                        fullWidth
+                        placeholder="메모"
+                        value={memo}
+                        onChange={(e) => setMemo(e.target.value)}
+                    />
                 </CommonFormControl>
                 <CustomFormControl>
                     <Box className="spaceBetween">
                         <Typography variant="body1">일정 선택</Typography>
-                        <Chip
-                            label="운동"
-                            icon={
-                                <ChipIcon
-                                    style={{
-                                        backgroundColor: '#673AB7'
-                                    }}
-                                />
-                            }
-                        />
+                        <Box>
+                            <GroupButton onClick={groupHandleToggle} ref={groupBtnRef}>
+                                {Number.isNaN(groupIdx) ? (
+                                    '카테고리 선택'
+                                ) : (
+                                    <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <CircleIcon
+                                            sx={{
+                                                width: '15px',
+                                                marginRight: '5px',
+                                                color: group[groupIdx].color
+                                            }}
+                                        />
+                                        {group[groupIdx].title}
+                                    </Typography>
+                                )}
+                            </GroupButton>
+                            <GroupModalBox ref={groupRef}>
+                                {groupOpen && (
+                                    <List onClick={groupHandleToggle}>
+                                        {group.map((data, idx) => (
+                                            <ListItem
+                                                key={idx}
+                                                onClick={() => setGroupIdx(idx)}
+                                                sx={{ cursor: 'pointer' }}
+                                            >
+                                                <CircleIcon
+                                                    sx={{
+                                                        width: '15px',
+                                                        marginRight: '5px',
+                                                        color: data.color
+                                                    }}
+                                                />
+                                                {data.title}
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                )}
+                            </GroupModalBox>
+                        </Box>
                     </Box>
                 </CustomFormControl>
                 <CommonFormControl>
                     <Box className="spaceBetween">
                         <Typography variant="body1">시작일</Typography>
-                        <Stack direction="row">
+                        <Stack direction="row" spacing={1}>
                             <Box>
-                                <CustomDateButton
-                                    value={stDate.format('YYYY.MM.DD')}
-                                    onClick={stCalendarHandleToggle}
-                                    ref={stCalendarBtnRef}
-                                >
-                                    {stDate.format('YYYY.MM.DD')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={stCalendarRef}>
+                                <DateButton onClick={stCalendarHandleToggle} ref={stCalendarBtnRef}>
+                                    {dayjs(stDate).format('YYYY-MM-DD')}
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={stCalendarRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {stCalendarOpen && (
                                             <DateCalendar
-                                                value={stDate}
-                                                onChange={(date) => setStDate(date)}
+                                                value={dayjs(stDate)}
+                                                onChange={(date) =>
+                                                    setStDate(
+                                                        dayjs(date).format('YYYY-MM-DD HH:mm:ss')
+                                                    )
+                                                }
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                             <Box>
-                                <CustomDateButton
-                                    value={stDate.format('HH:mm')}
-                                    onClick={stTimeHandleToggle}
-                                    ref={stTimeBtnRef}
-                                >
-                                    {stDate.format('HH:mm')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={stTimeRef}>
+                                <DateButton onClick={stTimeHandleToggle} ref={stTimeBtnRef}>
+                                    {dayjs(stDate).format('HH:mm')}
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={stTimeRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {stTimeOpen && (
                                             <CustomClock
-                                                value={stDate}
-                                                onChange={(time) => setStDate(time)}
+                                                value={dayjs(stDate)}
+                                                onChange={(time) =>
+                                                    setStDate(
+                                                        dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+                                                    )
+                                                }
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                         </Stack>
                     </Box>
@@ -132,51 +228,52 @@ export const AddScheduleComponent = () => {
                 <CommonFormControl>
                     <Box className="spaceBetween">
                         <Typography variant="body1">종료일</Typography>
-                        <Stack direction="row">
+                        <Stack direction="row" spacing={1}>
                             <Box>
-                                <CustomDateButton
-                                    value={enDate.format('YYYY.MM.DD')}
-                                    onClick={enCalendarHandleToggle}
-                                    ref={enCalendarBtnRef}
-                                >
-                                    {enDate.format('YYYY.MM.DD')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={enCalendarRef}>
+                                <DateButton onClick={enCalendarHandleToggle} ref={enCalendarBtnRef}>
+                                    {dayjs(enDate).format('YYYY-MM-DD')}
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={enCalendarRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {enCalendarOpen && (
                                             <DateCalendar
-                                                value={enDate}
-                                                onChange={(date) => setEnDate(date)}
+                                                value={dayjs(enDate)}
+                                                minDate={dayjs(stDate)}
+                                                onChange={(date) =>
+                                                    setEnDate(
+                                                        dayjs(date).format('YYYY-MM-DD HH:mm:ss')
+                                                    )
+                                                }
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                             <Box>
-                                <CustomDateButton
-                                    value={enDate.format('HH:mm')}
-                                    onClick={enTimeHandleToggle}
-                                    ref={enTimeBtnRef}
-                                >
-                                    {enDate.format('HH:mm')}
-                                </CustomDateButton>
-                                <CustomDateModal boxShadow={3} ref={enTimeRef}>
+                                <DateButton onClick={enTimeHandleToggle} ref={enTimeBtnRef}>
+                                    {dayjs(enDate).format('HH:mm')}
+                                </DateButton>
+                                <DateModal boxShadow={3} ref={enTimeRef}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         {enTimeOpen && (
                                             <CustomClock
-                                                value={enDate}
-                                                onChange={(time) => setEnDate(time)}
+                                                value={dayjs(enDate)}
+                                                onChange={(time) =>
+                                                    setEnDate(
+                                                        dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+                                                    )
+                                                }
                                             />
                                         )}
                                     </LocalizationProvider>
-                                </CustomDateModal>
+                                </DateModal>
                             </Box>
                         </Stack>
                     </Box>
                 </CommonFormControl>
             </FormGroup>
             <FormControl>
-                <ButtonComponent str="추가" />
+                <ButtonComponent str="추가" onClick={handleOnSubmit} />
             </FormControl>
         </Grid>
     );

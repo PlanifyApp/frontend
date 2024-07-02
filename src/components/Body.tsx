@@ -1,66 +1,53 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
-import { Box, useMediaQuery } from '@mui/system';
-import {
-    Backdrop,
-    Grid,
-    IconButton,
-    InputAdornment,
-    Modal,
-    TextField,
-    Typography
-} from '@mui/material';
+import { useState } from 'react';
+import { useMediaQuery } from '@mui/system';
+import { Grid, IconButton, InputAdornment, Modal, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { CalendarComponent } from './body/CalendarComponent';
 import {
-    AuthBox,
-    CustomCalendarBox,
-    CustomTextField,
-    CustomTopBox,
-    LogoBox,
-    ModalBox
+    BodyContainer,
+    BodyGridWrapper,
+    BodyTextField,
+    CalendarBoxWrapper,
+    MenuWrapper,
+    ModalWrapper,
+    TodoListContainer,
+    TodoListWrapper
 } from '../assets/styles/body.styles';
-import logo from '../assets/imgs/logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
 import { ListComponent } from './aside/ListComponent';
-import { ScrollBox, theme } from '../assets/styles/common.styles';
+import { ScrollWrapper, theme } from '../assets/styles/common.styles';
+import { useRecoilState } from 'recoil';
+import { selectedDate } from '../recoil/selectedDate';
 
 export const Body = () => {
     const isShow = useMediaQuery(theme.breakpoints.down('laptop'));
     const [open, setOpen] = useState(false);
+    const [, setDate] = useRecoilState(selectedDate);
 
     const handleClose = () => {
         setOpen(false);
     };
+
     const handleOpen = () => {
         setOpen(true);
     };
 
+    const handleOnClick = (val: string) => {
+        setDate(val);
+    };
+
     return (
         <>
-            <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                height="100%"
-                position="relative"
-            >
-                <CustomTopBox container columns={12}>
+            <BodyContainer>
+                <BodyGridWrapper container columns={12}>
                     <Grid item laptop={9} mobile={8}>
-                        {/* <AuthBox>
-                            <LogoBox>
-                                <img src={logo} alt="logo" width="100%" />
-                            </LogoBox>
-                            <Typography variant="body1" fontWeight="bold">
-                                로그인 / 회원가입
-                            </Typography>
-                        </AuthBox> */}
-                        <Box sx={{ display: { mobile: 'block', desktop: 'none' } }}>
-                            <MenuIcon onClick={handleOpen} />
-                        </Box>
+                        <MenuWrapper>
+                            <MenuIcon onClick={handleOpen} sx={{ cursor: 'pointer' }} />
+                        </MenuWrapper>
                     </Grid>
                     <Grid item laptop={3} mobile={4}>
-                        <CustomTextField
+                        <BodyTextField
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -72,31 +59,25 @@ export const Body = () => {
                             }}
                         />
                     </Grid>
-                </CustomTopBox>
-                <CustomCalendarBox height={{ laptop: '100%', mobile: '50%' }}>
-                    <CalendarComponent />
-                </CustomCalendarBox>
+                </BodyGridWrapper>
+                <CalendarBoxWrapper>
+                    <CalendarComponent handleOnClick={handleOnClick} />
+                </CalendarBoxWrapper>
                 {isShow && (
-                    <Box height="50%" overflow="hidden" className="listBox">
-                        <Box
-                            mt="25px"
-                            pt="25px"
-                            borderTop={1}
-                            borderColor="secondary.main"
-                            height="100%"
-                        >
+                    <TodoListContainer className="listBox">
+                        <TodoListWrapper>
                             <Typography variant="h5">todo List</Typography>
-                            <ScrollBox sx={{ overflowY: 'auto' }} height="calc(100% - 55px)">
+                            <ScrollWrapper height="calc(100% - 55px)">
                                 <ListComponent />
-                            </ScrollBox>
-                        </Box>
-                    </Box>
+                            </ScrollWrapper>
+                        </TodoListWrapper>
+                    </TodoListContainer>
                 )}
-            </Box>
+            </BodyContainer>
             <Modal open={open} onClose={handleClose} sx={{ justifyContent: 'flex-start' }}>
-                <ModalBox width={{ mobile: '100%', tablet: '500px' }}>
+                <ModalWrapper>
                     <Aside />
-                </ModalBox>
+                </ModalWrapper>
             </Modal>
         </>
     );

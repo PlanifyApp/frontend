@@ -1,13 +1,23 @@
-import { Box, FormControl, Grid, Modal, createTheme, styled } from '@mui/material';
+import {
+    Box,
+    ButtonBase,
+    FormControl,
+    Button,
+    createTheme,
+    styled,
+    List,
+    ListItem,
+    ListItemText
+} from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
-        xs: false; // removes the `xs` breakpoint
+        xs: false;
         sm: false;
         md: false;
         lg: false;
         xl: false;
-        mobile: true; // adds the `mobile` breakpoint
+        mobile: true;
         tablet: true;
         laptop: true;
         desktop: true;
@@ -95,21 +105,7 @@ theme.typography = {
     }
 };
 
-export const AsideContainer = styled(Box)`
-    padding: 20px;
-    position: relative;
-    height: 100%;
-`;
-
-export const BodyContainer = styled(Box)(({ theme }) => ({
-    padding: '20px',
-    height: '100%',
-    [theme.breakpoints.up('desktop')]: {
-        borderLeft: `1px solid ${theme.palette.secondary.main}`
-    }
-}));
-
-export const CommonBox = styled(Box)`
+export const RootWrapper = styled(Box)`
     width: 100%;
     height: 100vh;
     display: flex;
@@ -118,7 +114,7 @@ export const CommonBox = styled(Box)`
     padding: 15px;
 `;
 
-export const CommonInnerBox = styled(Box)(({ theme }) => ({
+export const RootInnerWrapper = styled(Box)(({ theme }) => ({
     width: '100%',
     borderRadius: '15px',
     maxHeight: '100%',
@@ -128,7 +124,75 @@ export const CommonInnerBox = styled(Box)(({ theme }) => ({
     }
 }));
 
-export const ScrollBox = styled(Box)(({ theme }) => ({
+export const PositionFixedCenter = styled(Box)`
+    position: fixed;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+`;
+
+export const Wrapper = styled(Box)`
+    padding: 20px;
+    position: relative;
+    height: 100%;
+`;
+
+export const AsideWrapper = styled(Wrapper)`
+    padding-right: 0;
+`;
+
+export const BodyWrapper = styled(Wrapper)(({ theme }) => ({
+    [theme.breakpoints.up('desktop')]: {
+        borderLeft: `1px solid ${theme.palette.secondary.main}`
+    }
+}));
+
+// button
+export const CommonButton = styled(ButtonBase)(({ theme }) => ({
+    width: '100%',
+    padding: '15px',
+    borderRadius: '15px',
+    backgroundColor: theme.palette.primary.main,
+
+    '& .MuiTypography-root': {
+        color: '#fff'
+    }
+}));
+
+// form control
+export const CommonFormControl = styled(FormControl)`
+    width: 100%;
+    margin-bottom: 10px;
+
+    .spaceBetween {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+    }
+`;
+
+// date button
+export const DateButton = styled(Button)`
+    border-radius: 20px;
+    padding: 5px 13px;
+    background: #f0f0f0;
+    color: #333;
+`;
+
+// date modal
+export const DateModal = styled(Box)(({ theme }) => ({
+    position: 'absolute',
+    transform: 'translate(0, 100%)',
+    bottom: '-5px',
+    zIndex: 999,
+    background: '#fff',
+    borderRadius: '20px',
+    boxShadow: theme.shadows[2]
+}));
+
+// common scroll design
+export const ScrollWrapper = styled(Box)(({ theme }) => ({
+    overflowY: 'auto',
     '&::-webkit-scrollbar': {
         backgroundColor: theme.palette.background.default,
         width: '7px'
@@ -146,28 +210,32 @@ export const ScrollBox = styled(Box)(({ theme }) => ({
     }
 }));
 
-export const CommonFormControl = styled(FormControl)`
-    width: 100%;
-    margin-bottom: 10px;
+//common list style
+export const ListWrapper = styled(List)`
+    padding: 0;
+`;
 
-    .spaceBetween {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
+export const ListItemWrapper = styled(ListItem)`
+    padding: 0;
+    margin-top: 15px;
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    & .MuiButtonBase-root {
+        padding: 0;
+
+        &:hover {
+            background: none;
+        }
     }
 `;
 
-export const CommonModal = styled(Modal)(({ theme }) => ({
-    '& .MuiPaper-root': {
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '80%',
-        height: '80%',
-        [theme.breakpoints.up('laptop')]: {
-            maxWidth: '500px',
-            maxHeight: '500px'
-        }
+export const ListItemInlineText = styled(ListItemText)`
+    & .MuiTypography-root {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
-}));
+`;
