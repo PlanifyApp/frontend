@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, useMediaQuery } from '@mui/system';
+import { useMediaQuery } from '@mui/system';
 import { Grid, IconButton, InputAdornment, Modal, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { CalendarComponent } from './body/CalendarComponent';
@@ -9,7 +9,9 @@ import {
     BodyTextField,
     CalendarBoxWrapper,
     MenuWrapper,
-    ModalWrapper
+    ModalWrapper,
+    TodoListContainer,
+    TodoListWrapper
 } from '../assets/styles/body.styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
@@ -21,7 +23,7 @@ import { selectedDate } from '../recoil/selectedDate';
 export const Body = () => {
     const isShow = useMediaQuery(theme.breakpoints.down('laptop'));
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useRecoilState(selectedDate);
+    const [, setDate] = useRecoilState(selectedDate);
 
     const handleClose = () => {
         setOpen(false);
@@ -62,20 +64,14 @@ export const Body = () => {
                     <CalendarComponent handleOnClick={handleOnClick} />
                 </CalendarBoxWrapper>
                 {isShow && (
-                    <Box height="50%" overflow="hidden" className="listBox">
-                        <Box
-                            mt="25px"
-                            pt="25px"
-                            borderTop={1}
-                            borderColor="secondary.main"
-                            height="100%"
-                        >
+                    <TodoListContainer className="listBox">
+                        <TodoListWrapper>
                             <Typography variant="h5">todo List</Typography>
                             <ScrollWrapper height="calc(100% - 55px)">
                                 <ListComponent />
                             </ScrollWrapper>
-                        </Box>
-                    </Box>
+                        </TodoListWrapper>
+                    </TodoListContainer>
                 )}
             </BodyContainer>
             <Modal open={open} onClose={handleClose} sx={{ justifyContent: 'flex-start' }}>

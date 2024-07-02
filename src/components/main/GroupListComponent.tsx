@@ -1,5 +1,4 @@
-import { ListItemIcon } from '@mui/material';
-import { CloseBtnWrap, closeBtn } from '../../assets/styles/aside.styles';
+import { CloseBtnWrap, GroupListColorIcon, closeBtn } from '../../assets/styles/aside.styles';
 import { useRecoilState } from 'recoil';
 import { groupList } from '../../recoil/groupList';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -35,16 +34,11 @@ export const GroupListComponent = () => {
                 {group.length > 0 &&
                     group.map((data, index) => (
                         <ListItemWrapper key={index}>
-                            <ListItemIcon
+                            <GroupListColorIcon
                                 sx={{
-                                    minWidth: 'initial',
-                                    width: '20px',
-                                    height: '20px',
-                                    borderRadius: '50%',
-                                    marginRight: '10px',
                                     backgroundColor: data.color
                                 }}
-                            ></ListItemIcon>
+                            ></GroupListColorIcon>
                             <ListItemInlineText primary={data.title} />
                         </ListItemWrapper>
                     ))}

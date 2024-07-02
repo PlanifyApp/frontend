@@ -47,3 +47,15 @@ export const MenuWrapper = styled(Box)(({ theme }) => ({
         display: 'block'
     }
 }));
+
+export const TodoListContainer = styled(Box)`
+    height: '50%';
+    overflow: 'hidden';
+`;
+
+export const TodoListWrapper = styled(Box)(({ theme }) => ({
+    marginTop: '25px',
+    paddingTop: '25px',
+    borderTop: `1px solid ${theme.palette.secondary.main}`,
+    height: '100%'
+}));

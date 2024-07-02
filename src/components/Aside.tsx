@@ -106,7 +106,7 @@ export const Aside = () => {
                 </Box>
                 <TodoListWrapper height={listHeight}>
                     <TodoListTitle variant="h5">todo List</TodoListTitle>
-                    <ScrollWrapper height={'calc(100% - 30px)'} sx={{ overflowY: 'auto' }}>
+                    <ScrollWrapper height={'calc(100% - 30px)'}>
                         <ListComponent />
                     </ScrollWrapper>
                 </TodoListWrapper>

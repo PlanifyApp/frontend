@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField, Typography, styled } from '@mui/material';
+import { Box, Button, Grid, ListItemIcon, TextField, Typography, styled } from '@mui/material';
 import { DateCalendar, MultiSectionDigitalClock } from '@mui/x-date-pickers';
 import { CommonFormControl } from './common.styles';
 
@@ -111,6 +111,7 @@ export const CustomFormControl = styled(CommonFormControl)`
 export const CloseBtnWrap = styled(Box)`
     display: flex;
     flex-direction: row-reverse;
+    margin-bottom: 10px;
 `;
 
 export const closeBtn = {
@@ -135,4 +136,12 @@ export const GroupButton = styled(Button)`
     &:hover {
         background: none;
     }
+`;
+
+export const GroupListColorIcon = styled(ListItemIcon)`
+    min-width: initial;
+    width: 20px;
+    height: 20px0;
+    border-radius: 50%;
+    margin-right: 10px;
 `;

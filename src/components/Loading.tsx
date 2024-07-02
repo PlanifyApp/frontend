@@ -1,4 +1,3 @@
-import React from 'react';
 import { PositionFixedCenter, theme } from '../assets/styles/common.styles';
 import { CircularProgress } from '@mui/material';
 

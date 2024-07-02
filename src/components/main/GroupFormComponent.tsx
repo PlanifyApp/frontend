@@ -42,7 +42,7 @@ export const GroupFormComponent = () => {
 
     return (
         <>
-            <CloseBtnWrap marginBottom="10px">
+            <CloseBtnWrap>
                 <CloseOutlinedIcon {...closeBtn} onClick={handleToggle} />
             </CloseBtnWrap>
 
