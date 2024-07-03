@@ -5,8 +5,8 @@ export const getTodoMonthlyList = async ({ year, month }: { year: number; month:
         const { data } = await api.get(`/todo/month`, {
             params: {
                 year,
-                month
-            }
+                month,
+            },
         });
 
         return data;
@@ -21,8 +21,8 @@ export const getScheduleMonthlyList = async ({ year, month }: { year: number; mo
         const { data } = await api.get(`/schedule/month`, {
             params: {
                 year,
-                month
-            }
+                month,
+            },
         });
 
         return data;

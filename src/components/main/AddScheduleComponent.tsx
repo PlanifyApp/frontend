@@ -1,25 +1,10 @@
-import {
-    Box,
-    FormControl,
-    FormGroup,
-    Grid,
-    Stack,
-    TextField,
-    Typography,
-    List,
-    ListItem
-} from '@mui/material';
+import React, { useState } from 'react';
+import { Box, FormControl, FormGroup, Grid, Stack, TextField, Typography, List, ListItem } from '@mui/material';
 import { CommonFormControl, DateButton, DateModal } from '../../assets/styles/common.styles';
-import {
-    CustomClock,
-    CustomFormControl,
-    GroupButton,
-    GroupModalBox
-} from '../../assets/styles/aside.styles';
+import { CustomClock, CustomFormControl, GroupButton, GroupModalBox } from '../../assets/styles/aside.styles';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
-import { useState } from 'react';
 import dayjs from 'dayjs';
 import { useModal } from '../../hooks/useModal';
 import { useRecoilValue } from 'recoil';
@@ -38,40 +23,15 @@ export const AddScheduleComponent = () => {
     const [title, setTitle] = useState<string>('');
     const [memo, setMemo] = useState<string>('');
 
-    const {
-        ref: stCalendarRef,
-        buttonRef: stCalendarBtnRef,
-        isOpen: stCalendarOpen,
-        handleToggle: stCalendarHandleToggle
-    } = useModal();
+    const { ref: stCalendarRef, buttonRef: stCalendarBtnRef, isOpen: stCalendarOpen, handleToggle: stCalendarHandleToggle } = useModal();
 
-    const {
-        ref: stTimeRef,
-        buttonRef: stTimeBtnRef,
-        isOpen: stTimeOpen,
-        handleToggle: stTimeHandleToggle
-    } = useModal();
+    const { ref: stTimeRef, buttonRef: stTimeBtnRef, isOpen: stTimeOpen, handleToggle: stTimeHandleToggle } = useModal();
 
-    const {
-        ref: enCalendarRef,
-        buttonRef: enCalendarBtnRef,
-        isOpen: enCalendarOpen,
-        handleToggle: enCalendarHandleToggle
-    } = useModal();
+    const { ref: enCalendarRef, buttonRef: enCalendarBtnRef, isOpen: enCalendarOpen, handleToggle: enCalendarHandleToggle } = useModal();
 
-    const {
-        ref: enTimeRef,
-        buttonRef: enTimeBtnRef,
-        isOpen: enTimeOpen,
-        handleToggle: enTimeHandleToggle
-    } = useModal();
+    const { ref: enTimeRef, buttonRef: enTimeBtnRef, isOpen: enTimeOpen, handleToggle: enTimeHandleToggle } = useModal();
 
-    const {
-        ref: groupRef,
-        buttonRef: groupBtnRef,
-        isOpen: groupOpen,
-        handleToggle: groupHandleToggle
-    } = useModal();
+    const { ref: groupRef, buttonRef: groupBtnRef, isOpen: groupOpen, handleToggle: groupHandleToggle } = useModal();
 
     const { mutate: mutateScheduleData } = useMutation({
         mutationFn: () =>
@@ -80,13 +40,13 @@ export const AddScheduleComponent = () => {
                 memo,
                 stDate,
                 enDate,
-                groupId: group[groupIdx].id
+                groupId: group[groupIdx].id,
             }),
         onSuccess: (data) => {
             if (data.status === 200) {
                 alert('저장되었습니다.');
             }
-        }
+        },
     });
 
     const handleOnSubmit = async () => {
@@ -120,20 +80,10 @@ export const AddScheduleComponent = () => {
         <Grid container direction="column" justifyContent="space-between" height="100%">
             <FormGroup>
                 <CommonFormControl>
-                    <TextField
-                        fullWidth
-                        placeholder="제목"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
+                    <TextField fullWidth placeholder="제목" value={title} onChange={(e) => setTitle(e.target.value)} />
                 </CommonFormControl>
                 <CommonFormControl>
-                    <TextField
-                        fullWidth
-                        placeholder="메모"
-                        value={memo}
-                        onChange={(e) => setMemo(e.target.value)}
-                    />
+                    <TextField fullWidth placeholder="메모" value={memo} onChange={(e) => setMemo(e.target.value)} />
                 </CommonFormControl>
                 <CustomFormControl>
                     <Box className="spaceBetween">
@@ -148,7 +98,7 @@ export const AddScheduleComponent = () => {
                                             sx={{
                                                 width: '15px',
                                                 marginRight: '5px',
-                                                color: group[groupIdx].color
+                                                color: group[groupIdx].color,
                                             }}
                                         />
                                         {group[groupIdx].title}
@@ -159,16 +109,12 @@ export const AddScheduleComponent = () => {
                                 {groupOpen && (
                                     <List onClick={groupHandleToggle}>
                                         {group.map((data, idx) => (
-                                            <ListItem
-                                                key={idx}
-                                                onClick={() => setGroupIdx(idx)}
-                                                sx={{ cursor: 'pointer' }}
-                                            >
+                                            <ListItem key={idx} onClick={() => setGroupIdx(idx)} sx={{ cursor: 'pointer' }}>
                                                 <CircleIcon
                                                     sx={{
                                                         width: '15px',
                                                         marginRight: '5px',
-                                                        color: data.color
+                                                        color: data.color,
                                                     }}
                                                 />
                                                 {data.title}
@@ -193,11 +139,7 @@ export const AddScheduleComponent = () => {
                                         {stCalendarOpen && (
                                             <DateCalendar
                                                 value={dayjs(stDate)}
-                                                onChange={(date) =>
-                                                    setStDate(
-                                                        dayjs(date).format('YYYY-MM-DD HH:mm:ss')
-                                                    )
-                                                }
+                                                onChange={(date) => setStDate(dayjs(date).format('YYYY-MM-DD HH:mm:ss'))}
                                             />
                                         )}
                                     </LocalizationProvider>
@@ -212,11 +154,7 @@ export const AddScheduleComponent = () => {
                                         {stTimeOpen && (
                                             <CustomClock
                                                 value={dayjs(stDate)}
-                                                onChange={(time) =>
-                                                    setStDate(
-                                                        dayjs(time).format('YYYY-MM-DD HH:mm:ss')
-                                                    )
-                                                }
+                                                onChange={(time) => setStDate(dayjs(time).format('YYYY-MM-DD HH:mm:ss'))}
                                             />
                                         )}
                                     </LocalizationProvider>
@@ -239,11 +177,7 @@ export const AddScheduleComponent = () => {
                                             <DateCalendar
                                                 value={dayjs(enDate)}
                                                 minDate={dayjs(stDate)}
-                                                onChange={(date) =>
-                                                    setEnDate(
-                                                        dayjs(date).format('YYYY-MM-DD HH:mm:ss')
-                                                    )
-                                                }
+                                                onChange={(date) => setEnDate(dayjs(date).format('YYYY-MM-DD HH:mm:ss'))}
                                             />
                                         )}
                                     </LocalizationProvider>
@@ -258,11 +192,7 @@ export const AddScheduleComponent = () => {
                                         {enTimeOpen && (
                                             <CustomClock
                                                 value={dayjs(enDate)}
-                                                onChange={(time) =>
-                                                    setEnDate(
-                                                        dayjs(time).format('YYYY-MM-DD HH:mm:ss')
-                                                    )
-                                                }
+                                                onChange={(time) => setEnDate(dayjs(time).format('YYYY-MM-DD HH:mm:ss'))}
                                             />
                                         )}
                                     </LocalizationProvider>

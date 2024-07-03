@@ -1,3 +1,4 @@
+import React from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
 import { SocialGoogleBox, SocialKakaoBox, SocialNaverBox } from '../assets/styles/social.styles';
 

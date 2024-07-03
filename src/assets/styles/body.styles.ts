@@ -24,8 +24,8 @@ export const CalendarBoxWrapper = styled(Box)(({ theme }) => ({
     height: '100%',
     paddingTop: '6em',
     [theme.breakpoints.between('mobile', 'laptop')]: {
-        width: '50%'
-    }
+        width: '50%',
+    },
 }));
 
 export const ModalWrapper = styled(Box)(({ theme }) => ({
@@ -34,18 +34,18 @@ export const ModalWrapper = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     padding: '20px',
     '&:focus-visible': {
-        outline: 'none!important'
+        outline: 'none!important',
     },
     [theme.breakpoints.between('mobile', 'tablet')]: {
-        width: '100%'
-    }
+        width: '100%',
+    },
 }));
 
 export const MenuWrapper = styled(Box)(({ theme }) => ({
     display: 'none',
     [theme.breakpoints.between('mobile', 'desktop')]: {
-        display: 'block'
-    }
+        display: 'block',
+    },
 }));
 
 export const TodoListContainer = styled(Box)`
@@ -57,5 +57,5 @@ export const TodoListWrapper = styled(Box)(({ theme }) => ({
     marginTop: '25px',
     paddingTop: '25px',
     borderTop: `1px solid ${theme.palette.secondary.main}`,
-    height: '100%'
+    height: '100%',
 }));

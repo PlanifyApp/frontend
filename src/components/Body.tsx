@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useMediaQuery } from '@mui/system';
 import { Grid, IconButton, InputAdornment, Modal, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -11,7 +11,7 @@ import {
     MenuWrapper,
     ModalWrapper,
     TodoListContainer,
-    TodoListWrapper
+    TodoListWrapper,
 } from '../assets/styles/body.styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Aside } from './Aside';
@@ -55,7 +55,7 @@ export const Body = () => {
                                             <SearchIcon />
                                         </IconButton>
                                     </InputAdornment>
-                                )
+                                ),
                             }}
                         />
                     </Grid>

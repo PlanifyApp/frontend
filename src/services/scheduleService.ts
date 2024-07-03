@@ -5,7 +5,7 @@ export const saveScheduleData = async ({
     memo,
     stDate,
     enDate,
-    groupId
+    groupId,
 }: {
     title: string;
     memo: string;
@@ -19,7 +19,7 @@ export const saveScheduleData = async ({
             memo,
             stDate,
             enDate,
-            groupId
+            groupId,
         });
 
         return data;
