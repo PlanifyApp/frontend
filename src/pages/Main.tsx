@@ -1,3 +1,4 @@
+import React from 'react';
 import { Grid, useMediaQuery } from '@mui/material';
 import { Wrapper, theme, BodyWrapper, AsideWrapper } from '../assets/styles/common.styles';
 import { Aside } from '../components/Aside';
@@ -13,11 +14,7 @@ import { Error } from '../components/Error';
 export const Main = () => {
     const isShow = useMediaQuery(theme.breakpoints.up('desktop'));
     const [, setUserState] = useRecoilState(userState);
-    const {
-        data: useData,
-        isLoading,
-        error
-    } = useQuery({ queryKey: ['user'], queryFn: getUserData });
+    const { data: useData, isLoading, error } = useQuery({ queryKey: ['user'], queryFn: getUserData });
 
     useEffect(() => {
         if (useData) {
@@ -27,7 +24,7 @@ export const Main = () => {
                     email: useData.user.email,
                     name: useData.user.name,
                     nickname: useData.user.nickname,
-                    image: useData.user.image
+                    image: useData.user.image,
                 });
             } else {
                 alert(useData.message);

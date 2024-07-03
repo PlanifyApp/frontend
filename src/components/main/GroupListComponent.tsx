@@ -1,13 +1,10 @@
+import React from 'react';
 import { CloseBtnWrap, GroupListColorIcon, closeBtn } from '../../assets/styles/aside.styles';
 import { useRecoilState } from 'recoil';
 import { groupList } from '../../recoil/groupList';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useModal } from '../../hooks/useModal';
-import {
-    ListItemInlineText,
-    ListItemWrapper,
-    ListWrapper
-} from '../../assets/styles/common.styles';
+import { ListItemInlineText, ListItemWrapper, ListWrapper } from '../../assets/styles/common.styles';
 import { useQuery } from '@tanstack/react-query';
 import { getGroupList } from '../../services/groupService';
 
@@ -21,7 +18,7 @@ export const GroupListComponent = () => {
             if (data.status == 200) {
                 setGroup(data.newData);
             }
-        }
+        },
     });
 
     return (
@@ -36,7 +33,7 @@ export const GroupListComponent = () => {
                         <ListItemWrapper key={index}>
                             <GroupListColorIcon
                                 sx={{
-                                    backgroundColor: data.color
+                                    backgroundColor: data.color,
                                 }}
                             ></GroupListColorIcon>
                             <ListItemInlineText primary={data.title} />

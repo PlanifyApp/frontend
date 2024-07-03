@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { useModal } from '../../hooks/useModal';
 import { Box } from '@mui/material';
 import { MiddleModalInnerWrapper, MiddleModalWrapper } from '../../assets/styles/modal.styles';

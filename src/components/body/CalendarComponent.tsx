@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import { Grid, Typography } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -17,7 +17,7 @@ import {
     CalendarToday,
     CalendarWrapper,
     ScheduleWrap,
-    TodoCircleIcon
+    TodoCircleIcon,
 } from '../../assets/styles/calendar.styles';
 
 export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: string) => void }) => {
@@ -35,7 +35,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
             if (data.status === 200) {
                 setTodoList(data.todo);
             }
-        }
+        },
     });
     const { mutate: mutateScheduleMonthlyList } = useMutation({
         mutationFn: () => getScheduleMonthlyList({ year, month }),
@@ -43,7 +43,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
             if (data.status === 200) {
                 setScheduleList(data.schedule);
             }
-        }
+        },
     });
 
     const handleLastMonth = () => {
@@ -110,9 +110,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                                     <CircleIcon />
                                 </TodoCircleIcon>
                             )}
-                            {currentDateInfo.thisYear === year &&
-                            currentDateInfo.thisMonth === month &&
-                            currentDateInfo.date.getDate() === date ? (
+                            {currentDateInfo.thisYear === year && currentDateInfo.thisMonth === month && currentDateInfo.date.getDate() === date ? (
                                 <CalendarToday variant="body1">{date}</CalendarToday>
                             ) : selectDate === dateFormatted ? (
                                 <CalendarSelectedDate variant="body1">{date}</CalendarSelectedDate>
@@ -150,9 +148,7 @@ export const CalendarComponent = ({ handleOnClick }: { handleOnClick: (date: str
                     </Typography>
                 </Grid>
                 <Grid item mobile={1} laptop={2} textAlign="left" key="next">
-                    {!(
-                        currentDateInfo.thisYear === year && currentDateInfo.thisMonth === month
-                    ) && <NavigateNextIcon onClick={handleNextMonth} />}
+                    {!(currentDateInfo.thisYear === year && currentDateInfo.thisMonth === month) && <NavigateNextIcon onClick={handleNextMonth} />}
                 </Grid>
             </CalendarWrapper>
             <Grid container columns={7}>

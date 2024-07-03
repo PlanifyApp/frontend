@@ -30,8 +30,8 @@ export const MiddleModalInnerWrapper = styled(ModalInnerWrapper)(({ theme }) => 
     height: '80%',
     [theme.breakpoints.up('laptop')]: {
         maxWidth: '500px',
-        maxHeight: '500px'
-    }
+        maxHeight: '500px',
+    },
 }));
 
 export const GroupModalInnerWrapper = styled(ModalInnerWrapper)(`

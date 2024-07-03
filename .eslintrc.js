@@ -1,24 +1,33 @@
 module.exports = {
     env: {
+        node: true,
         browser: true,
         es2021: true,
     },
-    extends: ['standard-with-typescript', 'plugin:react/recommended', 'plugin:prettier/recommended'],
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'plugin:prettier/recommended'],
     overrides: [
         {
-            env: {
-                node: true,
+            files: ['*.tsx'],
+            rules: {
+                'react/react-in-jsx-scope': 'error',
             },
-            files: ['.eslintrc.{js,cjs}'],
-            parserOptions: {
-                sourceType: 'script',
+        },
+        {
+            files: ['cypress/support/**/*.ts'], // Cypress support 파일 경로
+            rules: {
+                '@typescript-eslint/no-namespace': 'off',
             },
         },
     ],
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+        project: './tsconfig.json',
+        createDefaultProgram: true,
     },
-    plugins: ['react', 'prettier'],
-    rules: {},
+    plugins: ['react', 'prettier', '@typescript-eslint'],
+    rules: {
+        'prettier/prettier': 'error',
+    },
 };

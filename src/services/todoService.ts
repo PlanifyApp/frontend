@@ -4,8 +4,8 @@ export const getTodoList = async (date: string) => {
     try {
         const { data } = await api.get('/todo/list', {
             params: {
-                date: date
-            }
+                date: date,
+            },
         });
 
         return data;
@@ -30,7 +30,7 @@ export const saveTodoData = async ({ title, date }: { title: string; date: strin
     try {
         const { data } = await api.post('/todo/store', {
             title,
-            date
+            date,
         });
 
         return data;

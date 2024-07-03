@@ -41,7 +41,7 @@ export const DatePicker = styled(DateCalendar)`
 export const TodoListWrapper = styled(Box)(({ theme }) => ({
     paddingTop: '25px',
     borderTop: `1px solid ${theme.palette.secondary.main}`,
-    overflow: 'hidden'
+    overflow: 'hidden',
 }));
 
 export const TodoListTitle = styled(Typography)`
@@ -59,9 +59,9 @@ export const useIconStyle = {
         cursor: 'pointer',
         transition: 'color .3s',
         '&:hover': {
-            color: 'rgba(0, 0, 0, 0.8)' // 원하는 hover 스타일을 추가합니다.
-        }
-    }
+            color: 'rgba(0, 0, 0, 0.8)', // 원하는 hover 스타일을 추가합니다.
+        },
+    },
 };
 
 export const CustomColorTestField = styled(TextField)`
@@ -117,8 +117,8 @@ export const CloseBtnWrap = styled(Box)`
 export const closeBtn = {
     sx: {
         color: 'rgba(0, 0, 0, 0.54)',
-        cursor: 'pointer'
-    }
+        cursor: 'pointer',
+    },
 };
 
 export const GroupModalBox = styled(Box)(({ theme }) => ({
@@ -128,7 +128,7 @@ export const GroupModalBox = styled(Box)(({ theme }) => ({
     zIndex: '999',
     background: '#fff',
     borderRadius: '15px',
-    boxShadow: theme.shadows[2]
+    boxShadow: theme.shadows[2],
 }));
 
 export const GroupButton = styled(Button)`

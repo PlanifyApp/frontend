@@ -15,5 +15,5 @@ export const currentDateInfo = {
     thisMonthFirstDate,
     thisMonthLastDate,
     hour,
-    min
+    min,
 };

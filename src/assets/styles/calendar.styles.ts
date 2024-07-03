@@ -14,7 +14,7 @@ export const CalendarToday = styled(CalendarDate)(({ theme }) => ({
     textAlign: 'center',
     lineHeight: '30px',
     border: `1px solid ${theme.palette.primary.main}`,
-    borderRadius: '50%'
+    borderRadius: '50%',
 }));
 
 export const CalendarSelectedDate = styled(CalendarDate)(({ theme }) => ({
@@ -26,7 +26,7 @@ export const CalendarSelectedDate = styled(CalendarDate)(({ theme }) => ({
     lineHeight: '30px',
     color: '#fff',
     background: theme.palette.primary.main,
-    borderRadius: '50%'
+    borderRadius: '50%',
 }));
 
 export const ScheduleWrap = styled(Box)`
@@ -46,16 +46,16 @@ export const CalendarGrid = styled(Grid)(({ theme }) => ({
         boxSizing: 'border-box',
         backgroundColor: '#fff',
         border: `1px solid ${theme.palette.secondary.main}`,
-        borderWidth: '1px 1px 0 0'
+        borderWidth: '1px 1px 0 0',
     },
 
     '& .MuiGrid-item:nth-of-type(7n)': {
-        borderRight: 'none'
+        borderRight: 'none',
     },
 
     '& .MuiGrid-item:nth-of-type(-n+7)': {
-        borderTop: 'none'
-    }
+        borderTop: 'none',
+    },
 }));
 
 export const TodoCircleIcon = styled(Box)(({ theme }) => ({
@@ -66,6 +66,6 @@ export const TodoCircleIcon = styled(Box)(({ theme }) => ({
     svg: {
         width: '15px',
         height: '15px',
-        color: theme.palette.primary.main
-    }
+        color: theme.palette.primary.main,
+    },
 }));

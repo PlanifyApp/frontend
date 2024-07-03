@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { ListItemButton, ListItemIcon } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -6,12 +7,7 @@ import { todoList } from '../../recoil/todoList';
 import { selectedDate } from '../../recoil/selectedDate';
 import { useMutation } from '@tanstack/react-query';
 import { getTodoList, updateTodoState } from '../../services/todoService';
-import { useEffect } from 'react';
-import {
-    ListItemInlineText,
-    ListItemWrapper,
-    ListWrapper
-} from '../../assets/styles/common.styles';
+import { ListItemInlineText, ListItemWrapper, ListWrapper } from '../../assets/styles/common.styles';
 
 export const ListComponent = () => {
     const date = useRecoilValue(selectedDate);
@@ -23,7 +19,7 @@ export const ListComponent = () => {
             if (data.status === 200) {
                 setTodoData(data.dataList);
             }
-        }
+        },
     });
 
     const { mutate: mutateTodoState } = useMutation({
@@ -32,7 +28,7 @@ export const ListComponent = () => {
             if (data.status === 200) {
                 mutateTodoList(date);
             }
-        }
+        },
     });
 
     useEffect(() => {
