@@ -11,12 +11,7 @@ export const useModal = () => {
 
     useEffect(() => {
         const handleClose = (e: MouseEvent) => {
-            if (
-                ref.current &&
-                buttonRef.current &&
-                !buttonRef.current.contains(e.target as Node) &&
-                !ref.current.contains(e.target as Node)
-            ) {
+            if (ref.current && buttonRef.current && !buttonRef.current.contains(e.target as Node) && !ref.current.contains(e.target as Node)) {
                 setIsOpen(false);
             }
         };

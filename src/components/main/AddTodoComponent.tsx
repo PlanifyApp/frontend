@@ -1,21 +1,15 @@
+import React, { KeyboardEvent, useState } from 'react';
 import { TextField } from '@mui/material';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useModal } from '../../hooks/useModal';
-import { KeyboardEvent, useState } from 'react';
 import dayjs from 'dayjs';
 import { ButtonComponent } from '../aside/ButtonComponent';
 import { FormControl } from '@mui/base';
-import { api } from '../../apis/baseApi';
 import { todoList } from '../../recoil/todoList';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedDate } from '../../recoil/selectedDate';
-import {
-    TodoDateWrapper,
-    TodoFormControl,
-    TodoTitle,
-    TodoWrapper
-} from '../../assets/styles/todo.styles';
+import { TodoDateWrapper, TodoFormControl, TodoTitle, TodoWrapper } from '../../assets/styles/todo.styles';
 import { DateButton, DateModal } from '../../assets/styles/common.styles';
 import { useMutation } from '@tanstack/react-query';
 import { getTodoList, saveTodoData } from '../../services/todoService';
@@ -33,7 +27,7 @@ export const AddTodoComponent = () => {
             if (data.status === 200) {
                 setTodoData(data.dataList);
             }
-        }
+        },
     });
 
     const { mutate: mutateTodoData } = useMutation({
@@ -47,7 +41,7 @@ export const AddTodoComponent = () => {
                     mutateTodoList(formattedDate);
                 }
             }
-        }
+        },
     });
 
     const handleAlert = (msg: string, fn: () => void) => {
@@ -85,11 +79,7 @@ export const AddTodoComponent = () => {
                     </DateButton>
                     <DateModal boxShadow={3} ref={ref}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            {isOpen && (
-                                <DateCalendar
-                                    onChange={(date) => setDate(dayjs(date).format('YYYY-MM-DD'))}
-                                />
-                            )}
+                            {isOpen && <DateCalendar onChange={(date) => setDate(dayjs(date).format('YYYY-MM-DD'))} />}
                         </LocalizationProvider>
                     </DateModal>
                 </TodoDateWrapper>
@@ -105,10 +95,7 @@ export const AddTodoComponent = () => {
                 />
             </TodoFormControl>
             <TodoFormControl>
-                <ButtonComponent
-                    str="추가"
-                    onClick={() => handleAlert('추가하시겠습니까?', handleOnSubmit)}
-                />
+                <ButtonComponent str="추가" onClick={() => handleAlert('추가하시겠습니까?', handleOnSubmit)} />
             </TodoFormControl>
         </TodoWrapper>
     );

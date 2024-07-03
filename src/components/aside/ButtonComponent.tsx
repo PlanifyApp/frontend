@@ -7,14 +7,14 @@ type ComponentProps = {
     onClick?: () => void;
 };
 
-export const ButtonComponent = forwardRef<HTMLButtonElement, ComponentProps>((props, ref) => {
+export const ButtonComponent = (props: ComponentProps) => {
     const { str, onClick } = props;
 
     return (
-        <CommonButton onClick={onClick} ref={ref}>
+        <CommonButton onClick={onClick}>
             <Typography variant="body1" fontWeight="bold">
                 {str}
             </Typography>
         </CommonButton>
     );
-});
+};

@@ -1,12 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { CommonFormControl } from '../../assets/styles/common.styles';
 import { TextField } from '@mui/material';
-import {
-    CloseBtnWrap,
-    CustomColorBox,
-    CustomColorTestField,
-    closeBtn
-} from '../../assets/styles/aside.styles';
+import { CloseBtnWrap, CustomColorBox, CustomColorTestField, closeBtn } from '../../assets/styles/aside.styles';
 import { CirclePicker } from 'react-color';
 import { FormControl } from '@mui/base';
 import { ButtonComponent } from '../aside/ButtonComponent';
@@ -26,14 +21,11 @@ export const GroupFormComponent = () => {
         mutationFn: () => saveGroupData({ title, color }),
         onSuccess: (data) => {
             if (data.status === 200) {
-                setGroup([
-                    ...group,
-                    { id: data.id, title: data.newGroup.title, color: data.newGroup.color }
-                ]);
+                setGroup([...group, { id: data.id, title: data.newGroup.title, color: data.newGroup.color }]);
                 setTitle('');
                 setColor('#fff');
             }
-        }
+        },
     });
 
     const handleColor = (colorCode: string) => {
@@ -47,23 +39,14 @@ export const GroupFormComponent = () => {
             </CloseBtnWrap>
 
             <CommonFormControl>
-                <TextField
-                    fullWidth
-                    placeholder="그룹명을 입력해주세요."
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+                <TextField fullWidth placeholder="그룹명을 입력해주세요." value={title} onChange={(e) => setTitle(e.target.value)} />
             </CommonFormControl>
             <CommonFormControl>
                 <CustomColorTestField fullWidth value={color} />
             </CommonFormControl>
             <CommonFormControl>
                 <CustomColorBox>
-                    <CirclePicker
-                        width="100%"
-                        onChange={(data) => handleColor(data.hex)}
-                        circleSize={40}
-                    />
+                    <CirclePicker width="100%" onChange={(data) => handleColor(data.hex)} circleSize={40} />
                 </CustomColorBox>
             </CommonFormControl>
             <FormControl>

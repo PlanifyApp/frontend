@@ -1,17 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import logo from '../assets/imgs/logo.png';
 import { Box, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import {
-    useIconStyle,
-    AuthWrapper,
-    LogoWrap,
-    GroupModalWrapper,
-    DatePicker,
-    TodoListWrapper,
-    TodoListTitle
-} from '../assets/styles/aside.styles';
+import { useIconStyle, AuthWrapper, LogoWrap, GroupModalWrapper, DatePicker, TodoListWrapper, TodoListTitle } from '../assets/styles/aside.styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DragIndicatorOutlinedIcon from '@mui/icons-material/DragIndicatorOutlined';
 import ControlPointOutlinedIcon from '@mui/icons-material/ControlPointOutlined';
@@ -72,11 +64,7 @@ export const Aside = () => {
                         ) : (
                             <MiddleModalComponent
                                 btn={
-                                    <Typography
-                                        variant="body1"
-                                        fontWeight="bold"
-                                        sx={{ cursor: 'pointer' }}
-                                    >
+                                    <Typography variant="body1" fontWeight="bold" sx={{ cursor: 'pointer' }}>
                                         로그인 / 회원가입
                                     </Typography>
                                 }
@@ -87,16 +75,10 @@ export const Aside = () => {
                 </AuthWrapper>
                 <Grid container columns={16} spacing={2} paddingTop="10px">
                     <Grid mobile={8}>
-                        <MiddleModalComponent
-                            btn={<ButtonComponent str="일정추가" />}
-                            modalEn={user.id ? <AddScheduleComponent /> : <Social />}
-                        />
+                        <MiddleModalComponent btn={<ButtonComponent str="일정추가" />} modalEn={user.id ? <AddScheduleComponent /> : <Social />} />
                     </Grid>
                     <Grid mobile={8}>
-                        <MiddleModalComponent
-                            btn={<ButtonComponent str="todo 추가" />}
-                            modalEn={user.id ? <AddTodoComponent /> : <Social />}
-                        />
+                        <MiddleModalComponent btn={<ButtonComponent str="todo 추가" />} modalEn={user.id ? <AddTodoComponent /> : <Social />} />
                     </Grid>
                 </Grid>
                 <Box py="30px">
@@ -112,14 +94,8 @@ export const Aside = () => {
                 </TodoListWrapper>
             </Box>
             <GroupModalWrapper container alignItems="flex-end">
-                <GroupModalComponent
-                    btnEl={<DragIndicatorOutlinedIcon {...useIconStyle} />}
-                    modalEn={<GroupListComponent />}
-                />
-                <GroupModalComponent
-                    btnEl={<ControlPointOutlinedIcon {...useIconStyle} />}
-                    modalEn={<GroupFormComponent />}
-                />
+                <GroupModalComponent btnEl={<DragIndicatorOutlinedIcon {...useIconStyle} />} modalEn={<GroupListComponent />} />
+                <GroupModalComponent btnEl={<ControlPointOutlinedIcon {...useIconStyle} />} modalEn={<GroupFormComponent />} />
             </GroupModalWrapper>
         </>
     );

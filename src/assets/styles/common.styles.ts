@@ -1,14 +1,4 @@
-import {
-    Box,
-    ButtonBase,
-    FormControl,
-    Button,
-    createTheme,
-    styled,
-    List,
-    ListItem,
-    ListItemText
-} from '@mui/material';
+import { Box, ButtonBase, FormControl, Button, createTheme, styled, List, ListItem, ListItemText } from '@mui/material';
 
 declare module '@mui/material/styles' {
     interface BreakpointOverrides {
@@ -27,53 +17,53 @@ declare module '@mui/material/styles' {
 export const theme = createTheme({
     palette: {
         background: {
-            default: '#F6F6E9'
+            default: '#F6F6E9',
         },
         primary: {
-            main: '#457D58'
+            main: '#457D58',
         },
         secondary: {
-            main: '#E1E1C3'
+            main: '#E1E1C3',
         },
         text: {
-            primary: '#333'
-        }
+            primary: '#333',
+        },
     },
     breakpoints: {
         values: {
             mobile: 0,
             tablet: 640,
             laptop: 1024,
-            desktop: 1600
-        }
+            desktop: 1600,
+        },
     },
     typography: {
         fontFamily: 'Nanum Gothic, sans-serif',
         fontSize: 16,
         h1: {
-            fontSize: '1.4rem'
+            fontSize: '1.4rem',
         },
         h2: {
-            fontSize: '1.3rem'
+            fontSize: '1.3rem',
         },
         h4: {
-            fontSize: '1.2rem'
+            fontSize: '1.2rem',
         },
         h5: {
-            fontSize: '1.1rem'
+            fontSize: '1.1rem',
         },
         body1: {
-            fontSize: '1rem'
+            fontSize: '1rem',
         },
         body2: {
-            fontSize: '.8rem'
-        }
+            fontSize: '.8rem',
+        },
     },
     components: {
         MuiButtonBase: {
             defaultProps: {
-                disableRipple: true
-            }
+                disableRipple: true,
+            },
         },
         MuiTextField: {
             styleOverrides: {
@@ -81,12 +71,12 @@ export const theme = createTheme({
                     width: '100%',
                     '& .MuiInputBase-root': {
                         borderRadius: '15px',
-                        background: '#fff'
-                    }
-                }
-            }
-        }
-    }
+                        background: '#fff',
+                    },
+                },
+            },
+        },
+    },
 });
 
 theme.typography = {
@@ -94,15 +84,15 @@ theme.typography = {
     h3: {
         fontSize: '1.2rem',
         [theme.breakpoints.down('laptop')]: {
-            fontSize: '1.1rem'
-        }
+            fontSize: '1.1rem',
+        },
     },
     body1: {
         fontSize: '1.rem',
         [theme.breakpoints.down('laptop')]: {
-            fontSize: '.9rem'
-        }
-    }
+            fontSize: '.9rem',
+        },
+    },
 };
 
 export const RootWrapper = styled(Box)`
@@ -120,8 +110,8 @@ export const RootInnerWrapper = styled(Box)(({ theme }) => ({
     maxHeight: '100%',
     [theme.breakpoints.up('laptop')]: {
         maxHeight: '90%',
-        boxShadow: theme.shadows[2]
-    }
+        boxShadow: theme.shadows[2],
+    },
 }));
 
 export const PositionFixedCenter = styled(Box)`
@@ -143,8 +133,8 @@ export const AsideWrapper = styled(Wrapper)`
 
 export const BodyWrapper = styled(Wrapper)(({ theme }) => ({
     [theme.breakpoints.up('desktop')]: {
-        borderLeft: `1px solid ${theme.palette.secondary.main}`
-    }
+        borderLeft: `1px solid ${theme.palette.secondary.main}`,
+    },
 }));
 
 // button
@@ -155,8 +145,8 @@ export const CommonButton = styled(ButtonBase)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
 
     '& .MuiTypography-root': {
-        color: '#fff'
-    }
+        color: '#fff',
+    },
 }));
 
 // form control
@@ -187,7 +177,7 @@ export const DateModal = styled(Box)(({ theme }) => ({
     zIndex: 999,
     background: '#fff',
     borderRadius: '20px',
-    boxShadow: theme.shadows[2]
+    boxShadow: theme.shadows[2],
 }));
 
 // common scroll design
@@ -195,19 +185,19 @@ export const ScrollWrapper = styled(Box)(({ theme }) => ({
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
         backgroundColor: theme.palette.background.default,
-        width: '7px'
+        width: '7px',
     },
     '&::-webkit-scrollbar-thumb': {
         backgroundColor: 'rgba(0, 0, 0, 0)',
         width: '5px',
         borderRadius: '16px',
-        transition: 'all .3s'
+        transition: 'all .3s',
     },
     '&:hover': {
         '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#a0a0a5'
-        }
-    }
+            backgroundColor: '#a0a0a5',
+        },
+    },
 }));
 
 //common list style

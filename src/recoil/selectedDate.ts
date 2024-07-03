@@ -4,5 +4,5 @@ import dayjs from 'dayjs';
 
 export const selectedDate = atom<string>({
     key: 'selectedDate',
-    default: dayjs(currentDateInfo.date).format('YYYY-MM-DD')
+    default: dayjs(currentDateInfo.date).format('YYYY-MM-DD'),
 });

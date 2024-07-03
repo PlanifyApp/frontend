@@ -1,15 +1,9 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { ButtonBase, Grow } from '@mui/material';
 import { useModal } from '../../hooks/useModal';
 import { GroupModalInnerWrapper, FlexibleModalWrapper } from '../../assets/styles/modal.styles';
 
-export const GroupModalComponent = ({
-    btnEl,
-    modalEn
-}: {
-    btnEl: ReactNode;
-    modalEn: ReactNode;
-}) => {
+export const GroupModalComponent = ({ btnEl, modalEn }: { btnEl: ReactNode; modalEn: ReactNode }) => {
     const { ref, buttonRef, isOpen, handleToggle } = useModal();
 
     return (
