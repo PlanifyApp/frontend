@@ -46,7 +46,7 @@ export const GroupFormComponent = () => {
             </CommonFormControl>
             <CommonFormControl>
                 <CustomColorBox>
-                    <CirclePicker width="100%" onChange={(data) => handleColor(data.hex)} circleSize={40} />
+                    <CirclePicker width="100%" onChange={(data: any) => handleColor(data.hex)} circleSize={40} />
                 </CustomColorBox>
             </CommonFormControl>
             <FormControl>

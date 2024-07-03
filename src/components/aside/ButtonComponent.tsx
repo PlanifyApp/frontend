@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { CommonButton } from '../../assets/styles/common.styles';
 import { Typography } from '@mui/material';
 
